@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  SettingViewController.swift
 //  Assignment1
 //
 //  Created by Phearith on 19/8/20.
@@ -8,22 +8,11 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class SettingViewController: UIViewController {
 
-    @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var editProfileButton: UIButton!
-    @IBOutlet weak var moreButton: UIButton!
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        userImage.layer.borderWidth = 1
-        userImage.layer.masksToBounds = false
-        userImage.layer.borderColor = UIColor.black.cgColor
-        userImage.layer.cornerRadius = userImage.frame.height/2
-        userImage.clipsToBounds = true
+
         // Do any additional setup after loading the view.
     }
     
