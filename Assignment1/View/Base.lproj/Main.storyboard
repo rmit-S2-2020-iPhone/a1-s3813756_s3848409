@@ -91,7 +91,7 @@
         <!--Profile-->
         <scene sceneID="C48-J4-07q">
             <objects>
-                <viewController id="plS-cs-BFj" sceneMemberID="viewController">
+                <viewController id="plS-cs-BFj" customClass="ProfileViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OVw-cq-7PD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -139,6 +139,12 @@
                         <viewLayoutGuide key="safeArea" id="AVD-T5-CEM"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="user" id="taT-VK-dxl"/>
+                    <connections>
+                        <outlet property="editProfileButton" destination="LlE-mS-Z1A" id="Ef6-xA-ypP"/>
+                        <outlet property="moreButton" destination="0rs-Zl-Wb1" id="Zyz-cH-INn"/>
+                        <outlet property="userImage" destination="vKH-tJ-lXT" id="9UD-6L-8Na"/>
+                        <outlet property="userName" destination="UDG-DY-Xr3" id="3c5-xI-dRv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvy-8P-HZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -147,7 +153,7 @@
         <!--Statistics-->
         <scene sceneID="WzF-bo-has">
             <objects>
-                <viewController id="yLZ-3G-grb" sceneMemberID="viewController">
+                <viewController id="yLZ-3G-grb" customClass="StatisticsViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O3T-Km-PPU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -193,6 +199,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Statistics" image="stat" id="fPQ-3H-gDb"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="statMoreButton" destination="ztl-sJ-vb8" id="jOC-4C-2I0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IgC-pj-Pxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -201,7 +210,7 @@
         <!--Home-->
         <scene sceneID="Hsf-Yg-zQe">
             <objects>
-                <viewController id="iUC-Kh-fnH" sceneMemberID="viewController">
+                <viewController id="iUC-Kh-fnH" customClass="HomeViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9z2-J9-nqh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -252,10 +261,14 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="vKD-un-rZR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="homeMorebutton" destination="gab-1f-Rzs" id="Tdq-jt-nav"/>
+                        <outlet property="todayExpenses" destination="JAn-nm-2q3" id="lCs-bY-fIa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h40-6R-BJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1011.1607142857142" y="-908.69565217391312"/>
+            <point key="canvasLocation" x="1010.144927536232" y="-908.70535714285711"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ush-2K-2k7">
