@@ -99,9 +99,10 @@
 		D077A8C324D417B200583F40 /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				D085519C24ECB22D00F08CBD /* Model */,
+				D085519B24ECB22700F08CBD /* View */,
+				D085519A24ECB21200F08CBD /* Controller */,
 				D077A8C424D417B200583F40 /* AppDelegate.swift */,
-				D077A8C624D417B200583F40 /* ViewController.swift */,
-				D077A8C824D417B200583F40 /* Main.storyboard */,
 				D077A8CE24D417B300583F40 /* Assets.xcassets */,
 				D077A8D024D417B300583F40 /* LaunchScreen.storyboard */,
 				D077A8D324D417B300583F40 /* Info.plist */,
@@ -126,6 +127,29 @@
 				D077A8E924D417B300583F40 /* Info.plist */,
 			);
 			path = Assignment1UITests;
+			sourceTree = "<group>";
+		};
+		D085519A24ECB21200F08CBD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D077A8C624D417B200583F40 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D085519B24ECB22700F08CBD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D077A8C824D417B200583F40 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D085519C24ECB22D00F08CBD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
