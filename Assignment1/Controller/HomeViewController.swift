@@ -12,10 +12,13 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var todayExpenses: UILabel!
     @IBOutlet weak var homeMorebutton: UIButton!
+    @IBOutlet weak var foodButton: UIButton!
+    @IBOutlet weak var serviceButton: UIButton!
+    @IBOutlet weak var utilityButton: UIButton!
+    @IBOutlet weak var rentButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
     }
     
