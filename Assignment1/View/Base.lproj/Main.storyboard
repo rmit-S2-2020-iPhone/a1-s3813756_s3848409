@@ -448,47 +448,69 @@
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZZM-Jo-2Si">
                                         <rect key="frame" x="8" y="8" width="300" height="36"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="Mt4-sc-1i6"/>
-                                            <constraint firstAttribute="width" constant="300" id="XM3-hd-vmf"/>
+                                            <constraint firstAttribute="height" constant="35" id="2pS-35-MZP"/>
+                                            <constraint firstAttribute="width" constant="300" id="vbG-b6-3HC"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="Food"/>
-                                            <segment title="Services"/>
-                                            <segment title="Utilities"/>
-                                            <segment title="Rent"/>
+                                            <segment title="Today"/>
+                                            <segment title="Week"/>
+                                            <segment title="Month"/>
+                                            <segment title="Year"/>
                                         </segments>
                                         <color key="tintColor" red="0.32052589929999997" green="0.8153521386" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </segmentedControl>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="ZZM-Jo-2Si" firstAttribute="top" secondItem="19z-0L-UsQ" secondAttribute="top" constant="8" id="DZY-Eh-T75"/>
+                                    <constraint firstItem="ZZM-Jo-2Si" firstAttribute="centerX" secondItem="19z-0L-UsQ" secondAttribute="centerX" id="NDr-qk-SnK"/>
+                                </constraints>
                                 <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3H5-Uu-Vkc">
                                 <rect key="frame" x="0.0" y="261" width="414" height="552"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="yyk-Pe-IEs" detailTextLabel="zLp-e7-X1W" style="IBUITableViewCellStyleSubtitle" id="xCg-rE-Qsr">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="70" id="xCg-rE-Qsr" customClass="customHomeTableCell" customModule="Assignment1" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xCg-rE-Qsr" id="Q31-vv-0ox">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="69.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yyk-Pe-IEs">
-                                                    <rect key="frame" x="20.000000000000004" y="5" width="33.333333333333336" height="20.333333333333332"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pvz-gA-KZV">
+                                                    <rect key="frame" x="30" y="44.666666666666664" width="31" height="14.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9VQ-BO-24d">
+                                                    <rect key="frame" x="346" y="21" width="48" height="28"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zLp-e7-X1W">
-                                                    <rect key="frame" x="19.999999999999996" y="25.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XmV-ch-BGf">
+                                                    <rect key="frame" x="30" y="11" width="48" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XmV-ch-BGf" firstAttribute="top" secondItem="Q31-vv-0ox" secondAttribute="topMargin" id="1z3-Ws-f0v"/>
+                                                <constraint firstItem="Pvz-gA-KZV" firstAttribute="bottom" secondItem="Q31-vv-0ox" secondAttribute="bottomMargin" id="KtI-ah-tGL"/>
+                                                <constraint firstItem="Pvz-gA-KZV" firstAttribute="leading" secondItem="Q31-vv-0ox" secondAttribute="leadingMargin" constant="10" id="bIg-CW-Tbi"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="9VQ-BO-24d" secondAttribute="bottom" constant="10" id="hqW-Sv-C27"/>
+                                                <constraint firstItem="9VQ-BO-24d" firstAttribute="top" secondItem="Q31-vv-0ox" secondAttribute="topMargin" constant="10" id="qlc-cu-NWl"/>
+                                                <constraint firstItem="9VQ-BO-24d" firstAttribute="trailing" secondItem="Q31-vv-0ox" secondAttribute="trailingMargin" id="qlo-kF-fsq"/>
+                                                <constraint firstItem="XmV-ch-BGf" firstAttribute="leading" secondItem="Q31-vv-0ox" secondAttribute="leadingMargin" constant="10" id="yOb-dB-3rt"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="itemDate" destination="Pvz-gA-KZV" id="Uwq-W2-IJZ"/>
+                                            <outlet property="itemName" destination="XmV-ch-BGf" id="vPj-zD-YQI"/>
+                                            <outlet property="itemPrice" destination="9VQ-BO-24d" id="rqT-Nn-Ge2"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

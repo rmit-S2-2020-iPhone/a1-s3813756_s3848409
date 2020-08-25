@@ -67,6 +67,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,37 +95,44 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     
-    
-    
-    
-    
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadData()
     }
     
-    func loadData() {
-        // 1
-        let itemRequest:NSFetchRequest<Item> = Item.fetchRequest()
-        
-        // 2
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        itemRequest.sortDescriptors = [sortDescriptor]
-        
-        // 3
-        do {
-            try items = object.fetch(itemRequest)
-            
-        }catch {
-            print("Could not load data")
-        }
-        
-        // 4
-        self.homeTableView?.reloadData()
+
+    
+    
+    
+    
+    
+    
+    
+    
+    //////////////////add scene//////////////////
+    
+    
+    
+    //picker view
+    func numberOfComponents(in expenseTypePicker: UIPickerView) -> Int {
+        return 1
     }
     
+    func pickerView(_ expenseTypePicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return expenseType.count
+    }
+    
+    func pickerView(_ expenseTypePicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return expenseType[row]
+    }
+    
+    func pickerView(_ expenseTypePicker: UIPickerView, didSelectRow row: Int, inComponent  component: Int) {
+        selectedType = String(expenseType[row])
+    }
+    
+    
+    
+    //save function
     func saveItem() {
         let item = Item(context: object)
         let num :Double = (itemPrice.text! as NSString).doubleValue
@@ -131,7 +141,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         item.price = priceField
         item.name = itemNote.text
-        item.date = NSDate() as Date
+        item.date = itemDate.date
         
         if (selectedType == "Foods") {
             item.type = "Foods"
@@ -149,73 +159,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         appDelegate?.saveContext()
         
         loadData()
-        
-    }
-    
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ homeTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = homeTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
-        // 1
-        let tableItem = items[indexPath.row]
-        
-        // 2
-        let itemType = tableItem.type
-        cell.textLabel?.text = itemType
-        
-        // 3
-        let itemDate = tableItem.date as! Date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d yyyy, hh:mm"
-        
-        cell.detailTextLabel?.text = dateFormatter.string(from: itemDate)
-        
-        
-        
-        return cell
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //////////////////add scene//////////////////
-    
-    func numberOfComponents(in expenseTypePicker: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ expenseTypePicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return expenseType.count
-    }
-    
-    func pickerView(_ expenseTypePicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return expenseType[row]
-    }
-    
-    func pickerView(_ expenseTypePicker: UIPickerView, didSelectRow row: Int, inComponent  component: Int) {
-        selectedType = String(expenseType[row])
     }
     
     
@@ -265,7 +208,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
+    
+    
+    
+    
     //////////////////profile scene//////////////////
+    
+    
+    
     
     
     
@@ -276,7 +226,107 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
+    
+    //table view set up
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ homeTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    
+    
+    func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell:customHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! customHomeTableCell
+        let tableItem = items[indexPath.row]
+        let itemDate = tableItem.date as! Date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM d yyyy, hh:mm"
+        cell.itemDate.text = dateFormatter.string(from: itemDate)
+        cell.itemName.text = tableItem.name
+        cell.itemPrice.text = "- $" + String(tableItem.price)
+        
+        return cell
+    }
+    
+    func tableView(_ homeTableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ homeTableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            
+            let item = self.items[indexPath.row]
+            self.object.delete(item)
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+            self.items.remove(at: indexPath.row)
+            homeTableView.deleteRows(at: [indexPath], with: .fade)
+        }
+
+    }
+    
+    
+    
+    // load data to table
+    func loadData() {
+        let itemRequest:NSFetchRequest<Item> = Item.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        itemRequest.sortDescriptors = [sortDescriptor]
+        do {
+            try items = object.fetch(itemRequest)
+            
+        }catch {
+            print("Could not load data")
+        }
+        self.homeTableView?.reloadData()
+    }
+    
+    
+    
+    
+    //delete function
+    func deleteItem(at offsets: IndexSet) {
+        // 1
+        offsets.forEach { index in
+            // 2
+            let item = Item(context: object)
+            // 3
+            self.object.delete(item)
+        }
+        // 4
+        saveItem()
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     //////////////////setting scene//////////////////
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //////////////////others//////////////////
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }
 
