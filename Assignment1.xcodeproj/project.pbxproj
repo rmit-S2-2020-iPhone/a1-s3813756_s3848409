@@ -3,16 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7130193407BA0B56803D32B4 /* Pods_Assignment1_Assignment1UITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAA4428FC547B188514CDC61 /* Pods_Assignment1_Assignment1UITests.framework */; };
-		D026A40E24ED065500D654B5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D026A40D24ED065500D654B5 /* HomeViewController.swift */; };
-		D026A41024ED073500D654B5 /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D026A40F24ED073400D654B5 /* StatisticsViewController.swift */; };
-		D026A41224ED079D00D654B5 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D026A41124ED079D00D654B5 /* ProfileViewController.swift */; };
-		D026A41424ED1DF100D654B5 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D026A41324ED1DF100D654B5 /* SettingViewController.swift */; };
-		D074EF5F24F39E6E004BE776 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D074EF5E24F39E6E004BE776 /* AddViewController.swift */; };
 		D077A8C524D417B200583F40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D077A8C424D417B200583F40 /* AppDelegate.swift */; };
 		D077A8C724D417B200583F40 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D077A8C624D417B200583F40 /* ViewController.swift */; };
 		D077A8CA24D417B200583F40 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D077A8C824D417B200583F40 /* Main.storyboard */; };
@@ -49,11 +44,6 @@
 		6D55C61B58348ABF2FAE5000 /* Pods-Assignment1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment1.debug.xcconfig"; path = "Target Support Files/Pods-Assignment1/Pods-Assignment1.debug.xcconfig"; sourceTree = "<group>"; };
 		840FEFF1A281C608B8BD4EE9 /* Pods-Assignment1-Assignment1UITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment1-Assignment1UITests.release.xcconfig"; path = "Target Support Files/Pods-Assignment1-Assignment1UITests/Pods-Assignment1-Assignment1UITests.release.xcconfig"; sourceTree = "<group>"; };
 		CA17E92F144DBCE002CFE1AC /* Pods-Assignment1-Assignment1UITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment1-Assignment1UITests.debug.xcconfig"; path = "Target Support Files/Pods-Assignment1-Assignment1UITests/Pods-Assignment1-Assignment1UITests.debug.xcconfig"; sourceTree = "<group>"; };
-		D026A40D24ED065500D654B5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		D026A40F24ED073400D654B5 /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
-		D026A41124ED079D00D654B5 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		D026A41324ED1DF100D654B5 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		D074EF5E24F39E6E004BE776 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		D077A8C124D417B200583F40 /* Assignment1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D077A8C424D417B200583F40 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D077A8C624D417B200583F40 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -183,11 +173,6 @@
 			isa = PBXGroup;
 			children = (
 				D077A8C624D417B200583F40 /* ViewController.swift */,
-				D026A40D24ED065500D654B5 /* HomeViewController.swift */,
-				D026A40F24ED073400D654B5 /* StatisticsViewController.swift */,
-				D026A41124ED079D00D654B5 /* ProfileViewController.swift */,
-				D026A41324ED1DF100D654B5 /* SettingViewController.swift */,
-				D074EF5E24F39E6E004BE776 /* AddViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -446,14 +431,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D026A41224ED079D00D654B5 /* ProfileViewController.swift in Sources */,
 				D077A8C724D417B200583F40 /* ViewController.swift in Sources */,
-				D074EF5F24F39E6E004BE776 /* AddViewController.swift in Sources */,
-				D026A41024ED073500D654B5 /* StatisticsViewController.swift in Sources */,
 				D077A8CD24D417B200583F40 /* Assignment1.xcdatamodeld in Sources */,
 				D077A8C524D417B200583F40 /* AppDelegate.swift in Sources */,
-				D026A41424ED1DF100D654B5 /* SettingViewController.swift in Sources */,
-				D026A40E24ED065500D654B5 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

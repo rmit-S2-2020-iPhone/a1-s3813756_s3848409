@@ -13,7 +13,7 @@
         <!--Add-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="AddViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -131,7 +131,7 @@
                     <tabBarItem key="tabBarItem" title="Add" image="add" id="8Xq-c3-BIR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="expenseTypePicker" destination="wyF-vs-FiE" id="Yu2-w9-ADm"/>
+                        <outlet property="expenseTypePicker" destination="wyF-vs-FiE" id="sim-gY-O1e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -141,7 +141,7 @@
         <!--Settings-->
         <scene sceneID="01P-MR-Y01">
             <objects>
-                <viewController id="Ksg-yi-zmc" customClass="SettingViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Ksg-yi-zmc" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g5K-0A-6Ac">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -198,7 +198,7 @@
         <!--Profile-->
         <scene sceneID="C48-J4-07q">
             <objects>
-                <viewController id="plS-cs-BFj" customClass="ProfileViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="plS-cs-BFj" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OVw-cq-7PD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -252,10 +252,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="user" id="taT-VK-dxl"/>
                     <connections>
-                        <outlet property="editProfileButton" destination="LlE-mS-Z1A" id="Ef6-xA-ypP"/>
-                        <outlet property="moreButton" destination="0rs-Zl-Wb1" id="Zyz-cH-INn"/>
-                        <outlet property="userImage" destination="vKH-tJ-lXT" id="9UD-6L-8Na"/>
-                        <outlet property="userName" destination="UDG-DY-Xr3" id="3c5-xI-dRv"/>
+                        <outlet property="editProfileButton" destination="LlE-mS-Z1A" id="lgi-i4-cl7"/>
+                        <outlet property="moreProfileButton" destination="0rs-Zl-Wb1" id="t1M-sW-WYq"/>
+                        <outlet property="userImage" destination="vKH-tJ-lXT" id="dcE-dA-RSd"/>
+                        <outlet property="userName" destination="UDG-DY-Xr3" id="mZr-uF-PXM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvy-8P-HZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -265,7 +265,7 @@
         <!--Statistics-->
         <scene sceneID="WzF-bo-has">
             <objects>
-                <viewController id="yLZ-3G-grb" customClass="StatisticsViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yLZ-3G-grb" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O3T-Km-PPU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -381,8 +381,12 @@
                     <tabBarItem key="tabBarItem" title="Statistics" image="stat" id="fPQ-3H-gDb"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="statChart" destination="W5a-of-jV4" id="Eum-nz-LjY"/>
-                        <outlet property="statMoreButton" destination="ztl-sJ-vb8" id="jOC-4C-2I0"/>
+                        <outlet property="statChart" destination="W5a-of-jV4" id="neL-Vy-AdO"/>
+                        <outlet property="statGoal" destination="z8O-c5-OC4" id="smO-s3-Xh1"/>
+                        <outlet property="statLastMonth" destination="L4n-XR-aTa" id="aCt-bz-Luf"/>
+                        <outlet property="statMoreButton" destination="ztl-sJ-vb8" id="nTn-uP-Z5J"/>
+                        <outlet property="statRemaining" destination="SqN-Rh-udG" id="cQX-W8-UMk"/>
+                        <outlet property="statThisMonth" destination="odr-V4-6il" id="OYR-vz-JWG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IgC-pj-Pxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -392,7 +396,7 @@
         <!--Home-->
         <scene sceneID="Hsf-Yg-zQe">
             <objects>
-                <viewController id="iUC-Kh-fnH" customClass="HomeViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iUC-Kh-fnH" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9z2-J9-nqh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -474,8 +478,9 @@
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="vKD-un-rZR"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="homeMorebutton" destination="gab-1f-Rzs" id="Tdq-jt-nav"/>
-                        <outlet property="todayExpenses" destination="JAn-nm-2q3" id="lCs-bY-fIa"/>
+                        <outlet property="homeMoreButton" destination="gab-1f-Rzs" id="CPm-H0-FhB"/>
+                        <outlet property="homeSegmentControl" destination="ZZM-Jo-2Si" id="ebh-29-KAQ"/>
+                        <outlet property="todayExpense" destination="JAn-nm-2q3" id="itr-R1-6A3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h40-6R-BJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
