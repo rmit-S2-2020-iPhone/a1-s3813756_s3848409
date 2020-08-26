@@ -394,15 +394,3 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 }
 
-extension Date {
-    static func current() -> Date {
-        let calendar = Calendar.current
-        
-        var components = calendar.dateComponents([.year, .month, .day], from: Date())
-        components.hour = 00
-        components.minute = 00
-        components.second = 00
-        
-        return calendar.date(from: components)!
-    }
-}
