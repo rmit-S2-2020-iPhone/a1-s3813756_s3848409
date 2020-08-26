@@ -410,7 +410,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tZn-fF-aup">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 1111.12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAn-nm-2q3">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JAn-nm-2q3">
                                         <rect key="frame" x="57" y="110" width="300" height="70"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="70" id="HV4-A7-Wjw"/>
@@ -443,21 +443,25 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="19z-0L-UsQ">
-                                <rect key="frame" x="49" y="205" width="316" height="51"/>
+                                <rect key="frame" x="24" y="205" width="366" height="51"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ZZM-Jo-2Si">
-                                        <rect key="frame" x="8" y="8" width="300" height="36"/>
+                                        <rect key="frame" x="8" y="8" width="350" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="2pS-35-MZP"/>
-                                            <constraint firstAttribute="width" constant="300" id="vbG-b6-3HC"/>
+                                            <constraint firstAttribute="width" constant="350" id="vbG-b6-3HC"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="Today"/>
-                                            <segment title="Week"/>
-                                            <segment title="Month"/>
-                                            <segment title="Year"/>
+                                            <segment title="Foods"/>
+                                            <segment title="Shopping"/>
+                                            <segment title="Rent"/>
+                                            <segment title="Services"/>
+                                            <segment title="Others"/>
                                         </segments>
                                         <color key="tintColor" red="0.32052589929999997" green="0.8153521386" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <action selector="homeSegmentChanged:" destination="iUC-Kh-fnH" eventType="valueChanged" id="JGL-lj-N6a"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                                 <constraints>

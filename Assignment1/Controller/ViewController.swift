@@ -19,8 +19,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var object:NSManagedObjectContext!
     var appDelegate = UIApplication.shared.delegate as? AppDelegate
     var selectedType = ""
-    
-    
+    var sumItem: [Item] = []
+    var amount:String?
     
     
     //profile scene
@@ -50,7 +50,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     //add scene
-    let expenseType = ["Foods","Services","Utilities","Rent","Groceries"]
+    let expenseType = ["Foods","Shopping","Rent","Services","Others"]
     
     @IBOutlet weak var itemPrice: UITextField!
     @IBOutlet weak var expenseTypePicker: UIPickerView!
@@ -76,6 +76,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         object = appDelegate?.persistentContainer.viewContext
         self.homeTableView?.dataSource = self
         loadData()
+        totalSum()
         
         //profile scene
         userImage?.layer.borderWidth = 1
@@ -92,12 +93,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         //stat scene
         customizeChart(dataPoints: players, values: goals.map{Double($0)})
+        
+        
     }
 
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadData()
+        totalSum()
     }
     
 
@@ -215,13 +219,85 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //////////////////profile scene//////////////////
     
     
-    
+
     
     
     
     
     
     //////////////////home scene//////////////////
+    
+    
+    
+    func totalSum() -> Void {
+        do{
+            sumItem = try object.fetch(Item.fetchRequest())
+            var total:Double = 0.00
+            for i in 0 ..< sumItem.count {
+                total += sumItem[i].price
+            }
+            amount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
+            todayExpense?.text = amount
+        }
+        catch{
+            print("Fetching Failed")
+        }
+    }
+    
+//    func loadDataByType() {
+//        let itemRequest:NSFetchRequest<Item> = Item.fetchRequest()
+//        let sortDescriptor = NSSortDescriptor(key: "type", ascending: false)
+//        itemRequest.sortDescriptors = [sortDescriptor]
+//        do {
+//            try items = object.fetch(itemRequest)
+//
+//        }catch {
+//            print("Could not load data")
+//        }
+//
+//
+//        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
+//        let predicate = NSPredicate(format: "type = %@", argumentArray: ["Rent"]) // Specify your condition here
+//        // Or for integer value
+//        // let predicate = NSPredicate(format: "age > %d", argumentArray: [10])
+//
+//        fetch.predicate = predicate
+//
+//        do {
+//
+//            let result = try object.fetch(fetch)
+//            for data in result as! [NSManagedObject] {
+//                print(data.value(forKey: "type") as! String)
+//                print(data.value(forKey: "name") as! String)
+//                print(data.value(forKey: "date") as! Date)
+//            }
+//        } catch {
+//            print("Failed")
+//        }
+//    }
+    
+    @IBAction func homeSegmentChanged(_ sender: Any) {
+        var type:String?
+        switch homeSegmentControl.selectedSegmentIndex
+        {
+        case 0:
+             type = "Foods"
+        case 1:
+            type = "Shopping"
+        case 2:
+            type = "Rent"
+        case 3:
+            type = "Services"
+        case 4:
+            type = "Others"
+        default:
+            break
+        }
+        
+    }
+    
+    
+    
     
     
     
@@ -244,10 +320,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let tableItem = items[indexPath.row]
         let itemDate = tableItem.date as! Date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM d yyyy, hh:mm"
+        dateFormatter.dateFormat = "d MMMM yyyy, hh:mm"
         cell.itemDate.text = dateFormatter.string(from: itemDate)
         cell.itemName.text = tableItem.name
         cell.itemPrice.text = "- $" + String(tableItem.price)
+
         
         return cell
     }
@@ -265,6 +342,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             
             self.items.remove(at: indexPath.row)
             homeTableView.deleteRows(at: [indexPath], with: .fade)
+            totalSum()
         }
 
     }
@@ -285,21 +363,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.homeTableView?.reloadData()
     }
     
-    
-    
-    
-    //delete function
-    func deleteItem(at offsets: IndexSet) {
-        // 1
-        offsets.forEach { index in
-            // 2
-            let item = Item(context: object)
-            // 3
-            self.object.delete(item)
-        }
-        // 4
-        saveItem()
-    }
+
     
     
     
@@ -330,3 +394,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 }
 
+extension Date {
+    static func current() -> Date {
+        let calendar = Calendar.current
+        
+        var components = calendar.dateComponents([.year, .month, .day], from: Date())
+        components.hour = 00
+        components.minute = 00
+        components.second = 00
+        
+        return calendar.date(from: components)!
+    }
+}
