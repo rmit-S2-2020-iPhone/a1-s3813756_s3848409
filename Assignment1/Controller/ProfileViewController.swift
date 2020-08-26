@@ -10,10 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var userImage: UIImageView!
-    @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var editProfileButton: UIButton!
-    @IBOutlet weak var moreButton: UIButton!
+    
     
     
     override func viewDidLoad() {
