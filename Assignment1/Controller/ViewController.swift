@@ -33,11 +33,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var editProfileButton: UIButton!
     
     
-    
+
     
     //stat scene
-    let players = ["Ozil", "Ramsey", "Laca", "Auba", "Xhaka", "Torreira"]
-    let goals = [6, 8, 26, 30, 8, 10]
+    var statType = [String]()
+    var statValue = [Double]()
+    var totalFood:Double = 0.0
+    var totalServices:Double = 0.0
+    var totalShopping:Double = 0.0
+    var totalOther:Double = 0.0
+    
     
     @IBOutlet weak var statChart: PieChartView!
     @IBOutlet weak var statMoreButton: UIButton!
@@ -51,7 +56,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
 
     //home scene
     @IBOutlet weak var todayExpense: UILabel!
-    @IBOutlet weak var homeMoreButton: UIButton!
     @IBOutlet weak var homeSegmentControl: UISegmentedControl!
     @IBOutlet weak var homeTableView: UITableView!
     @IBAction func homeSegmentChanged(_ sender: Any) {
@@ -136,7 +140,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         
         //stat scene
-        customizeChart(dataPoints: players, values: goals.map{Double($0)})
+        getChartData()
+        customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
         
         
     }
@@ -248,6 +253,20 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //////////////////stat scene//////////////////
     
     
+    
+    func getChartData() {
+        sumItem = sortedItem
+        if sumItem.count > 0 {
+            for i in 0 ..< sumItem.count {
+                statType.append(sumItem[i].type)
+                statValue.append(sumItem[i].price)
+            }
+        }else {
+            todayExpense?.text = "No expense yet"
+        }
+    }
+    
+    
     func customizeChart(dataPoints: [String], values: [Double]) {
         
         // 1. Set ChartDataEntry
@@ -267,8 +286,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         format.numberStyle = .none
         let formatter = DefaultValueFormatter(formatter: format)
         pieChartData.setValueFormatter(formatter)
-        
         // 4. Assign it to the chart's data
+        statChart?.noDataText = "No data available"
+        statChart?.centerText = "Overall expenses"
+        let d = Description()
+        d.text = "Total Expenses in Pie Chart"
+        statChart?.chartDescription? = d
         statChart?.data = pieChartData
     }
     
