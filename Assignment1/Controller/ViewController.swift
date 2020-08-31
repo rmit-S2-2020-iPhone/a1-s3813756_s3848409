@@ -8,19 +8,22 @@
 
 import UIKit
 import Charts
-import CoreData
+import Foundation
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource {
 
-    
-    
-    //project variables
-    var items = [Item]()
-    var object:NSManagedObjectContext!
-    var appDelegate = UIApplication.shared.delegate as? AppDelegate
-    var selectedType = ""
-    var sumItem: [Item] = []
-    var amount:String?
+//project variables
+var globalItem:[itemModel] = []
+var sortedItem:[itemModel] = []
+var selectedType:String?
+var pickedType:String?
+var sumItem: [itemModel] = []
+var amount:String?
+
+
+
+
+
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource , UITextFieldDelegate{
     
     
     //profile scene
@@ -28,6 +31,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var userName: UILabel?
     @IBOutlet weak var moreProfileButton: UIButton!
     @IBOutlet weak var editProfileButton: UIButton!
+    
+    
     
     
     //stat scene
@@ -41,24 +46,54 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var statLastMonth: UILabel!
     @IBOutlet weak var statGoal: UILabel!
     
+    
+    
 
     //home scene
     @IBOutlet weak var todayExpense: UILabel!
     @IBOutlet weak var homeMoreButton: UIButton!
     @IBOutlet weak var homeSegmentControl: UISegmentedControl!
     @IBOutlet weak var homeTableView: UITableView!
+    @IBAction func homeSegmentChanged(_ sender: Any) {
+        
+        switch homeSegmentControl.selectedSegmentIndex
+        {
+        case 0:
+            selectedType = "All"
+            sortData()
+        case 1:
+            selectedType = "Foods"
+            sortData()
+        case 2:
+            selectedType = "Shopping"
+            sortData()
+        case 3:
+            selectedType = "Services"
+            sortData()
+        case 4:
+            selectedType = "Others"
+            sortData()
+        default:
+            break
+        }
+        
+    }
+    
     
     
     //add scene
-    let expenseType = ["Foods","Shopping","Rent","Services","Others"]
+
     
+    let expenseType = ["Foods","Shopping","Services","Others"]
+    @IBOutlet weak var expenseTypePickerField: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
-    @IBOutlet weak var expenseTypePicker: UIPickerView!
+    let expenseTypePicker = UIPickerView()
     @IBAction func addFoodToDatabase(_ sender: UIButton) {
-        saveItem()
+        addNewItem()
     }
     @IBOutlet weak var itemNote: UITextField!
     @IBOutlet weak var itemDate: UIDatePicker!
+    
     
     
     
@@ -70,13 +105,18 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
+    
+    //viewDidLoad function
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        object = appDelegate?.persistentContainer.viewContext
-        self.homeTableView?.dataSource = self
-        loadData()
+        //home scene
+        _ = createData
+        sortData()
         totalSum()
+        self.homeTableView?.dataSource = self
+        
         
         //profile scene
         userImage?.layer.borderWidth = 1
@@ -87,8 +127,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         
         //add scene
-        expenseTypePicker?.delegate = self
-        expenseTypePicker?.dataSource = self
+        addDoneButton()
+        
+        expenseTypePickerField?.inputView = expenseTypePicker
+        expenseTypePicker.delegate = self
+        expenseTypePicker.dataSource = self
+        
         
         
         //stat scene
@@ -98,15 +142,22 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
 
     
+    //viewDidAppear function
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadData()
+        sortData()
         totalSum()
     }
     
-
-    
-    
+    //message dialog
+    func popUpAlert(withTitle title: String, message : String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+        }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
     
     
     
@@ -131,40 +182,64 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func pickerView(_ expenseTypePicker: UIPickerView, didSelectRow row: Int, inComponent  component: Int) {
-        selectedType = String(expenseType[row])
+        expenseTypePickerField.text = expenseType[row]
+        pickedType = String(expenseType[row])
+    }
+
+    
+    func addDoneButton() {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1)
+        toolBar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAction))
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        expenseTypePickerField?.inputAccessoryView = toolBar
     }
     
     
     
-    //save function
-    func saveItem() {
-        let item = Item(context: object)
+    // add new item function
+    
+    func addNewItem() {
+        
         let num :Double = (itemPrice.text! as NSString).doubleValue
-        let priceField = Double(num)
+        let newItemName:String? = itemNote.text
+        let newItemPrice = Double(num)
+        let newItemDate = itemDate.date
+        var newItemType:String?
         
-        
-        item.price = priceField
-        item.name = itemNote.text
-        item.date = itemDate.date
-        
-        if (selectedType == "Foods") {
-            item.type = "Foods"
-        }else if (selectedType == "Services") {
-            item.type = "Services"
-        }else if (selectedType == "Utilities") {
-            item.type = "Utilities"
-        }else if (selectedType == "Rent") {
-            item.type = "Rent"
-        }else if (selectedType == "Groceries") {
-            item.type = "Groceries"
-        }else{
-            item.type = "Others"
+        if (pickedType == "Foods") {
+            newItemType = "Foods"
+        }else if (pickedType == "Shopping") {
+            newItemType = "Shopping"
+        }else if (pickedType == "Services") {
+            newItemType = "Services"
+        }else if (pickedType == "Others"){
+            newItemType = "Others"
         }
-        appDelegate?.saveContext()
         
-        loadData()
+        if (newItemName?.trim() == "" ){
+            popUpAlert(withTitle: "Error", message: "Please add a note for this item")
+        }else if (newItemPrice <= 0) {
+            popUpAlert(withTitle: "Error", message: "Please add a value for this item")
+        }else if (newItemType?.trim() == nil) {
+            popUpAlert(withTitle: "Error", message: "Please choose a type for this item")
+        }
+        else {
+            globalItem.insert(itemModel(name: newItemName!, type: newItemType!, price: newItemPrice, date: newItemDate), at:0)
+            sortData()
+        }
     }
     
+    
+    //close picker view
+    @objc func doneAction() {
+        expenseTypePickerField.resignFirstResponder()
+    }
     
     
     
@@ -229,9 +304,58 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
+    private lazy var createData: Void = {
+        if globalItem.count == 0 {
+            let date = Date()
+            globalItem.insert(itemModel(name: "Clothes", type: "Shopping", price: 110.7, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Electricity", type: "Services", price: 150.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Shoes", type: "Shopping", price: 212.90, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Lobster", type: "Foods", price: 50.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Car service", type: "Services", price: 512.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "House Rent", type: "Services", price: 1200.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Lend Money", type: "Others", price: 100.0, date: date), at: 0)
+            sortedItem = globalItem
+        }
+    }()
+    
+    
+    
+    func getCategory(type:String) -> Array<itemModel> {
+        let item:[itemModel] = []
+        return item
+    }
+    
+    func sortData() {
+        if selectedType == "All" {
+            sortedItem = globalItem
+        }else if selectedType == "Foods" {
+            sortedItem = globalItem.filter { $0.type.contains("Foods") }
+        }else if selectedType == "Shopping" {
+            sortedItem = globalItem.filter { $0.type.contains("Shopping") }
+        }else if selectedType == "Services" {
+            sortedItem = globalItem.filter { $0.type.contains("Services") }
+        }else if selectedType == "Others" {
+            sortedItem = globalItem.filter { $0.type.contains("Others") }
+        }
+        loadData()
+    }
+    
+    
+    
+    
+    
+    // load data to table and sort
+    func loadData() {
+        sortedItem.sort(by: {$0.date > $1.date})
+        self.homeTableView?.reloadData()
+    }
+    
+    
+    //total expense label
+    
     func totalSum() -> Void {
-        do{
-            sumItem = try object.fetch(Item.fetchRequest())
+        sumItem = sortedItem
+        if sumItem.count > 0 {
             var total:Double = 0.00
             for i in 0 ..< sumItem.count {
                 total += sumItem[i].price
@@ -239,89 +363,42 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             amount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
             todayExpense?.text = amount
         }
-        catch{
-            print("Fetching Failed")
+        else {
+            todayExpense?.text = "No expense yet"
         }
     }
     
-//    func loadDataByType() {
-//        let itemRequest:NSFetchRequest<Item> = Item.fetchRequest()
-//        let sortDescriptor = NSSortDescriptor(key: "type", ascending: false)
-//        itemRequest.sortDescriptors = [sortDescriptor]
-//        do {
-//            try items = object.fetch(itemRequest)
-//
-//        }catch {
-//            print("Could not load data")
-//        }
-//
-//
-//        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Item")
-//        let predicate = NSPredicate(format: "type = %@", argumentArray: ["Rent"]) // Specify your condition here
-//        // Or for integer value
-//        // let predicate = NSPredicate(format: "age > %d", argumentArray: [10])
-//
-//        fetch.predicate = predicate
-//
-//        do {
-//
-//            let result = try object.fetch(fetch)
-//            for data in result as! [NSManagedObject] {
-//                print(data.value(forKey: "type") as! String)
-//                print(data.value(forKey: "name") as! String)
-//                print(data.value(forKey: "date") as! Date)
-//            }
-//        } catch {
-//            print("Failed")
-//        }
-//    }
-    
-    @IBAction func homeSegmentChanged(_ sender: Any) {
-        var type:String?
-        switch homeSegmentControl.selectedSegmentIndex
-        {
-        case 0:
-             type = "Foods"
-        case 1:
-            type = "Shopping"
-        case 2:
-            type = "Rent"
-        case 3:
-            type = "Services"
-        case 4:
-            type = "Others"
-        default:
-            break
-        }
-        
-    }
     
     
-    
-    
-    
-    
-    
-    
-    //table view set up
+    //table view set up for home scene
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ homeTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return sortedItem.count
+
     }
     
-    
-    
     func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell:customHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! customHomeTableCell
-        let tableItem = items[indexPath.row]
-        let itemDate = tableItem.date as! Date
+        let tableItem = sortedItem[indexPath.row]
+        let itemDate = tableItem.date as Date
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "d MMMM yyyy, hh:mm"
-        cell.itemDate.text = dateFormatter.string(from: itemDate)
+        dateFormatter.amSymbol = "AM"
+        dateFormatter.pmSymbol = "PM"
+        
+        let calendar = Calendar.current
+        if calendar.isDateInYesterday(itemDate) {
+            dateFormatter.dateFormat = "h:mm a"
+            cell.itemDate.text = "Yesterday at " + dateFormatter.string(from: itemDate)
+        }else if calendar.isDateInToday(itemDate) {
+            dateFormatter.dateFormat = "h:mm a"
+            cell.itemDate.text = "Today at " + dateFormatter.string(from: itemDate)
+        }else{
+            dateFormatter.dateFormat = "d-MM-yyyy, h:mm a"
+            cell.itemDate.text = dateFormatter.string(from: itemDate)
+        }
         cell.itemName.text = tableItem.name
         cell.itemPrice.text = "- $" + String(tableItem.price)
 
@@ -335,38 +412,17 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func tableView(_ homeTableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            
-            let item = self.items[indexPath.row]
-            self.object.delete(item)
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-            
-            self.items.remove(at: indexPath.row)
+            sortedItem.remove(at: indexPath.row)
             homeTableView.deleteRows(at: [indexPath], with: .fade)
+            globalItem = sortedItem
+            sortData()
             totalSum()
         }
-
     }
     
     
-    
-    // load data to table
-    func loadData() {
-        let itemRequest:NSFetchRequest<Item> = Item.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-        itemRequest.sortDescriptors = [sortDescriptor]
-        do {
-            try items = object.fetch(itemRequest)
-            
-        }catch {
-            print("Could not load data")
-        }
-        self.homeTableView?.reloadData()
-    }
-    
 
-    
-    
-    
+
     
     
     
