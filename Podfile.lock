@@ -2,17 +2,21 @@ PODS:
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
+  - iOSDropDown (0.3.4)
 
 DEPENDENCIES:
   - Charts (~> 3.1.0)
+  - iOSDropDown (~> 0.3)
 
 SPEC REPOS:
   trunk:
     - Charts
+    - iOSDropDown
 
 SPEC CHECKSUMS:
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
+  iOSDropDown: c10a761f9a00c3f1cc9d3bce43ae504628e2f692
 
-PODFILE CHECKSUM: 6b9eac0dd0ef53d565708299d6cd4f79d0186220
+PODFILE CHECKSUM: 58a41ee5e57d1d9084bf8468133cb2f5a7d1be1c
 
 COCOAPODS: 1.9.3

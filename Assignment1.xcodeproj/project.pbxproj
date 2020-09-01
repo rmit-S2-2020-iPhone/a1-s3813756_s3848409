@@ -19,6 +19,7 @@
 		D0DC260824F5EFFD00D5D0FE /* customHomeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC260724F5EFFD00D5D0FE /* customHomeTableCell.swift */; };
 		D0DC260A24F6738300D5D0FE /* itemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DC260924F6738300D5D0FE /* itemModel.swift */; };
 		D0ED2CD624FD058600EF599E /* util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0ED2CD524FD058600EF599E /* util.swift */; };
+		D0EE84AE24FDD7BF009EE69E /* iOSDropDown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE84AD24FDD7BF009EE69E /* iOSDropDown.framework */; };
 		E2869973932F0D48F3938AC1 /* Pods_Assignment1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3E9493FC13DD1A8439F4A6 /* Pods_Assignment1.framework */; };
 		F567499462E4205A9823B054 /* Pods_Assignment1Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 614948D03D571E2AFB38E834 /* Pods_Assignment1Tests.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		D0DC260724F5EFFD00D5D0FE /* customHomeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customHomeTableCell.swift; sourceTree = "<group>"; };
 		D0DC260924F6738300D5D0FE /* itemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = itemModel.swift; path = Assignment1/Controller/itemModel.swift; sourceTree = SOURCE_ROOT; };
 		D0ED2CD524FD058600EF599E /* util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = util.swift; sourceTree = "<group>"; };
+		D0EE84AD24FDD7BF009EE69E /* iOSDropDown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = iOSDropDown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAA4428FC547B188514CDC61 /* Pods_Assignment1_Assignment1UITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Assignment1_Assignment1UITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F45A626C9132239B9C21C664 /* Pods-Assignment1Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment1Tests.debug.xcconfig"; path = "Target Support Files/Pods-Assignment1Tests/Pods-Assignment1Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		F97BFB63759BC0A0CBE558A1 /* Pods-Assignment1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Assignment1.release.xcconfig"; path = "Target Support Files/Pods-Assignment1/Pods-Assignment1.release.xcconfig"; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0EE84AE24FDD7BF009EE69E /* iOSDropDown.framework in Frameworks */,
 				7130193407BA0B56803D32B4 /* Pods_Assignment1_Assignment1UITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,6 +116,7 @@
 		9E384A7DF233762DDE08D9EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0EE84AD24FDD7BF009EE69E /* iOSDropDown.framework */,
 				0C3E9493FC13DD1A8439F4A6 /* Pods_Assignment1.framework */,
 				DAA4428FC547B188514CDC61 /* Pods_Assignment1_Assignment1UITests.framework */,
 				614948D03D571E2AFB38E834 /* Pods_Assignment1Tests.framework */,
