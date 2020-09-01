@@ -14,9 +14,9 @@ import Foundation
 //project variables
 var globalItem:[itemModel] = []
 var sortedItem:[itemModel] = []
+var sumItem: [itemModel] = []
 var selectedType:String?
 var pickedType:String?
-var sumItem: [itemModel] = []
 var amount:String?
 
 
@@ -38,10 +38,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //stat scene
     var statType = [String]()
     var statValue = [Double]()
-    var totalFood:Double = 0.0
-    var totalServices:Double = 0.0
-    var totalShopping:Double = 0.0
-    var totalOther:Double = 0.0
     
     
     @IBOutlet weak var statChart: PieChartView!
@@ -286,6 +282,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         format.numberStyle = .none
         let formatter = DefaultValueFormatter(formatter: format)
         pieChartData.setValueFormatter(formatter)
+        
         // 4. Assign it to the chart's data
         statChart?.noDataText = "No data available"
         statChart?.centerText = "Overall expenses"
@@ -418,6 +415,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }else if calendar.isDateInToday(itemDate) {
             dateFormatter.dateFormat = "h:mm a"
             cell.itemDate.text = "Today at " + dateFormatter.string(from: itemDate)
+        }else if calendar.isDateInTomorrow(itemDate) {
+            dateFormatter.dateFormat = "h:mm a"
+            cell.itemDate.text = "Tomorrow at " + dateFormatter.string(from: itemDate)
         }else{
             dateFormatter.dateFormat = "d-MM-yyyy, h:mm a"
             cell.itemDate.text = dateFormatter.string(from: itemDate)
