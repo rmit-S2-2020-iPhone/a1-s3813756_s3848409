@@ -36,7 +36,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             UIView.animate(withDuration: 0.3, animations: {
                 button.isHidden = !button.isHidden
                 self.view.layoutIfNeeded()
-                button.layer.cornerRadius = 3
+                button.layer.cornerRadius = 4
                 button.backgroundColor? = UIColor.white
             })
         }
@@ -175,6 +175,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
     }
     
+    
+    
     //message dialog
     func popUpAlert(withTitle title: String, message : String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -223,6 +225,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         toolBar.setItems([flexibleSpace, doneButton], animated: true)
         toolBar.isUserInteractionEnabled = true
         expenseTypePickerField?.inputAccessoryView = toolBar
+        itemPrice?.inputAccessoryView = toolBar
+        itemNote?.inputAccessoryView = toolBar
     }
     
     
@@ -264,6 +268,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //close picker view
     @objc func doneAction() {
         expenseTypePickerField.resignFirstResponder()
+        itemPrice.resignFirstResponder()
+        itemNote.resignFirstResponder()
     }
     
     
@@ -343,12 +349,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     func editUserPic() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
-            print("Button capture")
-            
             imagePicker.delegate = self
             imagePicker.sourceType = .savedPhotosAlbum
             imagePicker.allowsEditing = false
-            
             present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -391,6 +394,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         self.present(alert, animated: true)
     }
+    
+    
     
     func monthlyExpense() {
         profileSumView?.forEach {(view) in
@@ -462,7 +467,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             sortedItem = globalItem.filter { $0.type.contains("Others") }
         }
         loadData()
-        monthlyExpense()
     }
     
     
@@ -472,7 +476,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // load data to table and sort
     func loadData() {
         sortedItem.sort(by: {$0.date > $1.date})
+        monthlyExpense()
         self.homeTableView?.reloadData()
+        itemPrice?.keyboardType = .decimalPad
     }
     
     

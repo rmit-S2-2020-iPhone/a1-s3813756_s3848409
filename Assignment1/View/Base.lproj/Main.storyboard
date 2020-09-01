@@ -228,46 +228,8 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBu-yc-Tp7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LbV-kM-yDB">
-                                        <rect key="frame" x="5" y="50" width="100" height="25.333333333333329"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LlE-mS-Z1A">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="25.333333333333332"/>
-                                                <inset key="imageEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                <state key="normal" image="pencil"/>
-                                                <connections>
-                                                    <action selector="editProfile:" destination="plS-cs-BFj" eventType="touchUpInside" id="E2l-NY-7ai"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXA-X6-THe">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="0.0"/>
-                                                <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <state key="normal" title="Edit name"/>
-                                                <connections>
-                                                    <action selector="editUserName:" destination="plS-cs-BFj" eventType="touchUpInside" id="rF3-nu-pnN"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQc-sS-9LR">
-                                                <rect key="frame" x="0.0" y="0.0" width="100" height="0.0"/>
-                                                <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <state key="normal" title="Choose Picture"/>
-                                                <connections>
-                                                    <action selector="editProfilePic:" destination="plS-cs-BFj" eventType="touchUpInside" id="LrY-BU-gJV"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="bIp-Lb-0bl"/>
-                                        </constraints>
-                                    </stackView>
-                                </subviews>
                                 <color key="backgroundColor" red="0.32052589929999997" green="0.8153521386" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="LbV-kM-yDB" firstAttribute="leading" secondItem="PBu-yc-Tp7" secondAttribute="leading" constant="5" id="Nqh-4S-m3E"/>
-                                    <constraint firstItem="LbV-kM-yDB" firstAttribute="top" secondItem="PBu-yc-Tp7" secondAttribute="top" constant="50" id="QKu-Ou-tsN"/>
                                     <constraint firstAttribute="height" constant="200" id="ZG5-iJ-m3z"/>
                                 </constraints>
                             </view>
@@ -284,6 +246,46 @@
                                     <constraint firstAttribute="height" constant="200" id="oav-gJ-NBi"/>
                                 </constraints>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LbV-kM-yDB">
+                                <rect key="frame" x="5" y="59.000000000000007" width="150" height="25.333333333333336"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LlE-mS-Z1A">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="25.333333333333332"/>
+                                        <inset key="imageEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" image="pencil"/>
+                                        <connections>
+                                            <action selector="editProfile:" destination="plS-cs-BFj" eventType="touchUpInside" id="E2l-NY-7ai"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nXA-X6-THe">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                        <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="koq-Lf-FuU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Edit Name"/>
+                                        <connections>
+                                            <action selector="editUserName:" destination="plS-cs-BFj" eventType="touchUpInside" id="rF3-nu-pnN"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hQc-sS-9LR">
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="40"/>
+                                        <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="FUu-rN-Z3M"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="Choose Picture"/>
+                                        <connections>
+                                            <action selector="editProfilePic:" destination="plS-cs-BFj" eventType="touchUpInside" id="LrY-BU-gJV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="bIp-Lb-0bl"/>
+                                </constraints>
+                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAE-pC-8PL">
                                 <rect key="frame" x="17" y="365" width="380" height="150"/>
                                 <subviews>
@@ -370,7 +372,7 @@
                                     <constraint firstAttribute="height" constant="50" id="CIE-pI-cYx"/>
                                     <constraint firstAttribute="width" constant="300" id="wjm-h0-Wsp"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -382,12 +384,14 @@
                             <constraint firstItem="1Kb-am-jgk" firstAttribute="top" secondItem="UDG-DY-Xr3" secondAttribute="bottom" constant="110" id="HGw-Dr-2AD"/>
                             <constraint firstItem="UDG-DY-Xr3" firstAttribute="centerX" secondItem="OVw-cq-7PD" secondAttribute="centerX" id="HvK-1x-mhi"/>
                             <constraint firstAttribute="trailing" secondItem="PBu-yc-Tp7" secondAttribute="trailing" id="KQE-d9-heU"/>
+                            <constraint firstItem="LbV-kM-yDB" firstAttribute="leading" secondItem="AVD-T5-CEM" secondAttribute="leading" constant="5" id="Qjg-4Y-Rvw"/>
                             <constraint firstItem="ovD-ja-FBn" firstAttribute="leading" secondItem="AVD-T5-CEM" secondAttribute="leading" constant="20" id="R0R-d1-Vyg"/>
                             <constraint firstItem="XAE-pC-8PL" firstAttribute="centerX" secondItem="OVw-cq-7PD" secondAttribute="centerX" id="S67-OU-JqH"/>
                             <constraint firstItem="ovD-ja-FBn" firstAttribute="top" secondItem="XAE-pC-8PL" secondAttribute="bottom" constant="30" id="XdI-8J-rFV"/>
                             <constraint firstItem="vKH-tJ-lXT" firstAttribute="centerX" secondItem="UDG-DY-Xr3" secondAttribute="centerX" id="YKo-nu-oxP"/>
                             <constraint firstItem="1Kb-am-jgk" firstAttribute="centerX" secondItem="OVw-cq-7PD" secondAttribute="centerX" id="Ygd-5n-Bgu"/>
                             <constraint firstItem="PBu-yc-Tp7" firstAttribute="top" secondItem="OVw-cq-7PD" secondAttribute="top" id="a9g-7d-2MP"/>
+                            <constraint firstItem="LbV-kM-yDB" firstAttribute="top" secondItem="OVw-cq-7PD" secondAttribute="topMargin" constant="15" id="c0K-9f-Yww"/>
                             <constraint firstItem="vKH-tJ-lXT" firstAttribute="top" secondItem="AVD-T5-CEM" secondAttribute="top" constant="30" id="h4M-iz-fNn"/>
                             <constraint firstItem="UDG-DY-Xr3" firstAttribute="top" secondItem="PBu-yc-Tp7" secondAttribute="bottom" constant="85" id="lhO-gu-oqb"/>
                             <constraint firstItem="XAE-pC-8PL" firstAttribute="top" secondItem="UDG-DY-Xr3" secondAttribute="bottom" constant="50" id="nCI-MI-2Ap"/>
@@ -402,11 +406,11 @@
                         <outlet property="thisMonthExpense" destination="1Kb-am-jgk" id="pNj-1Q-Oeh"/>
                         <outlet property="userImage" destination="vKH-tJ-lXT" id="dcE-dA-RSd"/>
                         <outlet property="userName" destination="UDG-DY-Xr3" id="mZr-uF-PXM"/>
-                        <outletCollection property="profileOptions" destination="nXA-X6-THe" collectionClass="NSMutableArray" id="G7m-eB-g0t"/>
-                        <outletCollection property="profileOptions" destination="hQc-sS-9LR" collectionClass="NSMutableArray" id="OS7-qB-n9p"/>
                         <outletCollection property="profileSumView" destination="XAE-pC-8PL" collectionClass="NSMutableArray" id="nME-oy-TZa"/>
                         <outletCollection property="profileSumView" destination="ovD-ja-FBn" collectionClass="NSMutableArray" id="S9e-Us-23i"/>
                         <outletCollection property="profileSumView" destination="17T-ZA-FAX" collectionClass="NSMutableArray" id="aHA-4J-6n5"/>
+                        <outletCollection property="profileOptions" destination="hQc-sS-9LR" collectionClass="NSMutableArray" id="OS7-qB-n9p"/>
+                        <outletCollection property="profileOptions" destination="nXA-X6-THe" collectionClass="NSMutableArray" id="G7m-eB-g0t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvy-8P-HZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -571,8 +575,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Expenses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZ1-rk-he4">
-                                        <rect key="frame" x="120.33333333333333" y="55" width="173.66666666666669" height="32.333333333333343"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Expenses" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZ1-rk-he4">
+                                        <rect key="frame" x="103.66666666666669" y="55" width="207" height="32.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
