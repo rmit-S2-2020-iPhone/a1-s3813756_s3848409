@@ -7,7 +7,6 @@ target 'Assignment1' do
 
   # Pods for Assignment1
   pod 'Charts', '~> 3.1.0'
-  pod 'iOSDropDown', '~> 0.3'
 
   target 'Assignment1Tests' do
     inherit! :search_paths
