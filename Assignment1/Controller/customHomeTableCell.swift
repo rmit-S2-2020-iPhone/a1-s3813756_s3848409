@@ -3,7 +3,7 @@
 //  customHomeTableCell.swift
 //  Assignment1
 //
-//  Created by Phearith on 25/8/20.
+//  Created by Phearith & Sokleng on 25/8/20.
 //  Copyright © 2020 RMIT-iOS-s3848409-s3813756. All rights reserved.
 //
 import UIKit
