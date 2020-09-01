@@ -18,7 +18,7 @@ var sumItem: [itemModel] = []
 var selectedType:String?
 var pickedType:String?
 var amount:String?
-
+var budget = 1000.0
 
 
 
@@ -47,6 +47,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBAction func editProfilePic(_ sender: UIButton) {
         editUserPic()
     }
+    @IBAction func changeBudgetBtn(_ sender: Any) {
+        changeBudget()
+    }
     var picker = UIImagePickerController();
     var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
     var viewController: UIViewController?
@@ -59,21 +62,25 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var thisMonthExpense: UILabel!
     @IBOutlet weak var monthBudget: UILabel!
     @IBOutlet weak var remainingBudget: UILabel!
-    var budget = 1000.0
+    
     
 
     
+    
+    
     //stat scene
+    
     var statType = [String]()
     var statValue = [Double]()
     
     
     @IBOutlet weak var statChart: PieChartView!
     @IBOutlet weak var statMoreButton: UIButton!
-    @IBOutlet weak var statRemaining: UILabel!
-    @IBOutlet weak var statThisMonth: UILabel!
-    @IBOutlet weak var statLastMonth: UILabel!
+    @IBOutlet weak var totalExpenseLabel: UILabel!
+    @IBOutlet weak var avgMonthLabel: UILabel!
+    @IBOutlet weak var lastMonthExpenseLabel: UILabel!
     @IBOutlet weak var statGoal: UILabel!
+    
     
     
     
@@ -425,6 +432,28 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         else {
             thisMonthExpense?.text = "No expense yet"
         }
+    }
+    
+    func changeBudget() {
+        let alert = UIAlertController(title: "Please enter your budget below", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Input your budget here..."
+            textField.keyboardType = .decimalPad
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            let strCheck = alert.textFields?.first?.text
+            if (strCheck?.trim() == "" || strCheck?.trim() == "." || strCheck?.trim() == ".." ){
+                self.popUpAlert(withTitle: "Error", message: "Please enter a value.")
+            }else{
+                let newBudget = strCheck?.toDouble()
+                self.monthBudget?.text = String(format: "$%.02f", newBudget as! CVarArg)
+            }
+        }))
+        
+        self.present(alert, animated: true)
     }
     
     

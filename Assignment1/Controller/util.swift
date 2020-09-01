@@ -13,5 +13,9 @@ extension String {
     {
         return self.trimmingCharacters(in: CharacterSet.whitespaces)
     }
+    
+    func toDouble() -> Double? {
+        return NumberFormatter().number(from: self)?.doubleValue
+    }
 }
 
