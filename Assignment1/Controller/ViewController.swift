@@ -17,7 +17,6 @@ var sortedItem:[itemModel] = []
 var sumItem: [itemModel] = []
 var selectedType:String?
 var pickedType:String?
-var amount:String?
 var budget = 1000.0
 
 
@@ -149,7 +148,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         //home scene
         _ = createData
         sortData()
-        totalSum()
         self.homeTableView?.dataSource = self
         
         
@@ -177,7 +175,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         sortData()
-        totalSum()
         setProfilePic()
         
     }
@@ -193,7 +190,21 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         self.present(alertController, animated: true, completion: nil)
     }
 
-
+    // load data to table and sort
+    func loadData() {
+        sortedItem.sort(by: {$0.date > $1.date})
+        todayExp()
+        thisMonthExp()
+        totalExp()
+        self.homeTableView?.reloadData()
+        profileSumView?.forEach {(view) in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+                view.layer.cornerRadius = 10
+            })
+        }
+        itemPrice?.keyboardType = .decimalPad
+    }
     
     
     
@@ -342,6 +353,21 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
+    func totalExp() {
+        let totalItem = globalItem
+        if totalItem.count > 0 {
+            var totalExpense:Double = 0.00
+            for i in 0 ..< sumItem.count {
+                totalExpense += sumItem[i].price
+            }
+            let totalAmount = String(format: "$%.02f", totalExpense as CVarArg)
+            totalExpenseLabel?.text = totalAmount
+        }
+        else {
+            thisMonthExpense?.text = "No expense yet"
+        }
+    }
+    
     
     
     
@@ -404,13 +430,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
-    func monthlyExpense() {
-        profileSumView?.forEach {(view) in
-            UIView.animate(withDuration: 0.3, animations: {
-                self.view.layoutIfNeeded()
-                view.layer.cornerRadius = 10
-            })
-        }
+    func thisMonthExp() {
         sumItem = globalItem
         let today = Date()
         let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .day, value: -30, to: today)!
@@ -502,18 +522,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
-    // load data to table and sort
-    func loadData() {
-        sortedItem.sort(by: {$0.date > $1.date})
-        monthlyExpense()
-        self.homeTableView?.reloadData()
-        itemPrice?.keyboardType = .decimalPad
-    }
     
     
-    //total expense label
     
-    func totalSum() -> Void {
+    
+    //this month expense function
+    
+    func todayExp() -> Void {
         let today = Date()
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
         let monthRange = yesterday...today
@@ -525,8 +540,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
                     total += sumItem[i].price
                 }
             }
-            amount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
-            todayExpense?.text = amount
+            let totalAmount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
+            todayExpense?.text = totalAmount
         }
         else {
             todayExpense?.text = "No expense yet"
@@ -584,7 +599,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             homeTableView.deleteRows(at: [indexPath], with: .fade)
             globalItem = sortedItem
             sortData()
-            totalSum()
         }
     }
     
