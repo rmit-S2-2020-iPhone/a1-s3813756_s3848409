@@ -17,35 +17,69 @@ var sortedItem:[itemModel] = []
 var sumItem: [itemModel] = []
 var selectedType:String?
 var pickedType:String?
-var amount:String?
+var budget = 1000.0
 
 
 
 
-
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource , UITextFieldDelegate{
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     
     
     //profile scene
+    
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
-    @IBOutlet weak var moreProfileButton: UIButton!
-    @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet var profileOptions: [UIButton]!
+    @IBAction func editProfile(_ sender: UIButton) {
+        profileOptions.forEach {(button) in
+            UIView.animate(withDuration: 0.3, animations: {
+                button.isHidden = !button.isHidden
+                self.view.layoutIfNeeded()
+                button.layer.cornerRadius = 4
+                button.backgroundColor? = UIColor.white
+            })
+        }
+    }
+    @IBAction func editUserName(_ sender: UIButton) {
+        editName()
+    }
+    @IBAction func editProfilePic(_ sender: UIButton) {
+        editUserPic()
+    }
+    @IBAction func changeBudgetBtn(_ sender: Any) {
+        changeBudget()
+    }
+    var picker = UIImagePickerController();
+    var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+    var viewController: UIViewController?
+    var pickImageCallback : ((UIImage) -> ())?;
+    
+    
+    
+    
+    @IBOutlet var profileSumView: [UIView]!
+    @IBOutlet weak var thisMonthExpense: UILabel!
+    @IBOutlet weak var monthBudget: UILabel!
+    @IBOutlet weak var remainingBudget: UILabel!
     
     
 
     
+    
+    
     //stat scene
+    
     var statType = [String]()
     var statValue = [Double]()
     
     
     @IBOutlet weak var statChart: PieChartView!
     @IBOutlet weak var statMoreButton: UIButton!
-    @IBOutlet weak var statRemaining: UILabel!
-    @IBOutlet weak var statThisMonth: UILabel!
-    @IBOutlet weak var statLastMonth: UILabel!
+    @IBOutlet weak var totalExpenseLabel: UILabel!
+    @IBOutlet weak var avgMonthLabel: UILabel!
+    @IBOutlet weak var lastMonthExpenseLabel: UILabel!
     @IBOutlet weak var statGoal: UILabel!
+    
     
     
     
@@ -114,25 +148,18 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         //home scene
         _ = createData
         sortData()
-        totalSum()
         self.homeTableView?.dataSource = self
         
         
         //profile scene
-        userImage?.layer.borderWidth = 1
-        userImage?.layer.masksToBounds = false
-        userImage?.layer.borderColor = UIColor.black.cgColor
-        userImage?.layer.cornerRadius = (userImage?.frame.height)!/2
-        userImage?.clipsToBounds = true
+        setProfilePic()
         
         
         //add scene
         addDoneButton()
-        
         expenseTypePickerField?.inputView = expenseTypePicker
         expenseTypePicker.delegate = self
         expenseTypePicker.dataSource = self
-        
         
         
         //stat scene
@@ -148,8 +175,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         sortData()
-        totalSum()
+        setProfilePic()
+        
     }
+    
+    
     
     //message dialog
     func popUpAlert(withTitle title: String, message : String) {
@@ -159,8 +189,22 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
-    
+
+    // load data to table and sort
+    func loadData() {
+        sortedItem.sort(by: {$0.date > $1.date})
+        todayExp()
+        thisMonthExp()
+        totalExp()
+        self.homeTableView?.reloadData()
+        profileSumView?.forEach {(view) in
+            UIView.animate(withDuration: 0.3, animations: {
+                self.view.layoutIfNeeded()
+                view.layer.cornerRadius = 10
+            })
+        }
+        itemPrice?.keyboardType = .decimalPad
+    }
     
     
     
@@ -192,13 +236,15 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1)
+        toolBar.tintColor = UIColor.blue
         toolBar.sizeToFit()
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAction))
         toolBar.setItems([flexibleSpace, doneButton], animated: true)
         toolBar.isUserInteractionEnabled = true
         expenseTypePickerField?.inputAccessoryView = toolBar
+        itemPrice?.inputAccessoryView = toolBar
+        itemNote?.inputAccessoryView = toolBar
     }
     
     
@@ -240,6 +286,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //close picker view
     @objc func doneAction() {
         expenseTypePickerField.resignFirstResponder()
+        itemPrice.resignFirstResponder()
+        itemNote.resignFirstResponder()
     }
     
     
@@ -305,6 +353,21 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
+    func totalExp() {
+        let totalItem = globalItem
+        if totalItem.count > 0 {
+            var totalExpense:Double = 0.00
+            for i in 0 ..< sumItem.count {
+                totalExpense += sumItem[i].price
+            }
+            let totalAmount = String(format: "$%.02f", totalExpense as CVarArg)
+            totalExpenseLabel?.text = totalAmount
+        }
+        else {
+            thisMonthExpense?.text = "No expense yet"
+        }
+    }
+    
     
     
     
@@ -314,9 +377,104 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //////////////////profile scene//////////////////
     
     
-
+    //set user profile picture function
+    var imagePicker = UIImagePickerController()
+    
+    func editUserPic() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = false
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        self.dismiss(animated: true, completion: nil)
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            return
+        }
+        userImage?.image = image
+    }
     
     
+    
+    
+    //set up user profile layout
+    
+    func setProfilePic() {
+        userImage?.layer.borderWidth = 2
+        userImage?.backgroundColor = UIColor.white
+        userImage?.layer.masksToBounds = false
+        userImage?.layer.borderColor = UIColor.black.cgColor
+        userImage?.layer.cornerRadius = (userImage?.frame.height)!/2
+        userImage?.clipsToBounds = true
+    }
+    
+    
+    //edit user name
+    func editName() {
+        let alert = UIAlertController(title: "What's your name?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Input your name here..."
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.userName?.text = alert.textFields?.first?.text
+        }))
+        
+        self.present(alert, animated: true)
+    }
+    
+    
+    
+    func thisMonthExp() {
+        sumItem = globalItem
+        let today = Date()
+        let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .day, value: -30, to: today)!
+        let monthRange = thirtyDaysBeforeToday...today
+        
+        if sumItem.count > 0 {
+            var monthExpense:Double = 0.00
+            for i in 0 ..< sumItem.count {
+                if monthRange.contains(sumItem[i].date){
+                    monthExpense += sumItem[i].price
+                }
+            }
+            let monthAmount = String(format: "$%.02f", monthExpense as CVarArg)
+            let remainBudget = String(format: "$%.02f", budget - monthExpense as CVarArg)
+            remainingBudget?.text = remainBudget
+            thisMonthExpense?.text = monthAmount
+            monthBudget?.text = "$" + String(budget)
+        }
+        else {
+            thisMonthExpense?.text = "No expense yet"
+        }
+    }
+    
+    func changeBudget() {
+        let alert = UIAlertController(title: "Please enter your budget below", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.placeholder = "Input your budget here..."
+            textField.keyboardType = .decimalPad
+        })
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            let strCheck = alert.textFields?.first?.text
+            if (strCheck?.trim() == "" || strCheck?.trim() == "." || strCheck?.trim() == ".." ){
+                self.popUpAlert(withTitle: "Error", message: "Please enter a value.")
+            }else{
+                let newBudget = strCheck?.toDouble()
+                self.monthBudget?.text = String(format: "$%.02f", newBudget as! CVarArg)
+            }
+        }))
+        
+        self.present(alert, animated: true)
+    }
     
     
     
@@ -364,24 +522,26 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     
-    // load data to table and sort
-    func loadData() {
-        sortedItem.sort(by: {$0.date > $1.date})
-        self.homeTableView?.reloadData()
-    }
     
     
-    //total expense label
     
-    func totalSum() -> Void {
-        sumItem = sortedItem
+    
+    //this month expense function
+    
+    func todayExp() -> Void {
+        let today = Date()
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
+        let monthRange = yesterday...today
+        sumItem = globalItem
         if sumItem.count > 0 {
             var total:Double = 0.00
             for i in 0 ..< sumItem.count {
-                total += sumItem[i].price
+                if monthRange.contains(sumItem[i].date){
+                    total += sumItem[i].price
+                }
             }
-            amount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
-            todayExpense?.text = amount
+            let totalAmount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
+            todayExpense?.text = totalAmount
         }
         else {
             todayExpense?.text = "No expense yet"
@@ -439,7 +599,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             homeTableView.deleteRows(at: [indexPath], with: .fade)
             globalItem = sortedItem
             sortData()
-            totalSum()
         }
     }
     
