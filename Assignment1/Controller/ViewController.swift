@@ -16,7 +16,7 @@ var sortedItem:[itemModel] = []
 var sumItem: [itemModel] = []
 var selectedType:String?
 var pickedType:String?
-var budget = 1000.0
+var budget = 5000.0
 
 
 
