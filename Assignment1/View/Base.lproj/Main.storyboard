@@ -434,7 +434,7 @@
                                         <color key="textColor" red="0.0" green="0.39337180164600483" blue="0.71277930699481873" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Expenses Per Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxu-P3-L0d">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Expenses Per Day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oxu-P3-L0d">
                                         <rect key="frame" x="0.0" y="73.333333333333371" width="390" height="36.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -493,12 +493,12 @@
                     <tabBarItem key="tabBarItem" title="Statistics" image="stat" id="fPQ-3H-gDb"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="avgMonthLabel" destination="odr-V4-6il" id="qmY-Ya-7Xd"/>
+                        <outlet property="avgDayLabel" destination="odr-V4-6il" id="bzD-Oq-GrU"/>
                         <outlet property="lastMonthExpenseLabel" destination="L4n-XR-aTa" id="vCA-EX-USx"/>
-                        <outlet property="statChart" destination="W5a-of-jV4" id="neL-Vy-AdO"/>
+                        <outlet property="statChart" destination="W5a-of-jV4" id="Iuf-1J-C1z"/>
                         <outlet property="statGoal" destination="z8O-c5-OC4" id="smO-s3-Xh1"/>
                         <outlet property="statMoreButton" destination="ztl-sJ-vb8" id="nTn-uP-Z5J"/>
-                        <outlet property="totalExpenseLabel" destination="SqN-Rh-udG" id="tzU-IE-ymT"/>
+                        <outlet property="totalExpenseLabel" destination="SqN-Rh-udG" id="UhC-gq-9rs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IgC-pj-Pxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
