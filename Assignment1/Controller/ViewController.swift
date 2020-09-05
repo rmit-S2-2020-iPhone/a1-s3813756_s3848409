@@ -16,7 +16,7 @@ var sortedItem:[itemModel] = []
 var sumItem: [itemModel] = []
 var selectedType:String?
 var pickedType:String?
-var budget = 1000.0
+var budget = 2000.0
 
 
 
@@ -25,7 +25,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     //profile scene
-    
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
     @IBOutlet var profileOptions: [UIButton]!
@@ -52,18 +51,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
     var viewController: UIViewController?
     var pickImageCallback : ((UIImage) -> ())?;
-    
-    
-    
+
     
     @IBOutlet var profileSumView: [UIView]!
     @IBOutlet weak var thisMonthExpense: UILabel!
     @IBOutlet weak var monthBudget: UILabel!
     @IBOutlet weak var remainingBudget: UILabel!
-    
-    
-
-    
     
     
     //stat scene
@@ -84,10 +77,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var totalExpenseLabel: UILabel!
     @IBOutlet weak var avgDayLabel: UILabel!
     @IBOutlet weak var lastMonthExpenseLabel: UILabel!
-    @IBOutlet weak var statGoal: UILabel!
-    
-    
-    
+    @IBOutlet weak var biggestSpentLabel: UILabel!
     
 
     //home scene
@@ -118,12 +108,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         }
         
     }
-    
-    
-    
-    //add scene
 
     
+    //add scene
     let expenseType = ["Foods","Shopping","Services","Others"]
     @IBOutlet weak var expenseTypePickerField: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
@@ -135,19 +122,11 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     @IBOutlet weak var itemDate: UIDatePicker!
     
     
-    
-    
     //setting scene
     
     
     
-    
-    
-    
-    
-    
     //viewDidLoad function
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -169,26 +148,21 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         
         //stat scene
-        
-
         getChartData()
-        customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
-        
-        
     }
 
     
     //viewDidAppear function
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         sortData()
         setProfilePic()
-        
         getChartData()
-        customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
     }
     
+    
+    
+    //////////////////Miscellaneous//////////////////
     
     
     //message dialog
@@ -199,12 +173,39 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
+    
+    //add toolbar to app keyboard
+    func addDoneButton() {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.blue
+        toolBar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAction))
+        toolBar.setItems([flexibleSpace, doneButton], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        expenseTypePickerField?.inputAccessoryView = toolBar
+        itemPrice?.inputAccessoryView = toolBar
+        itemNote?.inputAccessoryView = toolBar
+    }
+    
+    
+    //close picker view
+    @objc func doneAction() {
+        expenseTypePickerField.resignFirstResponder()
+        itemPrice.resignFirstResponder()
+        itemNote.resignFirstResponder()
+    }
+    
+    
     // load data to table and sort
     func loadData() {
         sortedItem.sort(by: {$0.date > $1.date})
         todayExp()
         thisMonthExp()
+        lastMonthExp()
         totalExp()
         self.homeTableView?.reloadData()
         profileSumView?.forEach {(view) in
@@ -220,7 +221,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     //////////////////add scene//////////////////
-    
     
     
     //picker view
@@ -240,27 +240,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         expenseTypePickerField.text = expenseType[row]
         pickedType = String(expenseType[row])
     }
-
-    
-    func addDoneButton() {
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.blue
-        toolBar.sizeToFit()
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAction))
-        toolBar.setItems([flexibleSpace, doneButton], animated: true)
-        toolBar.isUserInteractionEnabled = true
-        expenseTypePickerField?.inputAccessoryView = toolBar
-        itemPrice?.inputAccessoryView = toolBar
-        itemNote?.inputAccessoryView = toolBar
-    }
     
     
     
     // add new item function
-    
     func addNewItem() {
         
         let num :Double = (itemPrice.text! as NSString).doubleValue
@@ -289,24 +272,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         else {
             globalItem.insert(itemModel(name: newItemName!, type: newItemType!, price: newItemPrice, date: newItemDate), at:0)
             sortData()
+            popUpAlert(withTitle: "Item Added", message: "Item successfully added!")
         }
     }
     
-    
-    //close picker view
-    @objc func doneAction() {
-        expenseTypePickerField.resignFirstResponder()
-        itemPrice.resignFirstResponder()
-        itemNote.resignFirstResponder()
-    }
-    
-    
-    
+
     
     
     //////////////////stat scene//////////////////
     
- 
+    // get data and assign to chart function
     func getChartData() {
         let totalItem = globalItem
         if totalItem.count > 0 {
@@ -336,12 +311,14 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             statValue.append(servicesPerc)
             statValue.append(shoppingsPerc)
             statValue.append(othersPerc)
+            customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
         }else {
-            todayExpense?.text = "No expense yet"
+            print("No expense yet")
         }
     }
     
     
+    //fill chart data and customise the chart
     func customizeChart(dataPoints: [String], values: [Double]) {
         
         // 1. Set ChartDataEntry
@@ -364,14 +341,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         pieChartData.setValueFormatter(formatter)
         
         // 4. Assign it to the chart's data
-        statChart?.noDataText = "No data available"
-        statChart?.centerText = "Overall expenses"
+        statChart?.noDataText = "No Data Available"
+        statChart?.centerText = "Overall Expenses"
         let d = Description()
         d.text = "Total Expenses in Pie Chart"
         statChart?.chartDescription? = d
         statChart?.data = pieChartData
     }
     
+    
+    // random color for charts
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
         for _ in 0..<numbersOfColor {
@@ -385,6 +364,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
+    // total expense and avg expense function
     func totalExp() {
         let totalItem = globalItem
         if totalItem.count > 0 {
@@ -399,13 +379,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             avgDayLabel?.text = avgAmount
         }
         else {
-            thisMonthExpense?.text = "No expense yet"
+            totalExpenseLabel?.text = "No Expense Yet"
+            avgDayLabel?.text = "No Average Found"
         }
     }
-    
-    
-    
-    
     
     
     
@@ -433,10 +410,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
-    
-    
     //set up user profile layout
-    
     func setProfilePic() {
         userImage?.layer.borderWidth = 2
         userImage?.backgroundColor = UIColor.white
@@ -464,31 +438,71 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
-    
+    //calculate expense for this month
     func thisMonthExp() {
         sumItem = globalItem
         let today = Date()
-        let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .day, value: -30, to: today)!
-        let monthRange = thirtyDaysBeforeToday...today
+        let comp: DateComponents = Calendar.current.dateComponents([.year, .month], from: today)
+        let startOfMonth = Calendar.current.date(from: comp)!
+        var comps2 = DateComponents()
+        comps2.month = 1
+        comps2.day = -1
+        let endOfMonth = Calendar.current.date(byAdding: comps2, to: startOfMonth)!
+        let monthRange = startOfMonth...endOfMonth
         
         if sumItem.count > 0 {
             var monthExpense:Double = 0.00
+            var biggestSpent:Double?
             for i in 0 ..< sumItem.count {
                 if monthRange.contains(sumItem[i].date){
                     monthExpense += sumItem[i].price
+                    biggestSpent = sumItem.map{$0.price}.max()
                 }
             }
             let monthAmount = String(format: "$%.02f", monthExpense as CVarArg)
             let remainBudget = String(format: "$%.02f", budget - monthExpense as CVarArg)
+            let bigSpent = String(format: "$%.02f", biggestSpent as! CVarArg)
+            biggestSpentLabel?.text = bigSpent
             remainingBudget?.text = remainBudget
             thisMonthExpense?.text = monthAmount
             monthBudget?.text = "$" + String(budget)
         }
         else {
-            thisMonthExpense?.text = "No expense yet"
+            thisMonthExpense?.font = UIFont(name: "Gills Sans", size: 14)
+            remainingBudget?.font = UIFont(name: "Gills Sans", size: 12)
+            monthBudget?.font = UIFont(name: "Gills Sans", size: 12)
+            thisMonthExpense?.text = "No Expense Yet"
+            remainingBudget?.text = "No Remaining Budget"
+            monthBudget?.text = "Please add a Budget"
         }
     }
     
+    //calculate expense for last month
+    func lastMonthExp() {
+        sumItem = globalItem
+        let today = Date()
+        let comp: DateComponents = Calendar.current.dateComponents([.year, .month], from: today)
+        let endOfLastMonth = Calendar.current.date(from: comp)!
+        let startOfLastMonth = Calendar.current.date(byAdding: .day, value: -30, to: endOfLastMonth)!
+        let lastMonthRange = startOfLastMonth...endOfLastMonth
+        
+        if sumItem.count > 0 {
+            var lastMonthExpense:Double = 0.00
+            for i in 0 ..< sumItem.count {
+                if lastMonthRange.contains(sumItem[i].date){
+                    lastMonthExpense += sumItem[i].price
+                }
+            }
+            let lastMonthAmount = String(format: "$%.02f", lastMonthExpense as CVarArg)
+            lastMonthExpenseLabel?.text = lastMonthAmount
+        }
+        else {
+            lastMonthExpenseLabel?.text = "No Data Yet"
+        }
+    }
+    
+    
+    //user budget function
     func changeBudget() {
         let alert = UIAlertController(title: "Please enter your budget below", message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -523,10 +537,12 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             globalItem.insert(itemModel(name: "Clothes", type: "Shopping", price: 110.7, date: date), at: 0)
             globalItem.insert(itemModel(name: "Electricity", type: "Services", price: 150.0, date: date), at: 0)
             globalItem.insert(itemModel(name: "Shoes", type: "Shopping", price: 212.90, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Lobster", type: "Foods", price: 50.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Car service", type: "Services", price: 512.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "House Rent", type: "Services", price: 1200.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Lobster", type: "Foods", price: 89.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "KFC", type: "Foods", price: 20.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Car service", type: "Services", price: 112.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "House Rent", type: "Services", price: 400.0, date: date), at: 0)
             globalItem.insert(itemModel(name: "Lend Money", type: "Others", price: 100.0, date: date), at: 0)
+            globalItem.insert(itemModel(name: "Red Cross Donation", type: "Others", price: 50.0, date: date), at: 0)
             sortedItem = globalItem
         }
     }()
@@ -554,24 +570,18 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     
-    
-    
-    
-    
-    
-    
-    
     //this month expense function
-    
     func todayExp() -> Void {
         let today = Date()
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: today)!
-        let monthRange = yesterday...today
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: today)
+        let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: today)!
+        let todayRange = startOfDay...endOfDay
         sumItem = globalItem
         if sumItem.count > 0 {
             var total:Double = 0.00
             for i in 0 ..< sumItem.count {
-                if monthRange.contains(sumItem[i].date){
+                if todayRange.contains(sumItem[i].date){
                     total += sumItem[i].price
                 }
             }
@@ -579,10 +589,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             todayExpense?.text = totalAmount
         }
         else {
-            todayExpense?.text = "No expense yet"
+            todayExpense?.font = UIFont(name: "Gills Sans", size: 14)
+            todayExpense?.text = "No Expense Yet"
         }
     }
-    
     
     
     //table view set up for home scene
@@ -634,27 +644,13 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             homeTableView.deleteRows(at: [indexPath], with: .fade)
             globalItem = sortedItem
             sortData()
+            popUpAlert(withTitle: "Item Deleted", message: "Item successfully deleted!")
         }
     }
     
-    
 
-
-    
-    
-    
-    
     
     //////////////////setting scene//////////////////
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -666,4 +662,3 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // Dispose of any resources that can be recreated.
     }
 }
-
