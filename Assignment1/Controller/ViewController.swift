@@ -67,12 +67,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     //stat scene
-    
+    let statType : [String] = ["Foods", "Services", "Shopping", "Others"]
     var statValue : [Double] = [0.0, 0.0, 0.0, 0.0]
     var totalFoods : Double = 0.0
     var totalServices : Double = 0.0
     var totalShop : Double = 0.0
     var totalOthers : Double = 0.0
+    var foodsPerc : Double = 0.0
+    var servicesPerc : Double = 0.0
+    var shoppingsPerc : Double = 0.0
+    var othersPerc : Double = 0.0
     
     
     @IBOutlet weak var statChart: PieChartView!
@@ -165,7 +169,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         
         //stat scene
-        let statType : [String] = ["Foods", "Services", "Shopping", "Others"]
+        
 
         getChartData()
         customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
@@ -181,6 +185,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         sortData()
         setProfilePic()
         
+        getChartData()
+        customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
     }
     
     
@@ -300,32 +306,36 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     //////////////////stat scene//////////////////
     
-    
-    
+ 
     func getChartData() {
         let totalItem = globalItem
-        sumItem = sortedItem
         if totalItem.count > 0 {
             totalFoods = statValue[0]
             totalServices = statValue[1]
             totalShop = statValue[2]
             totalOthers = statValue[3]
-            for i in 0 ..< sumItem.count {
+            for i in 0 ..< totalItem.count {
                 if sumItem[i].type == "Foods" {
-                    totalFoods += sumItem[i].price
+                    totalFoods += totalItem[i].price
                 } else if sumItem[i].type == "Services" {
-                    totalServices += sumItem[i].price
+                    totalServices += totalItem[i].price
                 } else if sumItem[i].type == "Shopping" {
-                    totalShop += sumItem[i].price
+                    totalShop += totalItem[i].price
                 } else if sumItem[i].type == "Others" {
-                    totalOthers += sumItem[i].price
+                    totalOthers += totalItem[i].price
                 }
             }
+            let totalAmount = totalFoods + totalServices + totalShop + totalOthers
+            foodsPerc = totalFoods / totalAmount * 100
+            servicesPerc = totalServices / totalAmount * 100
+            shoppingsPerc = totalShop / totalAmount * 100
+            othersPerc = totalOthers / totalAmount * 100
+            
             statValue.removeAll()
-            statValue.append(totalFoods)
-            statValue.append(totalServices)
-            statValue.append(totalShop)
-            statValue.append(totalOthers)
+            statValue.append(foodsPerc)
+            statValue.append(servicesPerc)
+            statValue.append(shoppingsPerc)
+            statValue.append(othersPerc)
         }else {
             todayExpense?.text = "No expense yet"
         }
@@ -348,7 +358,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         let format = NumberFormatter()
-        format.numberStyle = .none
+        format.numberStyle = .percent
+        format.multiplier = 1.0
         let formatter = DefaultValueFormatter(formatter: format)
         pieChartData.setValueFormatter(formatter)
         
