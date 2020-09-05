@@ -73,7 +73,6 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     @IBOutlet weak var statChart: PieChartView!
-    @IBOutlet weak var statMoreButton: UIButton!
     @IBOutlet weak var totalExpenseLabel: UILabel!
     @IBOutlet weak var avgDayLabel: UILabel!
     @IBOutlet weak var lastMonthExpenseLabel: UILabel!
