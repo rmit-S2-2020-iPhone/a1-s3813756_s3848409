@@ -2,14 +2,13 @@
 //  ViewController.swift
 //  Assignment1
 //
-//  Created by Phearith on 31/7/20.
+//  Created by Phearith & Sokleng on 31/7/20.
 //  Copyright © 2020 RMIT-iOS-s3848409-s3813756. All rights reserved.
 //
 
 import UIKit
 import Charts
 import Foundation
-
 
 //project variables
 var globalItem:[itemModel] = []
@@ -68,15 +67,22 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     
     //stat scene
-    
-    var statType = [String]()
-    var statValue = [Double]()
+    let statType : [String] = ["Foods", "Services", "Shopping", "Others"]
+    var statValue : [Double] = [0.0, 0.0, 0.0, 0.0]
+    var totalFoods : Double = 0.0
+    var totalServices : Double = 0.0
+    var totalShop : Double = 0.0
+    var totalOthers : Double = 0.0
+    var foodsPerc : Double = 0.0
+    var servicesPerc : Double = 0.0
+    var shoppingsPerc : Double = 0.0
+    var othersPerc : Double = 0.0
     
     
     @IBOutlet weak var statChart: PieChartView!
     @IBOutlet weak var statMoreButton: UIButton!
     @IBOutlet weak var totalExpenseLabel: UILabel!
-    @IBOutlet weak var avgMonthLabel: UILabel!
+    @IBOutlet weak var avgDayLabel: UILabel!
     @IBOutlet weak var lastMonthExpenseLabel: UILabel!
     @IBOutlet weak var statGoal: UILabel!
     
@@ -163,6 +169,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         
         //stat scene
+        
+
         getChartData()
         customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
         
@@ -177,6 +185,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         sortData()
         setProfilePic()
         
+        getChartData()
+        customizeChart(dataPoints: statType, values: statValue.map{Double($0)})
     }
     
     
@@ -296,15 +306,36 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     //////////////////stat scene//////////////////
     
-    
-    
+ 
     func getChartData() {
-        sumItem = sortedItem
-        if sumItem.count > 0 {
-            for i in 0 ..< sumItem.count {
-                statType.append(sumItem[i].type)
-                statValue.append(sumItem[i].price)
+        let totalItem = globalItem
+        if totalItem.count > 0 {
+            totalFoods = statValue[0]
+            totalServices = statValue[1]
+            totalShop = statValue[2]
+            totalOthers = statValue[3]
+            for i in 0 ..< totalItem.count {
+                if sumItem[i].type == "Foods" {
+                    totalFoods += totalItem[i].price
+                } else if sumItem[i].type == "Services" {
+                    totalServices += totalItem[i].price
+                } else if sumItem[i].type == "Shopping" {
+                    totalShop += totalItem[i].price
+                } else if sumItem[i].type == "Others" {
+                    totalOthers += totalItem[i].price
+                }
             }
+            let totalAmount = totalFoods + totalServices + totalShop + totalOthers
+            foodsPerc = totalFoods / totalAmount * 100
+            servicesPerc = totalServices / totalAmount * 100
+            shoppingsPerc = totalShop / totalAmount * 100
+            othersPerc = totalOthers / totalAmount * 100
+            
+            statValue.removeAll()
+            statValue.append(foodsPerc)
+            statValue.append(servicesPerc)
+            statValue.append(shoppingsPerc)
+            statValue.append(othersPerc)
         }else {
             todayExpense?.text = "No expense yet"
         }
@@ -327,7 +358,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         // 3. Set ChartData
         let pieChartData = PieChartData(dataSet: pieChartDataSet)
         let format = NumberFormatter()
-        format.numberStyle = .none
+        format.numberStyle = .percent
+        format.multiplier = 1.0
         let formatter = DefaultValueFormatter(formatter: format)
         pieChartData.setValueFormatter(formatter)
         
@@ -362,6 +394,9 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             }
             let totalAmount = String(format: "$%.02f", totalExpense as CVarArg)
             totalExpenseLabel?.text = totalAmount
+            
+            let avgAmount = String(format: "$%.02f", totalExpense/30 as CVarArg)
+            avgDayLabel?.text = avgAmount
         }
         else {
             thisMonthExpense?.text = "No expense yet"

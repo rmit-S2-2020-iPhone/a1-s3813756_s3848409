@@ -2,7 +2,7 @@
 //  model.swift
 //  Assignment1
 //
-//  Created by Phearith on 26/8/20.
+//  Created by Phearith & Sokleng on 26/8/20.
 //  Copyright © 2020 RMIT-iOS-s3848409-s3813756. All rights reserved.
 //
 
