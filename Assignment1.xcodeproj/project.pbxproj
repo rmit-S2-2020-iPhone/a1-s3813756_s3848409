@@ -154,7 +154,6 @@
 				D085519A24ECB21200F08CBD /* Controller */,
 				D077A8C424D417B200583F40 /* AppDelegate.swift */,
 				D077A8CE24D417B300583F40 /* Assets.xcassets */,
-				D077A8D024D417B300583F40 /* LaunchScreen.storyboard */,
 				D077A8D324D417B300583F40 /* Info.plist */,
 				D077A8CB24D417B200583F40 /* Assignment1.xcdatamodeld */,
 			);
@@ -192,6 +191,7 @@
 		D085519B24ECB22700F08CBD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D077A8D024D417B300583F40 /* LaunchScreen.storyboard */,
 				D077A8C824D417B200583F40 /* Main.storyboard */,
 			);
 			path = View;
