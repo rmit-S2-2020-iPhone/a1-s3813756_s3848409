@@ -7,6 +7,7 @@ target 'Assignment1' do
 
   # Pods for Assignment1
   pod 'Charts', '~> 3.1.0'
+  pod 'PKHUD', '~> 5.0'
 
   target 'Assignment1Tests' do
     inherit! :search_paths

@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import PKHUD
 import Foundation
 
 //project variables
@@ -252,7 +253,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         else {
             globalItem.insert(itemModel(name: newItemName!, type: newItemType!, price: newItemPrice, date: newItemDate), at:0)
             sortData()                                                                          //else add the new item to database and sort all data again
-            popUpAlert(withTitle: "Item Added", message: "Item successfully added!")            //pop up success message
+            HUD.flash(.success, delay: 0.5)
+            itemPrice.text = ""
+            itemNote.text = ""
+            itemDate.date = Date()
         }
     }
     
@@ -333,13 +337,10 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     // random color for charts
     private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
         var colors: [UIColor] = []
-        for _ in 0..<numbersOfColor {
-            let red = Double(arc4random_uniform(256))
-            let green = Double(arc4random_uniform(256))
-            let blue = Double(arc4random_uniform(256))
-            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
-            colors.append(color)
-        }
+        colors.append(UIColor(red: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1.0))
+        colors.append(UIColor(red: 130.0/255.0, green: 224.0/255.0, blue: 170.0/255.0, alpha: 1.0))
+        colors.append(UIColor(red: 236.0/255.0, green: 112.0/255.0, blue: 99.0/255.0, alpha: 1.0))
+        colors.append(UIColor(red: 244.0/255.0, green: 208.0/255.0, blue: 63.0/255.0, alpha: 1.0))
         return colors
     }
     
