@@ -12,9 +12,9 @@ import PKHUD
 import Foundation
 
 //project variables
-var globalItem:[itemModel] = []
-var sortedItem:[itemModel] = []
-var sumItem: [itemModel] = []
+var globalItem:[ItemModel] = []
+var sortedItem:[ItemModel] = []
+var sumItem: [ItemModel] = []
 var selectedType:String?            // declare important variables for the project
 var pickedType:String?
 var budget = 2000.0
@@ -251,7 +251,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
             popUpAlert(withTitle: "Error", message: "Please choose a type for this item")
         }
         else {
-            globalItem.insert(itemModel(name: newItemName!, type: newItemType!, price: newItemPrice, date: newItemDate), at:0)
+            globalItem.insert(ItemModel(name: newItemName!, type: newItemType!, price: newItemPrice, date: newItemDate), at:0)
             sortData()                                                                          //else add the new item to database and sort all data again
             HUD.flash(.success, delay: 0.5)
             itemPrice.text = ""
@@ -533,23 +533,23 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     private lazy var createData: Void = {
         if globalItem.count == 0 {                                                                  //mock up database when the app starts
             let date = Date()
-            globalItem.insert(itemModel(name: "Clothes", type: "Shopping", price: 110.7, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Electricity", type: "Services", price: 150.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Shoes", type: "Shopping", price: 212.90, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Lobster", type: "Foods", price: 89.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "KFC", type: "Foods", price: 20.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Car service", type: "Services", price: 112.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "House Rent", type: "Services", price: 400.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Lend Money", type: "Others", price: 100.0, date: date), at: 0)
-            globalItem.insert(itemModel(name: "Red Cross Donation", type: "Others", price: 50.0, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "Clothes", type: "Shopping", price: 110.7, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "Electricity", type: "Services", price: 150.0, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "Shoes", type: "Shopping", price: 212.90, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "Lobster", type: "Foods", price: 89.0, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "KFC", type: "Foods", price: 20.0, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "Car service", type: "Services", price: 112.0, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "House Rent", type: "Services", price: 400.0, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "Lend Money", type: "Others", price: 100.0, date: date), at: 0)
+            globalItem.insert(ItemModel(name: "Red Cross Donation", type: "Others", price: 50.0, date: date), at: 0)
             sortedItem = globalItem
         }
     }()
     
     
     
-    func getCategory(type:String) -> Array<itemModel> {
-        let item:[itemModel] = []
+    func getCategory(type:String) -> Array<ItemModel> {
+        let item:[ItemModel] = []
         return item
     }
     
