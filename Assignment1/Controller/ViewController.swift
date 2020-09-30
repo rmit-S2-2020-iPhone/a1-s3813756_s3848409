@@ -436,15 +436,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //calculate expense for this month
     func thisMonthExp() {
         sumItem = globalItem
-        let today = Date()
-        let comp: DateComponents = Calendar.current.dateComponents([.year, .month], from: today)    //find the start of current month
-        let startOfMonth = Calendar.current.date(from: comp)!
-        var comps2 = DateComponents()
-        comps2.month = 1
-        comps2.day = -1
-        let endOfMonth = Calendar.current.date(byAdding: comps2, to: startOfMonth)!                 //find the end of current month
-        let monthRange = startOfMonth...endOfMonth                                                  //define month range
-        
+               //find the end of current month
+        let monthRange = Date().startOfMonth...Date().endOfMonth                                                  //define month range
         if sumItem.count > 0 {
             var monthExpense:Double = 0.00
             var biggestSpent:Double?
@@ -476,11 +469,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     //calculate expense for last month
     func lastMonthExp() {
         sumItem = globalItem
-        let today = Date()
-        let comp: DateComponents = Calendar.current.dateComponents([.year, .month], from: today)
-        let endOfLastMonth = Calendar.current.date(from: comp)!                                                 //find the start and end of last month
-        let startOfLastMonth = Calendar.current.date(byAdding: .day, value: -30, to: endOfLastMonth)!
-        let lastMonthRange = startOfLastMonth...endOfLastMonth                                                  //define last month range
+        let lastMonthRange = Date().startOfLastMonth...Date().endOfLastMonth                                                  //define last month range
         
         if sumItem.count > 0 {
             var lastMonthExpense:Double = 0.00
@@ -571,11 +560,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     
     //this month expense function
     func todayExp() -> Void {
-        let today = Date()
-        let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: today)                                        //find the start and end of current day
-        let endOfDay = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: today)!
-        let todayRange = startOfDay...endOfDay                                                  //set today's range
+        let todayRange = Date().startOfDay...Date().endOfDay     //set today's range
         sumItem = globalItem
         if sumItem.count > 0 {
             var total:Double = 0.00
