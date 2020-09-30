@@ -78,11 +78,11 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="su0-JP-fQR">
-                                <rect key="frame" x="12.666666666666657" y="674" width="350" height="50"/>
+                                <rect key="frame" x="37.666666666666657" y="674" width="300" height="50"/>
                                 <color key="backgroundColor" red="0.14746062720123654" green="0.92804808937823835" blue="0.40399735620777866" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ikP-tp-gTj"/>
-                                    <constraint firstAttribute="width" constant="350" id="qM3-zq-2i4"/>
+                                    <constraint firstAttribute="width" constant="300" id="qM3-zq-2i4"/>
                                 </constraints>
                                 <state key="normal" title="Add">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -621,11 +621,11 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdO-z2-xhW">
-                                <rect key="frame" x="87.666666666666686" y="473" width="200" height="40"/>
+                                <rect key="frame" x="37.666666666666657" y="473" width="300" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="1" blue="0.40228585020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Udf-nK-vlQ"/>
-                                    <constraint firstAttribute="width" constant="200" id="mnN-4o-a9Z"/>
+                                    <constraint firstAttribute="height" constant="50" id="Udf-nK-vlQ"/>
+                                    <constraint firstAttribute="width" constant="300" id="mnN-4o-a9Z"/>
                                 </constraints>
                                 <state key="normal" title="Change">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
