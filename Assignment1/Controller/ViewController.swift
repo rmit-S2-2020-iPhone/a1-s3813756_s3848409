@@ -21,32 +21,16 @@ var budget = 2000.0
 
 
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate{
+class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate{
     
     
     //profile scene
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
-    @IBOutlet var profileOptions: [UIButton]!
     @IBAction func editProfile(_ sender: UIButton) {
-        profileOptions.forEach {(button) in
-            UIView.animate(withDuration: 0.3, animations: {
-                button.isHidden = !button.isHidden
-                self.view.layoutIfNeeded()                      //show the buttons stack when user click edit on profile page
-                button.layer.cornerRadius = 4
-                button.backgroundColor? = UIColor.white
-            })
-        }
+        editProfile()
     }
-    @IBAction func editUserName(_ sender: UIButton) {
-        editName()                                              //call edit name function when user click edit name button
-    }
-    @IBAction func editProfilePic(_ sender: UIButton) {
-        editUserPic()                                           //call edit user picture function when user click choose profile image
-    }
-    @IBAction func changeBudgetBtn(_ sender: Any) {
-        changeBudget()                                          //call change budget function if user click change budget on profile page
-    }
+    
     var picker = UIImagePickerController();
     var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
     var viewController: UIViewController?                       //declare necessary controller for choosing image process
@@ -204,6 +188,7 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         lastMonthExp()                                                  //call today expense, this month, last month and total expense function
         totalExp()                                                      //to the app when it starts
         self.homeTableView?.reloadData()
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         profileSumView?.forEach {(view) in
             UIView.animate(withDuration: 0.3, animations: {
                 self.view.layoutIfNeeded()                              //set style for profile page
@@ -415,6 +400,28 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         userImage?.clipsToBounds = true
     }
     
+    func editProfile() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Edit User Name", style: .default) { _ in
+            self.editName()
+        })
+        
+        alert.addAction(UIAlertAction(title: "Choose User Image", style: .default) { _ in
+            self.editUserPic()
+        })
+        
+        alert.addAction(UIAlertAction(title: "Change Budget", style: .default) { _ in
+            self.changeBudget()
+        })
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
+            print("User click Dismiss button")
+        }))
+        
+        present(alert, animated: true)
+    }
+    
     
     //edit user name
     func editName() {
@@ -499,11 +506,16 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in            //add done action after user finished adding budget
             let strCheck = alert.textFields?.first?.text
-            if (strCheck?.trim() == "" || strCheck?.trim() == "." || strCheck?.trim() == ".." ){
+            if (strCheck?.trim() == "" || strCheck?.trim() == "."){
                 self.popUpAlert(withTitle: "Error", message: "Please enter a value.")                           //check for user's incorrect input
-            }else{
-                let newBudget = strCheck?.toDouble()
-                self.monthBudget?.text = String(format: "$%.02f", newBudget as! CVarArg)
+            }else {
+                let dotCount = strCheck?.filter({ $0 == "." }).count
+                if ( dotCount! > 1) {
+                    self.popUpAlert(withTitle: "Error", message: "Value is invalid.")
+                }else {
+                    let newBudget = strCheck?.toDouble()
+                    self.monthBudget?.text = String(format: "$%.02f", newBudget as! CVarArg)
+                }
             }                                                                                                   //set new user budget to label
         }))
         
