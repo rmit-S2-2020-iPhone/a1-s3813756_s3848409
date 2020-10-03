@@ -24,11 +24,46 @@ class Assignment1UITests: XCTestCase {
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
     }
 
-    func testExample() {
+    func testTabBarsNavigator() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        let app = XCUIApplication()
+        app.tabBars.buttons["Add"].tap()
+        
+        let priceTextField = app.textFields["$ 0.00"]
+        priceTextField.tap()
+        priceTextField.typeText("$20")
+        app.toolbars["Toolbar"].buttons["Done"].tap()
+        
+        let noteTextField = app.textFields["Note"]
+        noteTextField.tap()
+        noteTextField.typeText("Domino")
+        app.toolbars["Toolbar"].buttons["Done"].tap()
+        
+        let chooseExpenseTextField = app.textFields["Choose expense type..."]
+        chooseExpenseTextField.tap()
+        app/*@START_MENU_TOKEN@*/.pickers.pickerWheels["Foods"]/*[[".pickers.pickerWheels[\"Foods\"]",".pickerWheels[\"Foods\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.tap()
+        app.toolbars["Toolbar"].buttons["Done"].tap()
+        
+ 
+        
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.buttons["Add"].tap()
+        
+       app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.buttons["Add"].tap()
+        
+        app.tabBars.buttons["Home"].tap()
+        app/*@START_MENU_TOKEN@*/.segmentedControls.buttons["Foods"]/*[[".segmentedControls.buttons[\"Foods\"]",".buttons[\"Foods\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.tap()
+   
+        
+       
+        XCTAssertTrue(app.tables.cells.staticTexts["KFC"].exists)
+      
     }
+    
+ 
 
 }
