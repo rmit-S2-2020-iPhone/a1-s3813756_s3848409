@@ -13,7 +13,7 @@
         <!--Add Item-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AddItemViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,7 +88,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="addFoodToDatabase:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i39-YN-T0f"/>
+                                    <action selector="addFoodToDatabase:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1D1-Oy-Und"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -105,12 +105,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add Item" id="XE3-37-CAf"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <size key="freeformSize" width="375" height="812"/>
                     <connections>
-                        <outlet property="expenseTypePickerField" destination="54J-eC-4xN" id="o3k-Hi-sQA"/>
-                        <outlet property="itemDate" destination="LiR-Fz-5bk" id="WNw-3X-Dvn"/>
-                        <outlet property="itemNote" destination="nGq-lA-RAs" id="spw-c8-XBe"/>
-                        <outlet property="itemPrice" destination="6rC-cy-Js8" id="jl5-Ek-vS4"/>
+                        <outlet property="expenseTypePickerField" destination="54J-eC-4xN" id="w4b-Ao-ZIJ"/>
+                        <outlet property="itemDate" destination="LiR-Fz-5bk" id="8Wm-Da-KUw"/>
+                        <outlet property="itemNote" destination="nGq-lA-RAs" id="o3e-4X-cne"/>
+                        <outlet property="itemPrice" destination="6rC-cy-Js8" id="v4k-Ty-lti"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -120,7 +119,7 @@
         <!--Profile-->
         <scene sceneID="C48-J4-07q">
             <objects>
-                <viewController id="plS-cs-BFj" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="plS-cs-BFj" customClass="ProfileViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OVw-cq-7PD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,7 +131,7 @@
                                         <rect key="frame" x="329" y="50" width="26" height="25"/>
                                         <state key="normal" image="pencil"/>
                                         <connections>
-                                            <action selector="editProfile:" destination="plS-cs-BFj" eventType="touchUpInside" id="Sqp-qZ-Qsj"/>
+                                            <action selector="editProfile:" destination="plS-cs-BFj" eventType="touchUpInside" id="mCU-Ix-xBo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -235,7 +234,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Kb-am-jgk">
-                                <rect key="frame" x="156.33333333333334" y="410" width="62.333333333333343" height="45"/>
+                                <rect key="frame" x="156.66666666666666" y="410" width="62" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="CIE-pI-cYx"/>
                                 </constraints>
@@ -282,14 +281,14 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Profile" image="user" id="taT-VK-dxl"/>
                     <connections>
-                        <outlet property="monthBudget" destination="dxE-yJ-qAH" id="gV5-lu-xfe"/>
-                        <outlet property="remainingBudget" destination="Dpf-RB-HVE" id="8rS-VJ-TXo"/>
-                        <outlet property="thisMonthExpense" destination="1Kb-am-jgk" id="pNj-1Q-Oeh"/>
-                        <outlet property="userImage" destination="vKH-tJ-lXT" id="dcE-dA-RSd"/>
-                        <outlet property="userName" destination="UDG-DY-Xr3" id="mZr-uF-PXM"/>
-                        <outletCollection property="profileSumView" destination="XAE-pC-8PL" collectionClass="NSMutableArray" id="nME-oy-TZa"/>
-                        <outletCollection property="profileSumView" destination="ovD-ja-FBn" collectionClass="NSMutableArray" id="S9e-Us-23i"/>
-                        <outletCollection property="profileSumView" destination="17T-ZA-FAX" collectionClass="NSMutableArray" id="aHA-4J-6n5"/>
+                        <outlet property="monthBudget" destination="dxE-yJ-qAH" id="H0s-DV-KQd"/>
+                        <outlet property="remainingBudget" destination="Dpf-RB-HVE" id="mCN-h8-sq5"/>
+                        <outlet property="thisMonthExpense" destination="1Kb-am-jgk" id="Sa6-Id-IDX"/>
+                        <outlet property="userImage" destination="vKH-tJ-lXT" id="vlK-Vt-Y3M"/>
+                        <outlet property="userName" destination="UDG-DY-Xr3" id="4og-N7-3Kn"/>
+                        <outletCollection property="profileSumView" destination="XAE-pC-8PL" collectionClass="NSMutableArray" id="uxL-UY-Ujd"/>
+                        <outletCollection property="profileSumView" destination="ovD-ja-FBn" collectionClass="NSMutableArray" id="xIo-64-W9B"/>
+                        <outletCollection property="profileSumView" destination="17T-ZA-FAX" collectionClass="NSMutableArray" id="ekD-5r-IVS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvy-8P-HZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -299,7 +298,7 @@
         <!--Statistics-->
         <scene sceneID="WzF-bo-has">
             <objects>
-                <viewController id="yLZ-3G-grb" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yLZ-3G-grb" customClass="StatisticViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="O3T-Km-PPU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -381,11 +380,11 @@
                     <navigationItem key="navigationItem" title="Statistics" id="VTU-Zb-NLw"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="avgDayLabel" destination="odr-V4-6il" id="bzD-Oq-GrU"/>
-                        <outlet property="biggestSpentLabel" destination="z8O-c5-OC4" id="uyR-tK-6yG"/>
-                        <outlet property="lastMonthExpenseLabel" destination="L4n-XR-aTa" id="vCA-EX-USx"/>
-                        <outlet property="statChart" destination="W5a-of-jV4" id="Iuf-1J-C1z"/>
-                        <outlet property="totalExpenseLabel" destination="SqN-Rh-udG" id="UhC-gq-9rs"/>
+                        <outlet property="avgDayLabel" destination="odr-V4-6il" id="oKl-dO-cKZ"/>
+                        <outlet property="biggestSpentLabel" destination="z8O-c5-OC4" id="BHl-Yn-XSl"/>
+                        <outlet property="lastMonthExpenseLabel" destination="L4n-XR-aTa" id="4LN-fM-8DO"/>
+                        <outlet property="statChart" destination="W5a-of-jV4" id="vdl-oC-k8T"/>
+                        <outlet property="totalExpenseLabel" destination="SqN-Rh-udG" id="3iQ-uv-5Bz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IgC-pj-Pxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -657,7 +656,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vtT-i4-Gbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2709.5999999999999" y="-911.08374384236458"/>
+            <point key="canvasLocation" x="2806" y="-911"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Ush-2K-2k7">
