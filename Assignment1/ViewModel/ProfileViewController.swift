@@ -130,8 +130,8 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         if sumItem.count > 0 {
             var monthExpense:Double = 0.00
             for i in 0 ..< sumItem.count {
-                if monthRange.contains(sumItem[i].date){                                            //find the sum of this month expense if database exist
-                    monthExpense += sumItem[i].price
+                if monthRange.contains(sumItem[i].itemDate){                                            //find the sum of this month expense if database exist
+                    monthExpense += sumItem[i].itemPrice
                 }
             }
             let monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
@@ -174,7 +174,7 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
                     self.homeViewController.popUpAlert(withTitle: "Error", message: "Value is invalid.")
                 }else {
                     let newBudget = strCheck?.toDouble()
-                    self.monthBudget?.text = String(format: "$%.02f", newBudget as! CVarArg)
+                    self.monthBudget?.text = String(format: "$%.02f", newBudget ?? 0)
                 }
             }                                                                                                   //set new user budget to label
         }))

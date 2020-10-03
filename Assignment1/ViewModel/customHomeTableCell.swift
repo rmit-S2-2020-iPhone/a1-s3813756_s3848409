@@ -11,5 +11,6 @@ class customHomeTableCell: UITableViewCell {
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var itemDate: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
+    @IBOutlet weak var itemImage: UIImageView!
     
 }

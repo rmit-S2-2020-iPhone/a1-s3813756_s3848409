@@ -57,14 +57,14 @@ class StatisticViewController: UIViewController {
             totalShop = statValue[2]
             totalOthers = statValue[3]
             for i in 0 ..< totalItem.count {
-                if sumItem[i].type == "Foods" {
-                    totalFoods += totalItem[i].price
-                } else if sumItem[i].type == "Services" {                   //sort data into each category
-                    totalServices += totalItem[i].price
-                } else if sumItem[i].type == "Shopping" {
-                    totalShop += totalItem[i].price
-                } else if sumItem[i].type == "Others" {
-                    totalOthers += totalItem[i].price
+                if sumItem[i].itemType == "Foods" {
+                    totalFoods += totalItem[i].itemPrice
+                } else if sumItem[i].itemType == "Services" {                   //sort data into each category
+                    totalServices += totalItem[i].itemPrice
+                } else if sumItem[i].itemType == "Shopping" {
+                    totalShop += totalItem[i].itemPrice
+                } else if sumItem[i].itemType == "Others" {
+                    totalOthers += totalItem[i].itemPrice
                 }
             }
             let totalAmount = totalFoods + totalServices + totalShop + totalOthers
@@ -134,7 +134,7 @@ class StatisticViewController: UIViewController {
         if totalItem.count > 0 {                                                    //count if database exist
             var totalExpense:Double = 0.00
             for i in 0 ..< sumItem.count {
-                totalExpense += sumItem[i].price                                    //calculate sum of all item price
+                totalExpense += sumItem[i].itemPrice                                    //calculate sum of all item price
             }
             let totalAmount = String(format: "$%.02f", totalExpense as CVarArg)
             totalExpenseLabel?.text = totalAmount                                   //set total expense text
@@ -157,8 +157,8 @@ class StatisticViewController: UIViewController {
         if sumItem.count > 0 {
             var lastMonthExpense:Double = 0.00
             for i in 0 ..< sumItem.count {
-                if lastMonthRange.contains(sumItem[i].date){                                                    //sum of last month expense
-                    lastMonthExpense += sumItem[i].price
+                if lastMonthRange.contains(sumItem[i].itemDate){                                                    //sum of last month expense
+                    lastMonthExpense += sumItem[i].itemPrice
                 }
             }
             let lastMonthAmount = String(format: "$%.02f", lastMonthExpense as CVarArg)
@@ -175,8 +175,8 @@ class StatisticViewController: UIViewController {
         if sumItem.count > 0 {
             var biggestSpent:Double?
             for i in 0 ..< sumItem.count {
-                if monthRange.contains(sumItem[i].date){                                            //find the sum of this month expense if database exist
-                    biggestSpent = sumItem.map{$0.price}.max()
+                if monthRange.contains(sumItem[i].itemDate){                                            //find the sum of this month expense if database exist
+                    biggestSpent = sumItem.map{$0.itemPrice}.max()
                 }
             }
             let bigSpent = String(format: "$%.02f", biggestSpent ?? 0)                       //find the biggest spent of the month
