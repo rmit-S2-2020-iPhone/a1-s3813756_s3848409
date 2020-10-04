@@ -11,7 +11,7 @@ import PKHUD
 
 class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
-    var homeViewController = ViewController()
+    private var homeViewController = ViewController()
     
     let expenseType = ["Foods","Shopping","Services","Others"]
     @IBOutlet weak var expenseTypePickerField: UITextField!
@@ -88,14 +88,14 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         if (newItemName?.trim() == "" ||  newItemName?.trim() == "."){
             homeViewController.popUpAlert(withTitle: "Error", message: "Please add a note for this item")
-        }else if (newItemPrice <= 0) {                                                          //check for exception if user input incorrect value in textfield
+        }else if (newItemPrice <= 0) {                                                  //check for exception if user input incorrect value in textfield
             homeViewController.popUpAlert(withTitle: "Error", message: "Please add a value for this item")
         }else if (newItemType?.trim() == nil) {
             homeViewController.popUpAlert(withTitle: "Error", message: "Please choose a type for this item")
         }
         else {
             globalItem.insert(ItemModel(itemName: newItemName!, itemType: newItemType!, itemPrice: newItemPrice, itemDate: newItemDate), at:0)
-            homeViewController.sortData()                                                                          //else add the new item to database and sort all data again
+            homeViewController.sortData()                                                   //else add the new item to database and sort all data again
             HUD.flash(.success, delay: 0.5)
             itemPrice.text = ""
             itemNote.text = ""

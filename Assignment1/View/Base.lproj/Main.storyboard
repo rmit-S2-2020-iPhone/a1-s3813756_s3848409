@@ -533,10 +533,10 @@
             </objects>
             <point key="canvasLocation" x="1917.5999999999999" y="-911.08374384236458"/>
         </scene>
-        <!--Item Detail View Controller-->
+        <!--View Controller-->
         <scene sceneID="ceP-NJ-4yg">
             <objects>
-                <viewController id="OsH-aG-2EZ" customClass="ItemDetailViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="OsH-aG-2EZ" customClass="ViewController" customModule="Assignment1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oQ7-o8-eVY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -12,7 +12,8 @@ import Charts
 
 class StatisticViewController: UIViewController {
     
-    var homeViewController = ViewController()
+    private var homeViewController = ViewController()
+    
     let statType : [String] = ["Foods", "Services", "Shopping", "Others"]
     var statValue : [Double] = [0.0, 0.0, 0.0, 0.0]
     var totalFoods : Double = 0.0

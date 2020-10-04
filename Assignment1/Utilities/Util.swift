@@ -62,7 +62,7 @@ extension Date {
 }
 
 
-class Utilities {
+class Util {
     func dateFormatter(itemDate:Date) -> String {
         let dateFormatter = DateFormatter()
         var result:String

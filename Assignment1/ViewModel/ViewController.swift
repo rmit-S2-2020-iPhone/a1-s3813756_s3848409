@@ -9,19 +9,14 @@
 import UIKit
 import Foundation
 
-//project variables
-var globalItem:[ItemModel] = []
-var sortedItem:[ItemModel] = []
-var sumItem:[ItemModel] = []
 var selectedType:String?            // declare important variables for the project
 var pickedType:String?
-var budget = 2000.0
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDelegate{
 
     //home scene
-    var util = Utilities()
+    var util = Util()
     
     @IBOutlet weak var todayExpense: UILabel!
     @IBOutlet weak var homeSegmentControl: UISegmentedControl!
@@ -50,6 +45,15 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         }
         
     }
+    
+    @IBOutlet weak var itemDetailImage: UIImageView!
+    @IBOutlet weak var itemDetailPrice: UITextField!
+    @IBOutlet weak var itemDetailName: UITextField!
+    @IBOutlet weak var itemDetailType: UITextField!
+    @IBOutlet weak var itemDetailDate: UITextField!
+    @IBAction func changeDetail(_ sender: Any) {
+        
+    }
 
     
     //viewDidLoad function
@@ -60,7 +64,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         _ = createData                                              //mock data to table once after the app started running
         sortData()                                                  //sort the data for the table in home page
         self.homeTableView?.dataSource = self                       //set datasource for home table view
-        
     }
 
     
@@ -70,14 +73,14 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         sortData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as? ItemDetailViewController
-        let indexPath = IndexPath(row: 0, section: 0)
-        let cell = homeTableView.cellForRow(at: indexPath) as! customHomeTableCell
-        destination?.detailName = cell.itemName.text
-        destination?.detailPrice = cell.itemPrice.text
-        destination?.detailDate = cell.itemDate.text
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let destination = segue.destination as? ItemDetailViewController
+//        let indexPath = IndexPath(row: 0, section: 0)
+//        let cell = homeTableView.cellForRow(at: indexPath) as! customHomeTableCell
+//        destination?.detailName = cell.itemName.text
+//        destination?.detailPrice = cell.itemPrice.text
+//        destination?.detailDate = cell.itemDate.text
+//    }
     
     
     
@@ -129,10 +132,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
     
     
     
-    func getCategory(type:String) -> Array<ItemModel> {
-        let item:[ItemModel] = []
-        return item
-    }
+
     
     
     //sort data for table

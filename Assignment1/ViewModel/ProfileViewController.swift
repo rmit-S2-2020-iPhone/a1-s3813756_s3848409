@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate{
     
-    var homeViewController = ViewController()
+    private var homeViewController = ViewController()
     
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
