@@ -32,41 +32,44 @@ class Assignment1UITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         let app = XCUIApplication()
-        app.tabBars.buttons["Add"].tap()
+        // Test if the segment control exists
+        XCTAssertTrue(app.segmentedControls.buttons["All"].exists)
         
-        let priceTextField = app.textFields["$ 0.00"]
-        priceTextField.tap()
-        priceTextField.typeText("$20")
-        app.toolbars["Toolbar"].buttons["Done"].tap()
-        
-        let noteTextField = app.textFields["Note"]
-        noteTextField.tap()
-        noteTextField.typeText("Domino")
-        app.toolbars["Toolbar"].buttons["Done"].tap()
-        
-        let chooseExpenseTextField = app.textFields["Choose expense type..."]
-        chooseExpenseTextField.tap()
-        app/*@START_MENU_TOKEN@*/.pickers.pickerWheels["Foods"]/*[[".pickers.pickerWheels[\"Foods\"]",".pickerWheels[\"Foods\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.tap()
-        app.toolbars["Toolbar"].buttons["Done"].tap()
-        
- 
-        
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.buttons["Add"].tap()
-        
-       app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.buttons["Add"].tap()
-        
-        app.tabBars.buttons["Home"].tap()
-        app/*@START_MENU_TOKEN@*/.segmentedControls.buttons["Foods"]/*[[".segmentedControls.buttons[\"Foods\"]",".buttons[\"Foods\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/.tap()
    
         
-       
-        XCTAssertTrue(app.tables.cells.staticTexts["KFC"].exists)
+        // Test Statistic page
+        let tabBarsQuery = app.tabBars
+        tabBarsQuery.buttons["Statistics"].tap()
+        
+        let element = app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+        XCTAssertTrue(element.exists)
+        
+        // Test Add new item page
+        tabBarsQuery.buttons["Add"].tap()
+        XCTAssertTrue(app.textFields["$ 0.00"].exists)
+        XCTAssertTrue(app.textFields["Note"].exists)
+        XCTAssertTrue(app.textFields["Choose expense type..."].exists)
+        
+        // Test profile page
+        tabBarsQuery.buttons["Profile"].tap()
+        XCTAssertTrue(app.buttons["pencil"].exists)
+        
+        
+        // Test About page
+        tabBarsQuery.buttons["About"].tap()
+        XCTAssertTrue(app.tables.children(matching: .other)["DEVELOPER"].children(matching: .other)["DEVELOPER"].exists)
+        XCTAssertTrue(app.tables.children(matching: .other)["CONTACT"].children(matching: .other)["CONTACT"].exists)
+        XCTAssertTrue(app.tables.children(matching: .other)["ABOUT US"].children(matching: .other)["ABOUT US"].exists)
+        
       
     }
     
-    func testUIHomePage(){
+    func testUIInvalidAddItems(){
+        
         let app = XCUIApplication()
-        XCTAssertTrue(app.tables.cells.staticTexts["Red Cross Donation"].exists)
+        app.tabBars.buttons["Add"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.buttons["Add"].tap()
+        
         
         
     }
