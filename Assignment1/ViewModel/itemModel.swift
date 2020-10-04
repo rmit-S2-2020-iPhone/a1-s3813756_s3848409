@@ -9,15 +9,22 @@
 import Foundation
 
 struct ItemModel {
-    var name:String! = ""
-    var type:String! = ""
-    var price:Double! = 0.0
-    var date:Date! = nil
+    var itemName:String! = ""
+    var itemType:String! = ""
+    var itemPrice:Double! = 0.0
+    var itemDate:Date! = nil
     
-    init(name:String, type:String, price:Double, date:Date) {
-        self.name = name
-        self.type = type
-        self.price = price
-        self.date = date
+    init(itemName:String, itemType:String, itemPrice:Double, itemDate:Date) {
+        self.itemName = itemName
+        self.itemType = itemType
+        self.itemPrice = itemPrice
+        self.itemDate = itemDate
     }
+}
+
+struct ItemDetail {
+    var detailName:String! = ""
+    var detailPrice:Double! = 0.0
+    var detailDate:Date! = nil
+    var detailType:String! = ""
 }

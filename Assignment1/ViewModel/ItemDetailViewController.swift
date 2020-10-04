@@ -9,7 +9,13 @@
 import UIKit
 
 class ItemDetailViewController: UIViewController {
-
+    
+    var detailName:String?
+    var detailPrice:String?
+    var detailType:String?
+    var detailDate:String?
+    
+    var util = Utilities()
     @IBOutlet weak var itemDetailImage: UIImageView!
     @IBOutlet weak var itemDetailPrice: UITextField!
     @IBOutlet weak var itemDetailName: UITextField!
@@ -21,19 +27,26 @@ class ItemDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        itemDetailPrice.text = detailPrice
+        itemDetailName.text = detailName
+        itemDetailType.text = detailType
+        itemDetailDate.text = detailDate
+        if itemDetailType.text == "Foods" {
+            itemDetailImage.image = UIImage(named: "food")
+        }else if itemDetailType.text == "Shopping" {
+            itemDetailImage.image = UIImage(named: "shopping")
+        }else if itemDetailType.text == "Services" {
+            itemDetailImage.image = UIImage(named: "services")
+        }else if itemDetailType.text == "Others" {
+            itemDetailImage.image = UIImage(named: "others")
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    
     }
-    */
+    
+    
 
 }

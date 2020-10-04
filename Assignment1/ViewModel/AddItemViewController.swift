@@ -36,6 +36,10 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         expenseTypePicker.dataSource = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+    }
 
     //picker view function
     func numberOfComponents(in expenseTypePicker: UIPickerView) -> Int {
@@ -59,9 +63,16 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // add new item function
     func addNewItem() {
         
-        let num :Double = (itemPrice.text! as NSString).doubleValue
+        let dotCheck:String? = itemPrice.text
+        
+        
+        let dotCount = dotCheck?.filter({ $0 == "." }).count
+        if ( dotCount! > 1) {
+            self.homeViewController.popUpAlert(withTitle: "Error", message: "Price is invalid.")
+        }
+        
         let newItemName:String? = itemNote.text
-        let newItemPrice = Double(num)                      //declare new item component to set new value in
+        let newItemPrice = (dotCheck! as NSString).doubleValue                   //declare new item component to set new value in
         let newItemDate = itemDate.date
         var newItemType:String?
         
@@ -75,7 +86,7 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             newItemType = "Others"
         }
         
-        if (newItemName?.trim() == "" ){
+        if (newItemName?.trim() == "" ||  newItemName?.trim() == "."){
             homeViewController.popUpAlert(withTitle: "Error", message: "Please add a note for this item")
         }else if (newItemPrice <= 0) {                                                          //check for exception if user input incorrect value in textfield
             homeViewController.popUpAlert(withTitle: "Error", message: "Please add a value for this item")
@@ -83,7 +94,7 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             homeViewController.popUpAlert(withTitle: "Error", message: "Please choose a type for this item")
         }
         else {
-            globalItem.insert(ItemModel(name: newItemName!, type: newItemType!, price: newItemPrice, date: newItemDate), at:0)
+            globalItem.insert(ItemModel(itemName: newItemName!, itemType: newItemType!, itemPrice: newItemPrice, itemDate: newItemDate), at:0)
             homeViewController.sortData()                                                                          //else add the new item to database and sort all data again
             HUD.flash(.success, delay: 0.5)
             itemPrice.text = ""

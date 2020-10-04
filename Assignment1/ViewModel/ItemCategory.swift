@@ -13,10 +13,10 @@ enum ItemCategory: String {
     
     var ItemImage: String {
         switch self {
-        case .food: return "archivebox"
-        case .shopping: return "cart"
-        case .service: return "cart"
-        case .others: return "tag"
+        case .food: return "food"
+        case .shopping: return "shopping"
+        case .service: return "service"
+        case .others: return "others"
         }
     }
     
