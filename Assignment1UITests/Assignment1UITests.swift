@@ -64,13 +64,34 @@ class Assignment1UITests: XCTestCase {
       
     }
     
-    func testUIInvalidAddItems(){
+    func testUIAddItems(){
         
         let app = XCUIApplication()
         app.tabBars.buttons["Add"].tap()
+        app.textFields["$ 0.00"].tap()
+        
+        // Check price textfield existence and input data
+        let priceTextfield = app.textFields["$ 0.00"]
+        XCTAssertTrue(priceTextfield.exists)
+        priceTextfield.typeText("20")
+        
+        // Check note textfield existence and input data
+        app.textFields["Note"].tap()
+        let noteTextfield = app.textFields["Note"]
+        XCTAssertTrue(noteTextfield.exists)
+        noteTextfield.typeText("Domino")
+        
+        app.textFields["Choose expense type..."].tap()
+        app.pickerWheels.element(boundBy: 0).adjust(toPickerWheelValue: "Shopping")
+        app.toolbars["Toolbar"].buttons["Done"].tap()
         app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.buttons["Add"].tap()
         
-        
+        //  navigate to home page and check new input
+        app.tabBars.buttons["Home"].tap()
+        app/*@START_MENU_TOKEN@*/.buttons["Foods"]/*[[".segmentedControls.buttons[\"Foods\"]",".buttons[\"Foods\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.buttons["All"]/*[[".segmentedControls.buttons[\"All\"]",".buttons[\"All\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        sleep(5)
+        XCTAssertTrue(app.tables.cells.staticTexts["Domino"].exists)
         
     }
     

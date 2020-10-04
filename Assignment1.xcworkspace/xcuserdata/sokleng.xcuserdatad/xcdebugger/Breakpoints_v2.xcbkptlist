@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment1UITests/Assignment1UITests.swift"
-            timestampString = "623481887.162577"
+            timestampString = "623492253.1232311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "testUIProfile()"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "testUIAddItems()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment1UITests/Assignment1UITests.swift"
-            timestampString = "623481887.163215"
+            timestampString = "623492253.1270601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "testUIProfile()"
             landmarkType = "7">
          </BreakpointContent>

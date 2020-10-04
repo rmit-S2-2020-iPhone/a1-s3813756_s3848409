@@ -184,6 +184,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxE-yJ-qAH">
                                         <rect key="frame" x="0.0" y="72" width="155" height="50"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="monthlyBudget"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="2Xk-hb-dbF"/>
                                         </constraints>
