@@ -64,6 +64,32 @@ class Assignment1UITests: XCTestCase {
       
     }
     
- 
+    func testUIHomePage(){
+        let app = XCUIApplication()
+        XCTAssertTrue(app.tables.cells.staticTexts["Red Cross Donation"].exists)
+        
+        
+    }
+    
+    func testUIProfile(){
+        //UI Testing on Profile Scene
+        let monthlyBudgetInput = "200.00"
+        let app = XCUIApplication()
+        app.tabBars.buttons["Profile"].tap()
+        app.buttons["pencil"].tap()
+        app.sheets.buttons["Change Budget"].tap()
+   
+        let budgetTextField = app.alerts["Please enter your budget below"]
+        // Check if the textfield is exist on the screen
+        XCTAssertTrue(budgetTextField.exists)
+        budgetTextField.collectionViews.textFields["Input your budget here..."].typeText(monthlyBudgetInput)
+        budgetTextField.buttons["OK"].tap()
+        
+        // Test the input and display data to be the same
+        let monthlyBudget = app.staticTexts.element(matching: .any, identifier: "monthlyBudget").label
+        XCTAssertEqual(monthlyBudget, "$" + monthlyBudgetInput)
+
+    }
+    
 
 }
