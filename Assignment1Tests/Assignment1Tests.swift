@@ -41,11 +41,12 @@ class Assignment1Tests: XCTestCase {
         XCTAssertNotNil(globalItem.itemDate)
     }
     
-
-    
-    func testAddNewItem(){
-        var demo = StatisticViewController()
-
+    func testGlobalItemsNotEmpty(){
+        // Beside nil, global items can not be empty too
+        XCTAssertFalse(globalItem.itemName.isEmpty)
+        XCTAssertFalse(globalItem.itemPrice.isZero)
+        XCTAssertFalse(globalItem.itemType.isEmpty)
     }
+    
 
 }
