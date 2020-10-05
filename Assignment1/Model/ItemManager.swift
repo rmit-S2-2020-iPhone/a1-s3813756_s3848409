@@ -31,7 +31,6 @@ class ItemManager{
     private init(){
         object = appDelegate?.persistentContainer.viewContext
         loadItems()
-        print()
     }
     
     private func loadItems() {
