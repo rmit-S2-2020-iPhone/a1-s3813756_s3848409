@@ -57,7 +57,7 @@
 		D018454F25281DE100A297C8 /* AddItemViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemViewController.swift; sourceTree = "<group>"; };
 		D01845512528210000A297C8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D01EF7982529EB8200AF5E4E /* ItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCategory.swift; sourceTree = "<group>"; };
-		D01EF79C2529EB9700AF5E4E /* ChartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartModel.swift; sourceTree = "<group>"; };
+		D01EF79C2529EB9700AF5E4E /* ChartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChartModel.swift; path = ../ChartModel.swift; sourceTree = "<group>"; };
 		D01EF79E2529EBB700AF5E4E /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		D01EF7A22529EC7800AF5E4E /* ItemManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemManager.swift; sourceTree = "<group>"; };
 		D077A8C124D417B200583F40 /* Assignment1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +135,7 @@
 		D01EF7972529EAAA00AF5E4E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D01EF79C2529EB9700AF5E4E /* ChartModel.swift */,
 				D01EF7A22529EC7800AF5E4E /* ItemManager.swift */,
 				D01EF7982529EB8200AF5E4E /* ItemCategory.swift */,
 				D01EF79E2529EBB700AF5E4E /* ItemModel.swift */,
@@ -167,7 +168,6 @@
 		D077A8C324D417B200583F40 /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
-				D01EF79C2529EB9700AF5E4E /* ChartModel.swift */,
 				D01EF7972529EAAA00AF5E4E /* Model */,
 				D0CA299B25272D9300B852D9 /* Utilities */,
 				D085519B24ECB22700F08CBD /* View */,

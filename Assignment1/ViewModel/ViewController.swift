@@ -191,13 +191,13 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         cell.itemName.text = tableItem.itemName
         cell.itemPrice.text = "- $" + String(tableItem.itemPrice)
         if tableItem.itemType == "Foods" {
-            cell.itemImage.image = UIImage(named: "food")
+            cell.itemImage.image = UIImage(named:ItemCategory.food.rawValue)
         }else if tableItem.itemType == "Shopping" {
-            cell.itemImage.image = UIImage(named: "shopping")
+            cell.itemImage.image = UIImage(named:ItemCategory.shopping.rawValue)
         }else if tableItem.itemType == "Services" {
-            cell.itemImage.image = UIImage(named: "services")
+            cell.itemImage.image = UIImage(named:ItemCategory.service.rawValue)
         }else if tableItem.itemType == "Others" {
-            cell.itemImage.image = UIImage(named: "others")
+            cell.itemImage.image = UIImage(named:ItemCategory.others.rawValue)
         }
         return cell
     }

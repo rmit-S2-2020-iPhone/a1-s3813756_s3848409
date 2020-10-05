@@ -19,5 +19,4 @@ enum ItemCategory: String {
         case .others: return "others"
         }
     }
-    
 }

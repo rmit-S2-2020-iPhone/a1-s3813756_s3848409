@@ -68,7 +68,7 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         let dotCount = dotCheck?.filter({ $0 == "." }).count
         if ( dotCount! > 1) {
-            self.homeViewController.popUpAlert(withTitle: "Error", message: "Price is invalid.")
+            HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
         }
         
         let newItemName:String? = itemNote.text
@@ -87,11 +87,11 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         
         if (newItemName?.trim() == "" ||  newItemName?.trim() == "."){
-            homeViewController.popUpAlert(withTitle: "Error", message: "Please add a note for this item")
+            HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1.5)
         }else if (newItemPrice <= 0) {                                                  //check for exception if user input incorrect value in textfield
-            homeViewController.popUpAlert(withTitle: "Error", message: "Please add a value for this item")
+            HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1.5)
         }else if (newItemType?.trim() == nil) {
-            homeViewController.popUpAlert(withTitle: "Error", message: "Please choose a type for this item")
+            HUD.flash(.labeledError(title: "Error", subtitle: "Type can't be empty"), delay: 1.5)
         }
         else {
             globalItem.insert(ItemModel(itemName: newItemName!, itemType: newItemType!, itemPrice: newItemPrice, itemDate: newItemDate), at:0)
