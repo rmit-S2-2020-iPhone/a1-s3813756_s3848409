@@ -30,6 +30,7 @@ class Assignment1Tests: XCTestCase {
     
     func unitTest(){
         testGlobalItemsNotNil()
+        testGlobalItemsNotEmpty()
     }
     
     func testGlobalItemsNotNil() {
