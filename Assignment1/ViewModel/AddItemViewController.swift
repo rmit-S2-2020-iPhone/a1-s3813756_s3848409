@@ -23,6 +23,7 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var itemNote: UITextField!
     @IBOutlet weak var itemDate: UIDatePicker!
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,11 +88,12 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         
         if (newItemName?.trim() == "" ||  newItemName?.trim() == "."){
-            homeViewController.popUpAlert(withTitle: "Error", message: "Please add a note for this item")
+            HUD.flash(.labeledError(title: "Error", subtitle: "Please add a note"), delay: 1)
         }else if (newItemPrice <= 0) {                                                          //check for exception if user input incorrect value in textfield
-            homeViewController.popUpAlert(withTitle: "Error", message: "Please add a value for this item")
+
+            HUD.flash(.labeledError(title: "Error", subtitle: "Please add a value"), delay: 1)
         }else if (newItemType?.trim() == nil) {
-            homeViewController.popUpAlert(withTitle: "Error", message: "Please choose a type for this item")
+            HUD.flash(.labeledError(title: "Error", subtitle: "Please choose a type"), delay: 1)
         }
         else {
             globalItem.insert(ItemModel(itemName: newItemName!, itemType: newItemType!, itemPrice: newItemPrice, itemDate: newItemDate), at:0)

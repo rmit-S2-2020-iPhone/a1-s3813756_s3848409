@@ -20,6 +20,7 @@ struct ItemModel {
         self.itemPrice = itemPrice
         self.itemDate = itemDate
     }
+    
 }
 
 struct ItemDetail {
