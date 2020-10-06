@@ -10,7 +10,6 @@ import UIKit
 
 class ProfileViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate{
     
-    private var homeViewController = ViewController()
     
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
@@ -130,8 +129,8 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         if sumItem.count > 0 {
             var monthExpense:Double = 0.00
             for i in 0 ..< sumItem.count {
-                if monthRange.contains(sumItem[i].itemDate){                                            //find the sum of this month expense if database exist
-                    monthExpense += sumItem[i].itemPrice
+                if monthRange.contains(sumItem[i].date!){                                            //find the sum of this month expense if database exist
+                    monthExpense += sumItem[i].price
                 }
             }
             let monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
@@ -167,11 +166,11 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in            //add done action after user finished adding budget
             let strCheck = alert.textFields?.first?.text
             if (strCheck?.trim() == "" || strCheck?.trim() == "."){
-                self.homeViewController.popUpAlert(withTitle: "Error", message: "Please enter a value.")                           //check for user's incorrect input
+                self.popUpAlert(withTitle: "Error", message: "Please enter a value.")                           //check for user's incorrect input
             }else {
                 let dotCount = strCheck?.filter({ $0 == "." }).count
                 if ( dotCount! > 1) {
-                    self.homeViewController.popUpAlert(withTitle: "Error", message: "Value is invalid.")
+                    self.popUpAlert(withTitle: "Error", message: "Value is invalid.")
                 }else {
                     let newBudget = strCheck?.toDouble()
                     self.monthBudget?.text = String(format: "$%.02f", newBudget ?? 0)

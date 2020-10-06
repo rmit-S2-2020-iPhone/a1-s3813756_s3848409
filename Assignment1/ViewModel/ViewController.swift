@@ -9,14 +9,14 @@
 import UIKit
 import Foundation
 
-var selectedType:String?            // declare important variables for the project
-var pickedType:String?
+
 
 
 class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDelegate{
 
     //home scene
-    var util = Util()
+    var selectedType:String = ""            // declare important variables for the project
+    private var itemViewModel = ItemViewModel()
     
     @IBOutlet weak var todayExpense: UILabel!
     @IBOutlet weak var homeSegmentControl: UISegmentedControl!
@@ -27,19 +27,24 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         {
         case 0:
             selectedType = "All"
-            sortData()
+            itemViewModel.sortItems(selectedType)
+            self.homeTableView?.reloadData()
         case 1:
             selectedType = "Foods"                              //home segment control action when tab switched
-            sortData()
+            itemViewModel.sortItems(selectedType)
+            self.homeTableView?.reloadData()
         case 2:
             selectedType = "Shopping"
-            sortData()
+            itemViewModel.sortItems(selectedType)
+            self.homeTableView?.reloadData()
         case 3:
             selectedType = "Services"
-            sortData()
+            itemViewModel.sortItems(selectedType)
+            self.homeTableView?.reloadData()
         case 4:
             selectedType = "Others"
-            sortData()
+            itemViewModel.sortItems(selectedType)
+            self.homeTableView?.reloadData()
         default:
             break
         }
@@ -61,96 +66,44 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         super.viewDidLoad()
         
         //home scene
-        _ = createData                                              //mock data to table once after the app started running
-        sortData()                                                  //sort the data for the table in home page
+        itemViewModel.sortItems(selectedType)                                                  //sort the data for the table in home page
         self.homeTableView?.dataSource = self                       //set datasource for home table view
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
     }
 
     
     //viewDidAppear function
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        sortData()
-    }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        let destination = segue.destination as? ItemDetailViewController
-//        let indexPath = IndexPath(row: 0, section: 0)
-//        let cell = homeTableView.cellForRow(at: indexPath) as! customHomeTableCell
-//        destination?.detailName = cell.itemName.text
-//        destination?.detailPrice = cell.itemPrice.text
-//        destination?.detailDate = cell.itemDate.text
-//    }
-    
-    
-    
-    //////////////////Miscellaneous//////////////////
-    
-    
-    //message dialog
-    func popUpAlert(withTitle title: String, message : String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .default) { action in
-        }                                                                               //general pop up alert function for the app
-        alertController.addAction(OKAction)
-        self.present(alertController, animated: true, completion: nil)
-    }
- 
-    
-    // load data to table and sort
-    func loadData() {
-        sortedItem.sort(by: {$0.itemDate > $1.itemDate})                        //load data by date descending
-        todayExp()
-        
+        itemViewModel.sortItems(selectedType)
         self.homeTableView?.reloadData()
-        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+    }
+    
+    
+    func dateFormatter(itemDate:Date) -> String {
+        let dateFormatter = DateFormatter()
+        var result:String
+        dateFormatter.amSymbol = "AM"                                   //declare date format for table item
+        dateFormatter.pmSymbol = "PM"
         
-    }
-
-    
-    //////////////////home scene//////////////////
-    
-    
-    
-    private lazy var createData: Void = {
-        if globalItem.count == 0 {                                                                  //mock up database when the app starts
-            let date = Date()
-            globalItem.insert(ItemModel(itemName: "Clothes", itemType: "Shopping", itemPrice: 110.7, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Electricity", itemType: "Services", itemPrice: 150.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Shoes", itemType: "Shopping", itemPrice: 212.90, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Lobster", itemType: "Foods", itemPrice: 89.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Car service", itemType: "Services", itemPrice: 112.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "KFC", itemType: "Foods", itemPrice: 20.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Lend Money", itemType: "Others", itemPrice: 100.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "House Rent", itemType: "Services", itemPrice: 400.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Red Cross Donation", itemType: "Others", itemPrice: 50.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Groceries", itemType: "Shopping", itemPrice: 89.0, itemDate: date), at: 0)
-            globalItem.insert(ItemModel(itemName: "Chinese Takeout", itemType: "Foods", itemPrice: 60.0, itemDate: date), at: 0)
-            sortedItem = globalItem
+        let calendar = Calendar.current
+        if calendar.isDateInYesterday(itemDate) {
+            dateFormatter.dateFormat = "h:mm a"                                                 //if the item is from yesterday, set it to yesterday format
+            result = "Yesterday at " + dateFormatter.string(from: itemDate)
+        }else if calendar.isDateInToday(itemDate) {
+            dateFormatter.dateFormat = "h:mm a"
+            result = "Today at " + dateFormatter.string(from: itemDate)
+        }else if calendar.isDateInTomorrow(itemDate) {                                          //if the item is today, set it to today format
+            dateFormatter.dateFormat = "h:mm a"
+            result = "Tomorrow at " + dateFormatter.string(from: itemDate)
+        }else{
+            dateFormatter.dateFormat = "d-MM-yyyy, h:mm a"                                      //if the item is for tommorrow, set it to tommorrow format
+            result = dateFormatter.string(from: itemDate)
         }
-    }()
-    
-    
-    
-
-    
-    
-    //sort data for table
-    func sortData() {
-        if selectedType == "All" {
-            sortedItem = globalItem                                                     //sort the items to each type for display on home page
-        }else if selectedType == "Foods" {
-            sortedItem = globalItem.filter { $0.itemType.contains("Foods") }
-        }else if selectedType == "Shopping" {
-            sortedItem = globalItem.filter { $0.itemType.contains("Shopping") }
-        }else if selectedType == "Services" {
-            sortedItem = globalItem.filter { $0.itemType.contains("Services") }
-        }else if selectedType == "Others" {
-            sortedItem = globalItem.filter { $0.itemType.contains("Others") }
-        }
-        loadData()                                                                      //reload the items to table
+        return result
     }
     
+
     
     //this month expense function
     func todayExp() -> Void {
@@ -159,8 +112,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         if sumItem.count > 0 {
             var total:Double = 0.00
             for i in 0 ..< sumItem.count {                                                      //calculate today's expense
-                if todayRange.contains(sumItem[i].itemDate){
-                    total += sumItem[i].itemPrice
+                if todayRange.contains(sumItem[i].date!){
+                    total += sumItem[i].price
                 }
             }
             let totalAmount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
@@ -186,17 +139,17 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
     func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:customHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! customHomeTableCell
         let tableItem = sortedItem[indexPath.row]
-        let itemDate = tableItem.itemDate as Date
-        cell.itemDate.text = util.dateFormatter(itemDate: itemDate)
-        cell.itemName.text = tableItem.itemName
-        cell.itemPrice.text = "- $" + String(tableItem.itemPrice)
-        if tableItem.itemType == "Foods" {
+        let itemDate = tableItem.date as! Date
+        cell.itemDate.text = dateFormatter(itemDate: itemDate)
+        cell.itemName.text = tableItem.name
+        cell.itemPrice.text = "- $" + String(tableItem.price)
+        if tableItem.type == "Foods" {
             cell.itemImage.image = UIImage(named:ItemCategory.food.rawValue)
-        }else if tableItem.itemType == "Shopping" {
+        }else if tableItem.type == "Shopping" {
             cell.itemImage.image = UIImage(named:ItemCategory.shopping.rawValue)
-        }else if tableItem.itemType == "Services" {
+        }else if tableItem.type == "Services" {
             cell.itemImage.image = UIImage(named:ItemCategory.service.rawValue)
-        }else if tableItem.itemType == "Others" {
+        }else if tableItem.type == "Others" {
             cell.itemImage.image = UIImage(named:ItemCategory.others.rawValue)
         }
         return cell
@@ -209,11 +162,12 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
     //delete function for table
     func tableView(_ homeTableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            sortedItem.remove(at: indexPath.row)                                                        //remove item from table
-            homeTableView.deleteRows(at: [indexPath], with: .fade)
-            globalItem = sortedItem
-            sortData()                                                                                  //reload data
-            popUpAlert(withTitle: "Item Deleted", message: "Item successfully deleted!")                //successful delete pop up message
+            let deleteItem = sortedItem[indexPath.row]
+            itemViewModel.deleteItems(deleteItem)
+            sortedItem.remove(at: indexPath.row)
+            self.homeTableView?.deleteRows(at: [indexPath], with: .fade)
+            itemViewModel.sortItems(selectedType)                                                                                  //reload data
+            self.popUpAlert(withTitle: "Item Deleted", message: "Item successfully deleted!")                //successful delete pop up message
         }
     }
     

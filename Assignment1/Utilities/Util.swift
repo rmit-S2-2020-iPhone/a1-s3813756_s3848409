@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     func trim() -> String
@@ -61,29 +62,12 @@ extension Date {
     }
 }
 
-
-class Util {
-    func dateFormatter(itemDate:Date) -> String {
-        let dateFormatter = DateFormatter()
-        var result:String
-        dateFormatter.amSymbol = "AM"                                   //declare date format for table item
-        dateFormatter.pmSymbol = "PM"
-        
-        let calendar = Calendar.current
-        if calendar.isDateInYesterday(itemDate) {
-            dateFormatter.dateFormat = "h:mm a"                                                 //if the item is from yesterday, set it to yesterday format
-            result = "Yesterday at " + dateFormatter.string(from: itemDate)
-        }else if calendar.isDateInToday(itemDate) {
-            dateFormatter.dateFormat = "h:mm a"
-            result = "Today at " + dateFormatter.string(from: itemDate)
-        }else if calendar.isDateInTomorrow(itemDate) {                                          //if the item is today, set it to today format
-            dateFormatter.dateFormat = "h:mm a"
-            result = "Tomorrow at " + dateFormatter.string(from: itemDate)
-        }else{
-            dateFormatter.dateFormat = "d-MM-yyyy, h:mm a"                                      //if the item is for tommorrow, set it to tommorrow format
-            result = dateFormatter.string(from: itemDate)
-        }
-        return result
+extension UIViewController {
+    func popUpAlert(withTitle title: String, message : String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) { action in
+        }                                                                               //general pop up alert function for the app
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
-

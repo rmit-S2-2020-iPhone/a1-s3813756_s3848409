@@ -27,46 +27,73 @@ class ItemManager{
     // Hold a reference to the managed context
     var object:NSManagedObjectContext!
     
-    
     private init(){
         object = appDelegate?.persistentContainer.viewContext
         loadItems()
     }
     
-    private func loadItems() {
-        do
-        {
-            let fetchRequest = NSFetchRequest <NSFetchRequestResult> (entityName:"Item")
-            
-            let results = try object?.fetch(fetchRequest)
-            items = results as! [Item]
-        }
-        catch let error as NSError {
-            print ("Could not fetch \(error) , \(error.userInfo )")
+    func loadItems() {
+        let itemRequest:NSFetchRequest<Item> = Item.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        itemRequest.sortDescriptors = [sortDescriptor]
+        do {
+            try items = object.fetch(itemRequest)
+            print(items)
+        }catch {
+            print("Could not load data")
         }
     }
     
-    func saveItem(_ name:String, _ type:String, _ price:Double, _ date:Date) {
+    func addItemToDatabase(_ name:String, _ type:String, _ price:Double, _ date:Date) {
+        let item = createItem(name, type, price, date)
+        items.append(item)
+        
+        appDelegate?.saveContext()
+        loadItems()
+    }
+    
+    private func createItem(_ name:String, _ type:String, _ price:Double, _ date:Date) -> Item{
         let item = Item(context: object)
         item.name = name
         item.price = price
         item.date = date
         
-        if (selectedType == "Foods") {
+        if (type == "Foods") {
             item.type = "Foods"
-        }else if (selectedType == "Services") {
+        }else if (type == "Shopping") {
+            item.type = "Shopping"
+        }else if (type == "Services") {
             item.type = "Services"
-        }else if (selectedType == "Utilities") {
-            item.type = "Utilities"
-        }else if (selectedType == "Rent") {
-            item.type = "Rent"
-        }else if (selectedType == "Groceries") {
-            item.type = "Groceries"
         }else{
             item.type = "Others"
         }
+        return item
+    }
+    
+    func sortData(_ selectedType:String) {
+        let itemRequest:NSFetchRequest<Item> = Item.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        itemRequest.sortDescriptors = [sortDescriptor]
+        if selectedType == "Foods" {
+            itemRequest.predicate = NSPredicate(format: "type = %@", "Foods")
+        }else if selectedType == "Shopping" {
+            itemRequest.predicate = NSPredicate(format: "type = %@", "Shopping")
+        }else if selectedType == "Services" {
+            itemRequest.predicate = NSPredicate(format: "type = %@", "Services")
+        }else if selectedType == "Others" {
+            itemRequest.predicate = NSPredicate(format: "type = %@", "Others")
+        }
+        do {
+            try sortedItem = object.fetch(itemRequest)
+        }catch {
+            print("Could not load data")
+        }
+    }
+    
+    func deleteItem(_ item:Item) {
+        let deleteItem = item
+        object.delete(deleteItem as NSManagedObject)
         appDelegate?.saveContext()
-        
         loadItems()
     }
     

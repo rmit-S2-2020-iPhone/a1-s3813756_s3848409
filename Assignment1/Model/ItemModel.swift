@@ -8,9 +8,9 @@
 
 import Foundation
 
-var globalItem:[ItemModel] = []
-var sortedItem:[ItemModel] = []
-var sumItem: [ItemModel] = []
+var globalItem: [Item] = []
+var sortedItem: [Item] = []
+var sumItem: [Item] = []
 var budget = 2000.0
 
 struct ItemModel {

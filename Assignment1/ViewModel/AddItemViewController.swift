@@ -10,8 +10,9 @@ import UIKit
 import PKHUD
 
 class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    
+    var pickedType:String?
     private var homeViewController = ViewController()
+    private var itemViewModel = ItemViewModel()
     
     let expenseType = ["Foods","Shopping","Services","Others"]
     @IBOutlet weak var expenseTypePickerField: UITextField!
@@ -62,19 +63,16 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     // add new item function
     func addNewItem() {
-        
         let dotCheck:String? = itemPrice.text
-        
-        
         let dotCount = dotCheck?.filter({ $0 == "." }).count
         if ( dotCount! > 1) {
             HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
         }
         
-        let newItemName:String? = itemNote.text
+        let newItemName:String = itemNote.text ?? ""
         let newItemPrice = (dotCheck! as NSString).doubleValue                   //declare new item component to set new value in
         let newItemDate = itemDate.date
-        var newItemType:String?
+        var newItemType:String = ""
         
         if (pickedType == "Foods") {
             newItemType = "Foods"
@@ -86,16 +84,17 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             newItemType = "Others"
         }
         
-        if (newItemName?.trim() == "" ||  newItemName?.trim() == "."){
+        if (newItemName.trim() == "" ||  newItemName.trim() == "."){
             HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1.5)
         }else if (newItemPrice <= 0) {                                                  //check for exception if user input incorrect value in textfield
             HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1.5)
-        }else if (newItemType?.trim() == nil) {
+        }else if (newItemType == "") {
             HUD.flash(.labeledError(title: "Error", subtitle: "Type can't be empty"), delay: 1.5)
         }
         else {
-            globalItem.insert(ItemModel(itemName: newItemName!, itemType: newItemType!, itemPrice: newItemPrice, itemDate: newItemDate), at:0)
-            homeViewController.sortData()                                                   //else add the new item to database and sort all data again
+            itemViewModel.addItem(newItemName, newItemType, newItemPrice, newItemDate)
+            itemViewModel.loadItems()                                                   //else add the new item to database and sort all data again
+            self.homeViewController.homeTableView?.reloadData()
             HUD.flash(.success, delay: 0.5)
             itemPrice.text = ""
             itemNote.text = ""
