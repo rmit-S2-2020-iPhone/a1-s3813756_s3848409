@@ -13,6 +13,8 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     var homeViewController = ViewController()
     
+ 
+    
     let expenseType = ["Foods","Shopping","Services","Others"]
     @IBOutlet weak var expenseTypePickerField: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
@@ -23,7 +25,7 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var itemNote: UITextField!
     @IBOutlet weak var itemDate: UIDatePicker!
     
-
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
