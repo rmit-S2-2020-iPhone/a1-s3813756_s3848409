@@ -19,16 +19,11 @@ class REST_Request
     private let session = URLSession.shared
     var delegate: Refresh?
 
-    private let base_url:String = "https://fakestoreapi.com/products"
-    private let paramIngredients: String = "i="
-    private let paramTitle: String = "&q="
-    private let paramPages:String = "&pg3"
 
-
-    func getItem(with itemName:String, itemPrice: String)
+    func getItem()
     {
         items = []
-        let url = base_url + paramIngredients + itemName + paramTitle + itemPrice + paramPages
+        let url = "https://fakestoreapi.com/products"
 
         let escapedAddress = url.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
 
@@ -54,15 +49,15 @@ class REST_Request
                 var parsedResult: Any! = nil
                 do
                 {
-                    parsedResult = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                    parsedResult = try JSONSerialization.jsonObject(with: data!, options: [])
                 }
-                catch{
-                    print()
+                catch let error as NSError {
+                    print("Failed to load: \(error.localizedDescription)")
                 }
 
+               
                 let result = parsedResult as! [String:Any]
-
-                print(result)
+                
                 let allItems = result[element] as! [[String:Any]]
                 print(allItems)
                 if allItems.count > 0
@@ -71,15 +66,10 @@ class REST_Request
                     {
                         let title = i["title"] as! String
                         let price = i["price"] as! Double
-                        let imageName = i["image"] as! String?
-
-                        if (imageName?.count)! > 0
-                        {
- 
-                                let items = ItemModel(itemName: title, itemType: "Others", itemPrice: price, itemDate: Date())
+   
+                        let items = ItemModel(itemName: title, itemType: "Others", itemPrice: price, itemDate: Date())
                                 self.items.append(items)
-                            
-                        }
+                        
                         print()
                     }
                 }

@@ -130,15 +130,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Search for any items" translatesAutoresizingMaskIntoConstraints="NO" id="IuB-cl-ySG">
-                                <rect key="frame" x="0.0" y="140" width="375" height="56"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="PBK-Ti-MTC" id="Cjm-Nj-7Sn"/>
-                                </connections>
-                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Kxh-UK-ljt">
-                                <rect key="frame" x="0.0" y="196" width="375" height="533"/>
+                                <rect key="frame" x="0.0" y="170" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="100" id="gzA-bQ-bZG">
@@ -155,22 +148,22 @@
                                                         <constraint firstAttribute="height" constant="100" id="bXV-fO-23z"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13o-ZO-8w0">
-                                                    <rect key="frame" x="108" y="11" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13o-ZO-8w0">
+                                                    <rect key="frame" x="108" y="11" width="43" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpC-fl-8Z7">
-                                                    <rect key="frame" x="108" y="40" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpC-fl-8Z7">
+                                                    <rect key="frame" x="108" y="40" width="39" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrd-IW-6ue">
-                                                    <rect key="frame" x="108" y="69" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="des" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrd-IW-6ue">
+                                                    <rect key="frame" x="108" y="69" width="28" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -191,30 +184,36 @@
                                 </prototypes>
                                 <sections/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXo-KV-vJI">
+                                <rect key="frame" x="0.0" y="140" width="375" height="30"/>
+                                <color key="backgroundColor" red="0.062644172459999994" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchWith_sender:" destination="PBK-Ti-MTC" eventType="touchUpInside" id="9Na-ym-aNL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="IuB-cl-ySG" firstAttribute="trailing" secondItem="atV-NQ-Wwy" secondAttribute="trailing" id="3OD-lZ-2hV"/>
-                            <constraint firstItem="Kxh-UK-ljt" firstAttribute="top" secondItem="IuB-cl-ySG" secondAttribute="bottom" id="3hd-hA-Wxv"/>
-                            <constraint firstItem="IuB-cl-ySG" firstAttribute="leading" secondItem="atV-NQ-Wwy" secondAttribute="leading" id="4YM-Rp-vGJ"/>
                             <constraint firstAttribute="trailing" secondItem="Kxh-UK-ljt" secondAttribute="trailing" id="HJc-nQ-woz"/>
+                            <constraint firstItem="atV-NQ-Wwy" firstAttribute="trailing" secondItem="PXo-KV-vJI" secondAttribute="trailing" id="M5U-yD-uN1"/>
+                            <constraint firstItem="PXo-KV-vJI" firstAttribute="top" secondItem="atV-NQ-Wwy" secondAttribute="top" id="VAz-Y5-CmC"/>
                             <constraint firstItem="Kxh-UK-ljt" firstAttribute="leading" secondItem="zEF-wX-Pj3" secondAttribute="leading" id="hOx-AO-LxN"/>
-                            <constraint firstItem="IuB-cl-ySG" firstAttribute="top" secondItem="atV-NQ-Wwy" secondAttribute="top" id="ifW-ir-kWE"/>
-                            <constraint firstItem="Kxh-UK-ljt" firstAttribute="top" secondItem="IuB-cl-ySG" secondAttribute="bottom" id="kfD-Tz-zOn"/>
                             <constraint firstItem="Kxh-UK-ljt" firstAttribute="bottom" secondItem="atV-NQ-Wwy" secondAttribute="bottom" id="lIh-HN-YvB"/>
+                            <constraint firstItem="Kxh-UK-ljt" firstAttribute="top" secondItem="PXo-KV-vJI" secondAttribute="bottom" id="mj3-B5-y0Q"/>
+                            <constraint firstItem="PXo-KV-vJI" firstAttribute="leading" secondItem="atV-NQ-Wwy" secondAttribute="leading" id="sp2-Mm-vtt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="atV-NQ-Wwy"/>
                     </view>
                     <connections>
-                        <outlet property="searchBar" destination="IuB-cl-ySG" id="K6d-4W-26f"/>
                         <outlet property="searchDisplayController" destination="d1f-vm-ajb" id="0iL-SA-7mW"/>
+                        <outlet property="tableView" destination="Kxh-UK-ljt" id="h0K-zm-DzU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aLN-Jb-i7a" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="d1f-vm-ajb">
                     <connections>
                         <outlet property="delegate" destination="PBK-Ti-MTC" id="4HZ-eC-XTq"/>
-                        <outlet property="searchBar" destination="IuB-cl-ySG" id="W4q-wt-yl0"/>
                         <outlet property="searchContentsController" destination="PBK-Ti-MTC" id="gg4-mk-nQR"/>
                         <outlet property="searchResultsDataSource" destination="PBK-Ti-MTC" id="k0P-Dy-arA"/>
                         <outlet property="searchResultsDelegate" destination="PBK-Ti-MTC" id="NDb-fH-g2j"/>

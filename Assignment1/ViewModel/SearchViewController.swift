@@ -8,28 +8,53 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UITableViewDataSource, Refresh{
     
-    @IBOutlet weak var searchBar: UISearchBar!
+
+    @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var Label0: UILabel!
+    var viewModel = ItemViewModel()
+    
+    @IBAction func search(_sender: Any){
+        viewModel.getItem()
+    }
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.dataSource = self 
+        viewModel.delegate = self
+        
 
-        // Do any additional setup after loading the view.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
-    */
-
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        let name = cell.viewWithTag(1000) as! UILabel
+        let price = cell.viewWithTag(1001) as! UILabel
+//        let des = cell.viewWithTag(1001) as! UILabel
+//        let imageView = cell.viewWithTag(1002) as! UIImageView
+        
+        name.text =  viewModel.getNameFor(index: indexPath.row)
+        price.text = viewModel.getPriceFor(index: indexPath.row)
+//        imageView.image = viewModel.getRecipeImageFor(index: indexPath.row)
+        
+        return cell
+    }
+    
+    func updateUI(){
+        tableView.reloadData()
+    }
 }
