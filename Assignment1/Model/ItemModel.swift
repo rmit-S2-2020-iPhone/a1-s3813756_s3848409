@@ -8,11 +8,6 @@
 
 import Foundation
 
-var globalItem: [Item] = []
-var sortedItem: [Item] = []
-var sumItem: [Item] = []
-var budget = 2000.0
-
 struct ItemModel {
     var itemName:String! = ""
     var itemType:String! = ""

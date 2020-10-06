@@ -13,6 +13,8 @@ import CoreData
 
 class ItemManager{
     
+    var sortedItem:[Item] = []
+    var sumItem:[Item] = []
     private (set) var items:[Item] = []{
         willSet{
             print()
@@ -38,7 +40,7 @@ class ItemManager{
         itemRequest.sortDescriptors = [sortDescriptor]
         do {
             try items = object.fetch(itemRequest)
-            print(items)
+            sumItem = items
         }catch {
             print("Could not load data")
         }
@@ -47,7 +49,6 @@ class ItemManager{
     func addItemToDatabase(_ name:String, _ type:String, _ price:Double, _ date:Date) {
         let item = createItem(name, type, price, date)
         items.append(item)
-        
         appDelegate?.saveContext()
         loadItems()
     }
@@ -97,4 +98,23 @@ class ItemManager{
         loadItems()
     }
     
+    func todayExp() -> String {
+        loadItems()
+        var totalAmount:String = ""
+        let todayRange = Date().startOfDay...Date().endOfDay     //set today's range
+        let totalItem = sumItem
+        if totalItem.count > 0 {
+            var total:Double = 0.00
+            for i in 0 ..< totalItem.count {                                                      //calculate today's expense
+                if todayRange.contains(totalItem[i].date!){
+                    total += totalItem[i].price
+                }
+            }
+            totalAmount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
+        }
+        else {
+            totalAmount = "No Expense Yet"                                                //exception if no data found
+        }
+        return totalAmount
+    }
 }

@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
     //home scene
     var selectedType:String = ""            // declare important variables for the project
     private var itemViewModel = ItemViewModel()
+    private var utility = Utility()
     
     @IBOutlet weak var todayExpense: UILabel!
     @IBOutlet weak var homeSegmentControl: UISegmentedControl!
@@ -69,6 +70,7 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         itemViewModel.sortItems(selectedType)                                                  //sort the data for the table in home page
         self.homeTableView?.dataSource = self                       //set datasource for home table view
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        todayExp()
     }
 
     
@@ -77,52 +79,15 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         super.viewDidAppear(animated)
         itemViewModel.sortItems(selectedType)
         self.homeTableView?.reloadData()
+        todayExp()
     }
     
     
-    func dateFormatter(itemDate:Date) -> String {
-        let dateFormatter = DateFormatter()
-        var result:String
-        dateFormatter.amSymbol = "AM"                                   //declare date format for table item
-        dateFormatter.pmSymbol = "PM"
-        
-        let calendar = Calendar.current
-        if calendar.isDateInYesterday(itemDate) {
-            dateFormatter.dateFormat = "h:mm a"                                                 //if the item is from yesterday, set it to yesterday format
-            result = "Yesterday at " + dateFormatter.string(from: itemDate)
-        }else if calendar.isDateInToday(itemDate) {
-            dateFormatter.dateFormat = "h:mm a"
-            result = "Today at " + dateFormatter.string(from: itemDate)
-        }else if calendar.isDateInTomorrow(itemDate) {                                          //if the item is today, set it to today format
-            dateFormatter.dateFormat = "h:mm a"
-            result = "Tomorrow at " + dateFormatter.string(from: itemDate)
-        }else{
-            dateFormatter.dateFormat = "d-MM-yyyy, h:mm a"                                      //if the item is for tommorrow, set it to tommorrow format
-            result = dateFormatter.string(from: itemDate)
-        }
-        return result
-    }
-    
-
     
     //this month expense function
     func todayExp() -> Void {
-        let todayRange = Date().startOfDay...Date().endOfDay     //set today's range
-        sumItem = globalItem
-        if sumItem.count > 0 {
-            var total:Double = 0.00
-            for i in 0 ..< sumItem.count {                                                      //calculate today's expense
-                if todayRange.contains(sumItem[i].date!){
-                    total += sumItem[i].price
-                }
-            }
-            let totalAmount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
-            todayExpense?.text = totalAmount                                                     //set the value to homepage label
-        }
-        else {
-            todayExpense?.font = UIFont(name: "Gills Sans", size: 14)
-            todayExpense?.text = "No Expense Yet"                                                 //exception if no data found
-        }
+        let todayExp = itemViewModel.todayExp()
+        todayExpense?.text = todayExp
     }
     
     
@@ -132,15 +97,15 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
     }
     
     func tableView(_ homeTableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedItem.count
+        return itemViewModel.sortedItem.count
 
     }
     
     func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:customHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! customHomeTableCell
-        let tableItem = sortedItem[indexPath.row]
+        let tableItem = itemViewModel.sortedItem[indexPath.row]
         let itemDate = tableItem.date as! Date
-        cell.itemDate.text = dateFormatter(itemDate: itemDate)
+        cell.itemDate.text = utility.dateFormatter(itemDate: itemDate)
         cell.itemName.text = tableItem.name
         cell.itemPrice.text = "- $" + String(tableItem.price)
         if tableItem.type == "Foods" {
@@ -162,12 +127,13 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
     //delete function for table
     func tableView(_ homeTableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            let deleteItem = sortedItem[indexPath.row]
+            let deleteItem = itemViewModel.sortedItem[indexPath.row]
             itemViewModel.deleteItems(deleteItem)
-            sortedItem.remove(at: indexPath.row)
+            itemViewModel.sortedItem.remove(at: indexPath.row)
             self.homeTableView?.deleteRows(at: [indexPath], with: .fade)
             itemViewModel.sortItems(selectedType)                                                                                  //reload data
             self.popUpAlert(withTitle: "Item Deleted", message: "Item successfully deleted!")                //successful delete pop up message
+            todayExp()
         }
     }
     

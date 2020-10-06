@@ -10,17 +10,7 @@ import Foundation
 
 struct ItemViewModel {
     private var itemManager = ItemManager.sharedInstance
-    var itemName:String {
-        let items = itemManager.items
-        var result:String = ""
-        for (_, item) in items.enumerated(){
-            if let name = item.name{
-                result = name
-            }
-        }
-        return result
-    }
-    
+    var sortedItem:[Item] = []
     
     
     mutating func addItem(_ name:String, _ type:String, _ price:Double, _ date:Date) {
@@ -32,11 +22,16 @@ struct ItemViewModel {
     }
     
     mutating func sortItems(_ selectedType:String) {
-        let selectedType = selectedType
         itemManager.sortData(selectedType)
+        sortedItem = itemManager.sortedItem
     }
     
     mutating func deleteItems(_ item:Item) {
         itemManager.deleteItem(item)
+    }
+    
+    mutating func todayExp() -> String {
+        let todayExp = itemManager.todayExp()
+        return todayExp
     }
 }

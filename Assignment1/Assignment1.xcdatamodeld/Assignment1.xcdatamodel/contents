@@ -9,13 +9,12 @@
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="budget" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="expense" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="user" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="items" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
         <element name="Item" positionX="-315.91796875" positionY="-1931.03515625" width="128" height="118"/>
-        <element name="User" positionX="-76.1484375" positionY="-1935.8046875" width="129.04296875" height="118"/>
+        <element name="User" positionX="-76.1484375" positionY="-1935.8046875" width="129.04296875" height="105"/>
     </elements>
 </model>

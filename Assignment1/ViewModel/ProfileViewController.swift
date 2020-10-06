@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate{
     
+    private var userViewModel = UserViewModel()
     
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
@@ -32,13 +33,15 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         setProfilePic()
-        thisMonthExp()
+        profileSum()
+        getUserInfo()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setProfilePic()
-        thisMonthExp()
+        profileSum()
+        getUserInfo()
         //call neccessary function that needs to be updated
     }
     
@@ -114,7 +117,8 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         })
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            self.userName?.text = alert.textFields?.first?.text                                         //set a button after finish editing
+            self.userViewModel.changeUserName(alert.textFields?.first?.text ?? "User")
+                                                     //set a button after finish editing
         }))
         
         self.present(alert, animated: true)
@@ -122,34 +126,18 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     
     
     //calculate expense for this month
-    func thisMonthExp() {
-        sumItem = globalItem
-        //find the end of current month
-        let monthRange = Date().startOfMonth...Date().endOfMonth                                                  //define month range
-        if sumItem.count > 0 {
-            var monthExpense:Double = 0.00
-            for i in 0 ..< sumItem.count {
-                if monthRange.contains(sumItem[i].date!){                                            //find the sum of this month expense if database exist
-                    monthExpense += sumItem[i].price
-                }
-            }
-            let monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
-            let remainBudget = String(format: "$%.02f", budget - monthExpense as CVarArg)           //calculate remaining budget base on user's current budget
-            remainingBudget?.text = remainBudget                                                    //set those values to label
-            thisMonthExpense?.text = monthAmount
-            monthBudget?.text = "$" + String(budget)
-        }
-        else {
-            thisMonthExpense?.font = UIFont(name: "Gills Sans", size: 14)
-            remainingBudget?.font = UIFont(name: "Gills Sans", size: 12)
-            monthBudget?.font = UIFont(name: "Gills Sans", size: 12)
-            thisMonthExpense?.text = "No Expense Yet"                                               //exception if no database found
-            remainingBudget?.text = "No Remaining Budget"
-            monthBudget?.text = "Please add a Budget"
-        }
+    func profileSum() {
+        let (monthAmount, remainBudget, userBudget) = userViewModel.getProfileSum()
+        remainingBudget?.text = remainBudget                                                    //set those values to label
+        thisMonthExpense?.text = monthAmount
+        monthBudget?.text = userBudget
     }
     
-    
+    func getUserInfo() {
+        let (userdisplayName, userCurrentBudget) = userViewModel.getUserInfo()
+        userName?.text = userdisplayName
+        monthBudget?.text = userCurrentBudget
+    }
     
     
     
@@ -172,8 +160,8 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
                 if ( dotCount! > 1) {
                     self.popUpAlert(withTitle: "Error", message: "Value is invalid.")
                 }else {
-                    let newBudget = strCheck?.toDouble()
-                    self.monthBudget?.text = String(format: "$%.02f", newBudget ?? 0)
+                    let newBudget = self.userViewModel.changeBudget(strCheck ?? "User")
+                    self.monthBudget?.text = String(format: "$%.02f", newBudget)
                 }
             }                                                                                                   //set new user budget to label
         }))
