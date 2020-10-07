@@ -45,6 +45,7 @@ class UserManager {
         let budgetToDouble:Double? = budget.toDouble()
         for i in 0 ..< sumUser.count {
             user.name = sumUser[i].name
+            user.image = sumUser[i].image
         }
         user.budget = budgetToDouble!
         appDelegate.saveContext()
@@ -54,40 +55,70 @@ class UserManager {
         let user = User(context: object)
         for i in 0 ..< sumUser.count {
             user.budget = sumUser[i].budget
+            user.image = sumUser[i].image
         }
         user.name = name
         appDelegate.saveContext()
     }
     
-    func profileSum() -> (String, String, String, String) {
+    func changeUserImage(_ image:UIImage) {
+        let user = User(context: object)
+        for i in 0 ..< sumUser.count {
+            user.budget = sumUser[i].budget
+            user.name = sumUser[i].name
+        }
+        user.image = UIImageJPEGRepresentation(image, 1)
+        appDelegate.saveContext()
+    }
+    
+    func deleteCurrentImage() {
+        let user = User(context: object)
+        let defaultImage:UIImage = UIImage(named: "defaultUser")!
+        user.image = nil
+        user.image = UIImageJPEGRepresentation(defaultImage, 1)
+        for i in 0 ..< sumUser.count {
+            user.budget = sumUser[i].budget
+            user.name = sumUser[i].name
+        }
+        appDelegate.saveContext()
+    }
+    
+    func profileSum() -> (String, String, String, String, UIImage) {
         itemManager.loadItems()
         loadUser()
-        var monthAmount:String = ""
-        var remainBudget:String = ""
-        var userBudget:String = ""
-        var userName:String = ""
+        var monthExpense:Double = 0.00
+        var (monthAmount, remainBudget, userBudget, userName) = ("", "", "", "")
+        var userImage:UIImage = UIImage(named: "defaultUser")!
         let totalItem = itemManager.sumItem
         let monthRange = Date().startOfMonth...Date().endOfMonth                                                  //define month range
         if totalItem.count > 0 {
-            var monthExpense:Double = 0.00
             for i in 0 ..< totalItem.count {
                 if monthRange.contains(totalItem[i].date!){                                            //find the sum of this month expense if database exist
                     monthExpense += totalItem[i].price
                 }
             }
-            for i in 0 ..< sumUser.count {
-                monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
-                remainBudget = String(format: "$%.02f", sumUser[i].budget - monthExpense as CVarArg)
-                userBudget = "$" + String(sumUser[i].budget)
-                userName = sumUser[i].name ?? "No User"
-            }
-        }
-        else {
+        }else {
             monthAmount = "No Expense Yet"
-            remainBudget = "No Remaining Budget"
+            remainBudget = "No Budget"
         }
-        return (userName, monthAmount, remainBudget, userBudget)
+        for i in 0 ..< sumUser.count {
+            monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
+            remainBudget = String(format: "$%.02f", sumUser[i].budget - monthExpense as CVarArg)
+            if sumUser[i].budget == 0.0 {
+                userBudget = "No Budget"
+            }else {
+                userBudget = "$" + String(sumUser[i].budget)
+            }
+            if (sumUser[i].image == nil) {
+                let defaultImage:UIImage = UIImage(named: "defaultUser")!
+                sumUser[i].image = UIImageJPEGRepresentation(defaultImage, 1)
+                userImage = defaultImage
+            }else {
+                let image = sumUser[i].image
+                userImage = UIImage(data: image!)!
+            }
+            userName = sumUser[i].name ?? "User"
+        }
+        return (userName, monthAmount, remainBudget, userBudget, userImage)
     }
-    
-    
 }

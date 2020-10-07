@@ -174,10 +174,12 @@
 		D077A8C324D417B200583F40 /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				D085519A24ECB21200F08CBD /* UserViewModel */,
+				D099B6C3252D8BEB0029C235 /* ChartViewModel */,
+				D099B6C2252D8BB60029C235 /* ItemViewModel */,
 				D01EF7972529EAAA00AF5E4E /* Model */,
 				D0CA299B25272D9300B852D9 /* Utilities */,
 				D085519B24ECB22700F08CBD /* View */,
-				D085519A24ECB21200F08CBD /* ViewModel */,
 				D077A8C424D417B200583F40 /* AppDelegate.swift */,
 				D077A8CE24D417B300583F40 /* Assets.xcassets */,
 				D077A8D324D417B300583F40 /* Info.plist */,
@@ -204,19 +206,13 @@
 			path = Assignment1UITests;
 			sourceTree = "<group>";
 		};
-		D085519A24ECB21200F08CBD /* ViewModel */ = {
+		D085519A24ECB21200F08CBD /* UserViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				D01845512528210000A297C8 /* ProfileViewController.swift */,
-				D077A8C624D417B200583F40 /* ViewController.swift */,
-				D0DC260724F5EFFD00D5D0FE /* customHomeTableCell.swift */,
-				D018454D252813F500A297C8 /* StatisticViewController.swift */,
-				D018454F25281DE100A297C8 /* AddItemViewController.swift */,
-				D09D3E13252BEF9200D384D1 /* ItemViewModel.swift */,
-				D09D3E17252C55AC00D384D1 /* ChartViewModel.swift */,
 				D09D3E19252C90DB00D384D1 /* UserViewModel.swift */,
 			);
-			path = ViewModel;
+			path = UserViewModel;
 			sourceTree = "<group>";
 		};
 		D085519B24ECB22700F08CBD /* View */ = {
@@ -226,6 +222,26 @@
 				D077A8C824D417B200583F40 /* Main.storyboard */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D099B6C2252D8BB60029C235 /* ItemViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D018454F25281DE100A297C8 /* AddItemViewController.swift */,
+				D0DC260724F5EFFD00D5D0FE /* customHomeTableCell.swift */,
+				D077A8C624D417B200583F40 /* ViewController.swift */,
+				D09D3E13252BEF9200D384D1 /* ItemViewModel.swift */,
+			);
+			path = ItemViewModel;
+			sourceTree = "<group>";
+		};
+		D099B6C3252D8BEB0029C235 /* ChartViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D018454D252813F500A297C8 /* StatisticViewController.swift */,
+				D09D3E17252C55AC00D384D1 /* ChartViewModel.swift */,
+			);
+			path = ChartViewModel;
 			sourceTree = "<group>";
 		};
 		D0CA299B25272D9300B852D9 /* Utilities */ = {

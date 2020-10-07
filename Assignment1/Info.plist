@@ -21,9 +21,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Expense Tracker need to access your pictures for full features experience.</string>
+	<string>Expense Tracker need access to your library.</string>
     <key>NSCameraUsageDescription</key>
-    <string>To Use Camera, Please allow access</string>
+    <string>Please allow access to use camera</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

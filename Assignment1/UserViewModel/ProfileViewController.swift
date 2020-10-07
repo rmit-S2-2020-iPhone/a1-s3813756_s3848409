@@ -59,6 +59,10 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
             self.openPhoneCamera()
         })
         
+        alert.addAction(UIAlertAction(title: "Delete Current Image", style: .destructive) { _ in
+            self.deleteCurrentImage()
+        })
+        
         alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
             print("User clicked Dismiss button")
         }))
@@ -80,7 +84,6 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
             self!.userImage?.image = image
             self?.dismiss(animated: true, completion: nil)
         }
-        
         present(cameraViewController, animated: true, completion: nil)
     }
     
@@ -89,7 +92,8 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             return                                                                  //get the image that user chose
         }
-        userImage?.image = image                                                    //set the image after user picked the image
+        userViewModel.changeUserImage(image)
+        profileSum()                                                    //set the image after user picked the image
     }
     
     
@@ -110,6 +114,11 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         }
     }
     
+    func deleteCurrentImage() {
+        userViewModel.deleteCurrentImage()
+        profileSum()
+    }
+    
     func editProfile() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -117,7 +126,7 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
             self.editName()
         })
         
-        alert.addAction(UIAlertAction(title: "Choose User Image", style: .default) { _ in
+        alert.addAction(UIAlertAction(title: "Change User Image", style: .default) { _ in
             self.editUserPic()
         })
         
@@ -154,11 +163,12 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     
     //calculate expense for this month
     func profileSum() {
-        let (userCurrentName, monthAmount, remainBudget, userBudget) = userViewModel.getProfileSum()
+        let (userCurrentName, monthAmount, remainBudget, userBudget, userPic) = userViewModel.getProfileSum()
         remainingBudget?.text = remainBudget                                                    //set those values to label
         thisMonthExpense?.text = monthAmount
         monthBudget?.text = userBudget
         userName?.text = userCurrentName
+        userImage?.image = userPic
     }
     
     
