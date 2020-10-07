@@ -1,22 +1,26 @@
 PODS:
+  - ALCameraViewController (3.1)
   - Charts (3.1.1):
     - Charts/Core (= 3.1.1)
   - Charts/Core (3.1.1)
   - PKHUD (5.3.0)
 
 DEPENDENCIES:
+  - ALCameraViewController
   - Charts (~> 3.1.0)
   - PKHUD (~> 5.0)
 
 SPEC REPOS:
   trunk:
+    - ALCameraViewController
     - Charts
     - PKHUD
 
 SPEC CHECKSUMS:
+  ALCameraViewController: 144dea45fd749a623aafd8cb7b10cea88499fcc3
   Charts: 90a4d61da0f6e06684c591e3bcab11940fe61736
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
 
-PODFILE CHECKSUM: 29ec7ccb8f14b04a28e985632172b6b67ee0d426
+PODFILE CHECKSUM: 88ad4e1f5ffe66fe37a9397398e633eb677ae0f5
 
 COCOAPODS: 1.9.3

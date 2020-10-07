@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ALCameraViewController
 
 class ProfileViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate{
     
@@ -48,12 +49,39 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     var imagePicker = UIImagePickerController()
     
     func editUserPic() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Choose From Library", style: .default) { _ in
+            self.openPicLibrary()
+        })
+        
+        alert.addAction(UIAlertAction(title: "Open Camera", style: .default) { _ in
+            self.openPhoneCamera()
+        })
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler:{ (UIAlertAction)in
+            print("User clicked Dismiss button")
+        }))
+        
+        present(alert, animated: true)
+    }
+    
+    func openPicLibrary() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum){
             imagePicker.delegate = self
             imagePicker.sourceType = .savedPhotosAlbum                              //call image picker when user click edit user image
             imagePicker.allowsEditing = false
             present(imagePicker, animated: true, completion: nil)
         }
+    }
+    
+    func openPhoneCamera() {
+        let cameraViewController = CameraViewController { [weak self] image, asset in
+            self!.userImage?.image = image
+            self?.dismiss(animated: true, completion: nil)
+        }
+        
+        present(cameraViewController, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
