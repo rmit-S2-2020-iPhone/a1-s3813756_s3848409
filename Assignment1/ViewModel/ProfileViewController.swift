@@ -34,14 +34,12 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         super.viewDidLoad()
         setProfilePic()
         profileSum()
-        getUserInfo()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setProfilePic()
         profileSum()
-        getUserInfo()
         //call neccessary function that needs to be updated
     }
     
@@ -118,6 +116,7 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             self.userViewModel.changeUserName(alert.textFields?.first?.text ?? "User")
+            self.profileSum()
                                                      //set a button after finish editing
         }))
         
@@ -127,16 +126,11 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     
     //calculate expense for this month
     func profileSum() {
-        let (monthAmount, remainBudget, userBudget) = userViewModel.getProfileSum()
+        let (userCurrentName, monthAmount, remainBudget, userBudget) = userViewModel.getProfileSum()
         remainingBudget?.text = remainBudget                                                    //set those values to label
         thisMonthExpense?.text = monthAmount
         monthBudget?.text = userBudget
-    }
-    
-    func getUserInfo() {
-        let (userdisplayName, userCurrentBudget) = userViewModel.getUserInfo()
-        userName?.text = userdisplayName
-        monthBudget?.text = userCurrentBudget
+        userName?.text = userCurrentName
     }
     
     
@@ -152,16 +146,16 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
         })
         
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in            //add done action after user finished adding budget
-            let strCheck = alert.textFields?.first?.text
-            if (strCheck?.trim() == "" || strCheck?.trim() == "."){
+            let strCheck:String = alert.textFields!.first!.text!
+            if (strCheck.trim() == "" || strCheck.trim() == "."){
                 self.popUpAlert(withTitle: "Error", message: "Please enter a value.")                           //check for user's incorrect input
             }else {
-                let dotCount = strCheck?.filter({ $0 == "." }).count
-                if ( dotCount! > 1) {
+                let dotCount = strCheck.filter({ $0 == "." }).count
+                if ( dotCount > 1) {
                     self.popUpAlert(withTitle: "Error", message: "Value is invalid.")
                 }else {
-                    let newBudget = self.userViewModel.changeBudget(strCheck ?? "User")
-                    self.monthBudget?.text = String(format: "$%.02f", newBudget)
+                    self.userViewModel.changeBudget(strCheck)
+                    self.profileSum()
                 }
             }                                                                                                   //set new user budget to label
         }))

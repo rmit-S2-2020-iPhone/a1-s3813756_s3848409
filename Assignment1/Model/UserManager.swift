@@ -13,12 +13,11 @@ import UIKit
 class UserManager {
     private var itemManager = ItemManager.sharedInstance
     static let sharedInstance = UserManager()
+    var sumUser:[User] = []
     
-    // Get a reference to your App Delegate
-    var appDelegate = UIApplication.shared.delegate as? AppDelegate
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let object:NSManagedObjectContext!
     
-    // Hold a reference to the managed context
-    var object:NSManagedObjectContext!
     
     private (set) var user:[User] = []{
         willSet{
@@ -27,7 +26,7 @@ class UserManager {
     }
     
     private init(){
-        object = appDelegate?.persistentContainer.viewContext
+        object = appDelegate.persistentContainer.viewContext
         loadUser()
     }
     
@@ -35,51 +34,38 @@ class UserManager {
         let userRequest:NSFetchRequest<User> = User.fetchRequest()
         do {
             try user = object.fetch(userRequest)
+            sumUser = user
         }catch {
             print("Could not load user")
         }
     }
     
-    func getUserInfo() -> (String, String) {
-        loadUser()
-        let user = User(context: object)
-        let userName = user.name ?? ""
-        let userBudget = String(user.budget)
-        return (userName, userBudget)
-    }
-    
-    func changeBudget(_ budget:String) -> String {
+    func changeBudget(_ budget:String) {
         let user = User(context: object)
         let budgetToDouble:Double? = budget.toDouble()
+        for i in 0 ..< sumUser.count {
+            user.name = sumUser[i].name
+        }
         user.budget = budgetToDouble!
-        appDelegate?.saveContext()
-        loadUser()
-        let newBudget = String(user.budget)
-        return newBudget
+        appDelegate.saveContext()
     }
     
     func changeUserName(_ name:String) {
-        let userRequest:NSFetchRequest<User> = User.fetchRequest()
-        userRequest.predicate = NSPredicate(format: "name = %@", name)
-        do {
-            let results = try object.fetch(userRequest) as [NSManagedObject]
-            if results.count != 0 {
-                results[0].setValue(name, forKey: "name")
-                appDelegate?.saveContext()
-                loadUser()
-            }
-        } catch {
-            print("Fetch Failed: \(error)")
+        let user = User(context: object)
+        for i in 0 ..< sumUser.count {
+            user.budget = sumUser[i].budget
         }
+        user.name = name
+        appDelegate.saveContext()
     }
     
-    func profileSum() -> (String, String, String) {
+    func profileSum() -> (String, String, String, String) {
         itemManager.loadItems()
         loadUser()
-        let user = User(context: object)
         var monthAmount:String = ""
         var remainBudget:String = ""
         var userBudget:String = ""
+        var userName:String = ""
         let totalItem = itemManager.sumItem
         let monthRange = Date().startOfMonth...Date().endOfMonth                                                  //define month range
         if totalItem.count > 0 {
@@ -89,16 +75,18 @@ class UserManager {
                     monthExpense += totalItem[i].price
                 }
             }
-            monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
-            remainBudget = String(format: "$%.02f", user.budget - monthExpense as CVarArg)           //calculate remaining budget base on user's current budget
-            userBudget = "$" + String(user.budget)
+            for i in 0 ..< sumUser.count {
+                monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
+                remainBudget = String(format: "$%.02f", sumUser[i].budget - monthExpense as CVarArg)
+                userBudget = "$" + String(sumUser[i].budget)
+                userName = sumUser[i].name ?? "No User"
+            }
         }
         else {
             monthAmount = "No Expense Yet"
             remainBudget = "No Remaining Budget"
-            userBudget = "No Budget Found"
         }
-        return (monthAmount, remainBudget, userBudget)
+        return (userName, monthAmount, remainBudget, userBudget)
     }
     
     

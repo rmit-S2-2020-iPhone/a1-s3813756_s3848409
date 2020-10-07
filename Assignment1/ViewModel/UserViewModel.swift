@@ -11,25 +11,17 @@ import Foundation
 struct UserViewModel {
     private var userManager = UserManager.sharedInstance
     
-    mutating func getProfileSum() -> (String, String, String) {
-        let (monthAmount, remainBudget, userBudget) = userManager.profileSum()
-        return (monthAmount, remainBudget, userBudget)
+    mutating func getProfileSum() -> (String, String, String, String) {
+        let (userName, monthAmount, remainBudget, userBudget) = userManager.profileSum()
+        return (userName, monthAmount, remainBudget, userBudget)
     }
     
-    mutating func changeBudget (_ newBudget:String) -> String{
-        let newBudget = userManager.changeBudget(newBudget)
-        return newBudget
+    mutating func changeBudget (_ newBudget:String){
+        userManager.changeBudget(newBudget)
     }
     
     mutating func changeUserName (_ newUserName:String) {
         userManager.changeUserName(newUserName)
-        userManager.loadUser()
     }
-    
-    mutating func getUserInfo () -> (String, String) {
-        let (userName, userBudget) = userManager.getUserInfo()
-        return (userName, userBudget)
-    }
-    
-    
+
 }
