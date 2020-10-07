@@ -12,10 +12,10 @@ import Foundation
 
 
 
-class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDelegate{
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate{
 
     //home scene
-    var selectedType:String = ""            // declare important variables for the project
+    var selectedType:String = ""
     private var itemViewModel = ItemViewModel()
     private var utility = Utility()
     
@@ -51,15 +51,6 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         }
         
     }
-    
-    @IBOutlet weak var itemDetailImage: UIImageView!
-    @IBOutlet weak var itemDetailPrice: UITextField!
-    @IBOutlet weak var itemDetailName: UITextField!
-    @IBOutlet weak var itemDetailType: UITextField!
-    @IBOutlet weak var itemDetailDate: UITextField!
-    @IBAction func changeDetail(_ sender: Any) {
-        
-    }
 
     
     //viewDidLoad function
@@ -68,7 +59,8 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         
         //home scene
         itemViewModel.sortItems(selectedType)                                                  //sort the data for the table in home page
-        self.homeTableView?.dataSource = self                       //set datasource for home table view
+        self.homeTableView?.dataSource = self
+        self.homeTableView?.delegate = self
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         todayExp()
     }
@@ -82,6 +74,10 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
         todayExp()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
     
     
     //this month expense function
@@ -136,13 +132,14 @@ class ViewController: UIViewController, UITableViewDataSource, UIActionSheetDele
             todayExp()
         }
     }
+
     
-    
-    
-    //////////////////others//////////////////
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = homeTableView.indexPathForSelectedRow{
+            let destination = segue.destination as! MasterDetailViewController
+            let editItem = itemViewModel.sortedItem[indexPath.row]
+            destination.editItem = editItem
+        }
     }
+    
 }
