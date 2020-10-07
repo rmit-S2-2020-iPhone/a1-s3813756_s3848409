@@ -1,0 +1,105 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "3Ea-00-MLt"; */
+"3Ea-00-MLt.text" = "Label";
+
+/* Class = "UITableViewSection"; headerTitle = "Advanced Settings"; ObjectID = "4oL-bN-Hig"; */
+"4oL-bN-Hig.headerTitle" = "Advanced Settings";
+
+/* Class = "UITextField"; placeholder = "Choose expense type..."; ObjectID = "54J-eC-4xN"; */
+"54J-eC-4xN.placeholder" = "Choose expense type...";
+
+/* Class = "UITextField"; placeholder = "$ 0.00"; ObjectID = "6rC-cy-Js8"; */
+"6rC-cy-Js8.placeholder" = "$ 0.00";
+
+/* Class = "UITabBarItem"; title = "Add"; ObjectID = "8Xq-c3-BIR"; */
+"8Xq-c3-BIR.title" = "Add";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9VQ-BO-24d"; */
+"9VQ-BO-24d.text" = "Label";
+
+/* Class = "UILabel"; text = "lastMonth"; ObjectID = "L4n-XR-aTa"; */
+"L4n-XR-aTa.text" = "lastMonth";
+
+/* Class = "UILabel"; text = "Total Expenses"; ObjectID = "OZ1-rk-he4"; */
+"OZ1-rk-he4.text" = "Total Expenses";
+
+/* Class = "UILabel"; text = "Your biggest spent this month"; ObjectID = "Oxu-P3-L0d"; */
+"Oxu-P3-L0d.text" = "Your biggest spent this month";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Pvz-gA-KZV"; */
+"Pvz-gA-KZV.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Settings"; ObjectID = "RBn-pm-Sq9"; */
+"RBn-pm-Sq9.title" = "Settings";
+
+/* Class = "UILabel"; text = "remaining"; ObjectID = "SqN-Rh-udG"; */
+"SqN-Rh-udG.text" = "remaining";
+
+/* Class = "UILabel"; text = "User Name"; ObjectID = "UDG-DY-Xr3"; */
+"UDG-DY-Xr3.text" = "User Name";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "XmV-ch-BGf"; */
+"XmV-ch-BGf.text" = "Label";
+
+/* Class = "UILabel"; text = "Last month you spent"; ObjectID = "XoR-EE-lv2"; */
+"XoR-EE-lv2.text" = "Last month you spent";
+
+/* Class = "UISegmentedControl"; ZZM-Jo-2Si.segmentTitles[0] = "All"; ObjectID = "ZZM-Jo-2Si"; */
+"ZZM-Jo-2Si.segmentTitles[0]" = "All";
+
+/* Class = "UISegmentedControl"; ZZM-Jo-2Si.segmentTitles[1] = "Foods"; ObjectID = "ZZM-Jo-2Si"; */
+"ZZM-Jo-2Si.segmentTitles[1]" = "Foods";
+
+/* Class = "UISegmentedControl"; ZZM-Jo-2Si.segmentTitles[2] = "Shopping"; ObjectID = "ZZM-Jo-2Si"; */
+"ZZM-Jo-2Si.segmentTitles[2]" = "Shopping";
+
+/* Class = "UISegmentedControl"; ZZM-Jo-2Si.segmentTitles[3] = "Services"; ObjectID = "ZZM-Jo-2Si"; */
+"ZZM-Jo-2Si.segmentTitles[3]" = "Services";
+
+/* Class = "UISegmentedControl"; ZZM-Jo-2Si.segmentTitles[4] = "Others"; ObjectID = "ZZM-Jo-2Si"; */
+"ZZM-Jo-2Si.segmentTitles[4]" = "Others";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "a8b-qC-SFb"; */
+"a8b-qC-SFb.text" = "Label";
+
+/* Class = "UILabel"; text = "Expenses Type"; ObjectID = "dpc-n0-kvO"; */
+"dpc-n0-kvO.text" = "Expenses Type";
+
+/* Class = "UITabBarItem"; title = "Statistics"; ObjectID = "fPQ-3H-gDb"; */
+"fPQ-3H-gDb.title" = "Statistics";
+
+/* Class = "UILabel"; text = "Budget remaining"; ObjectID = "gP9-EG-9oG"; */
+"gP9-EG-9oG.text" = "Budget remaining";
+
+/* Class = "UILabel"; text = "Your saving goal"; ObjectID = "j7v-Ob-EUZ"; */
+"j7v-Ob-EUZ.text" = "Your saving goal";
+
+/* Class = "UITextField"; placeholder = "Note"; ObjectID = "nGq-lA-RAs"; */
+"nGq-lA-RAs.placeholder" = "Note";
+
+/* Class = "UITableViewSection"; headerTitle = "help and support"; ObjectID = "oVW-Lm-e6q"; */
+"oVW-Lm-e6q.headerTitle" = "help and support";
+
+/* Class = "UILabel"; text = "thisMonth"; ObjectID = "odr-V4-6il"; */
+"odr-V4-6il.text" = "thisMonth";
+
+/* Class = "UITableViewSection"; headerTitle = "Basic Settings"; ObjectID = "rdf-g0-IlQ"; */
+"rdf-g0-IlQ.headerTitle" = "Basic Settings";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "su0-JP-fQR"; */
+"su0-JP-fQR.normalTitle" = "Add";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "taT-VK-dxl"; */
+"taT-VK-dxl.title" = "Profile";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "vKD-un-rZR"; */
+"vKD-un-rZR.title" = "Home";
+
+/* Class = "UILabel"; text = "Pick a date"; ObjectID = "vaG-Tm-dbI"; */
+"vaG-Tm-dbI.text" = "Pick a date";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "x9C-SS-NHW"; */
+"x9C-SS-NHW.text" = "Label";
+
+/* Class = "UILabel"; text = "goal"; ObjectID = "z8O-c5-OC4"; */
+"z8O-c5-OC4.text" = "goal";
