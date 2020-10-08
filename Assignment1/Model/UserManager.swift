@@ -101,23 +101,34 @@ class UserManager {
             monthAmount = "No Expense Yet"
             remainBudget = "No Budget"
         }
-        for i in 0 ..< sumUser.count {
+        for i in 0 ... sumUser.count {
             monthAmount = String(format: "$%.02f", monthExpense as CVarArg)                     //calculate this month expense
-            remainBudget = String(format: "$%.02f", sumUser[i].budget - monthExpense as CVarArg)
-            if sumUser[i].budget == 0.0 {
+            if sumUser.count > 0 {
+                remainBudget = String(format: "$%.02f", sumUser[i].budget - monthExpense as CVarArg)
+                userBudget = String(sumUser[i].budget)
+                if userBudget.trim() == "" {
+                    userBudget = "No Budget"
+                }else {
+                    userBudget = "$" + userBudget
+                }
+                if (sumUser[i].image == nil) {
+                    let defaultImage:UIImage = UIImage(named: "defaultUser")!
+                    sumUser[i].image = UIImageJPEGRepresentation(defaultImage, 1)
+                    userImage = defaultImage
+                }else {
+                    let image = sumUser[i].image
+                    userImage = UIImage(data: image!)!
+                }
+                if sumUser[i].name == nil {
+                    userName = "User"
+                }else {
+                    userName = sumUser[i].name ?? "User"
+                }
+            }else {
+                userName = "User"
+                remainBudget = "No Budget"
                 userBudget = "No Budget"
-            }else {
-                userBudget = "$" + String(sumUser[i].budget)
             }
-            if (sumUser[i].image == nil) {
-                let defaultImage:UIImage = UIImage(named: "defaultUser")!
-                sumUser[i].image = UIImageJPEGRepresentation(defaultImage, 1)
-                userImage = defaultImage
-            }else {
-                let image = sumUser[i].image
-                userImage = UIImage(data: image!)!
-            }
-            userName = sumUser[i].name ?? "User"
         }
         return (userName, monthAmount, remainBudget, userBudget, userImage)
     }
