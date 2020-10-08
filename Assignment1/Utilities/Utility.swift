@@ -36,24 +36,12 @@ class Utility {
 
 
 extension String {
-    func trim() -> String
-    {
+    func trim() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespaces)
     }
     
     func toDouble() -> Double? {
         return NumberFormatter().number(from: self)?.doubleValue
-    }
-    
-    func removeFormatAmount() -> Double {
-        let formatter = NumberFormatter()
-        
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.numberStyle = .currency
-        formatter.currencySymbol = "$"
-        formatter.decimalSeparator = ","
-        
-        return formatter.number(from: self) as! Double? ?? 0
     }
 }
 
