@@ -99,9 +99,20 @@ class ItemManager{
     }
     
     func updateItem(_ item:Item, _ newName:String, _ newPrice:Double, _ newType:String, _ newDate:Date) {
-        
-        
-        
+        let editItem = item
+        editItem.name = newName
+        editItem.price = newPrice
+        editItem.date = newDate
+        if (newType == "Foods") {
+            editItem.type = "Foods"
+        }else if (newType == "Shopping") {
+            editItem.type = "Shopping"
+        }else if (newType == "Services") {
+            editItem.type = "Services"
+        }else{
+            editItem.type = "Others"
+        }
+        appDelegate?.saveContext()
     }
     
     func todayExp() -> String {

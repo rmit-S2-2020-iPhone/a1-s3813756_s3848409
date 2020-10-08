@@ -7,17 +7,18 @@
 //
 
 import UIKit
+import PKHUD
 
 class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var editItem:Item?
     var utility = Utility()
     private var itemViewModel = ItemViewModel()
-    
     private let datePicker = UIDatePicker()
     private let itemTypePicker = UIPickerView()
     private let expenseType = ["Foods","Shopping","Services","Others"]
     private var pickedType:String?
+    
     @IBOutlet weak var itemDetailImage: UIImageView!
     @IBOutlet weak var itemDetailPrice: UITextField!
     @IBOutlet weak var itemDetailName: UITextField!
@@ -50,13 +51,23 @@ class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPick
                 itemDetailImage?.image = UIImage(named:ItemCategory.others.rawValue)
             }
         }
-        itemDetailPrice?.text = "$" + String(editItem!.price)
+        setCurrencyLabelToTextField()
+        itemDetailPrice?.text = String(editItem!.price)
         itemDetailName?.text = editItem?.name
         itemDetailDate?.text = utility.dateFormatter(itemDate:editItem!.date!)
         itemDetailType?.text = editItem?.type
     }
     
+    func setCurrencyLabelToTextField() {
+        let leftLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 20, height: 15))
+        leftLabel.text = "  $"
+        leftLabel.textColor = .lightGray
+        itemDetailPrice?.leftView = leftLabel
+        itemDetailPrice?.leftViewMode = .always
+    }
+    
     func createDatePicker() {
+        itemDetailPrice.keyboardType = .decimalPad
         itemDetailDate.inputView = datePicker               //assign datepicker to our textfield
         let toolbar = UIToolbar()                           //create a toolbar
         toolbar.sizeToFit()
@@ -64,6 +75,8 @@ class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPick
         toolbar.setItems([doneButton], animated: true)      //add a done button on this toolbar
         itemDetailDate.inputAccessoryView = toolbar
         itemDetailType.inputAccessoryView = toolbar
+        itemDetailName.inputAccessoryView = toolbar
+        itemDetailPrice.inputAccessoryView = toolbar
     }
     
     @objc func doneClicked() {
@@ -94,13 +107,23 @@ class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     func updateItemDetail() {
-        let newName = itemDetailName!.text
-        let newPrice = itemDetailPrice!.text!.toDouble()!
-        let newType = itemDetailType!.text
-        let newDate = itemDetailDate!.text as! Date
-        
-        
-        itemViewModel.updateItem(editItem!, newName!, newPrice, newType!, newDate)
+        let dotCheck:String? = itemDetailPrice?.text
+        let dotCount = dotCheck?.filter({ $0 == "." }).count
+        if ( dotCount! > 1) {
+            HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
+        }else if (itemDetailPrice.text == nil || itemDetailPrice.text == "" || itemDetailPrice.text == ".") {
+            HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1)
+        }else if (itemDetailName.text == nil || itemDetailName.text?.trim() == "" || itemDetailName.text == ".") {
+            HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1)
+        }else {
+            let newName = itemDetailName.text!
+            let newPrice = dotCheck!.toDouble()!
+            let newType = itemDetailType.text!
+            let newDate = datePicker.date
+            
+            itemViewModel.updateItem(editItem!, newName, newPrice, newType, newDate)
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
 
 }

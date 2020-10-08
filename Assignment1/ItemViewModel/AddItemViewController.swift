@@ -85,11 +85,11 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
         
         if (newItemName.trim() == "" ||  newItemName.trim() == "."){
-            HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1.5)
+            HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1)
         }else if (newItemPrice <= 0) {                                                  //check for exception if user input incorrect value in textfield
-            HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1.5)
+            HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1)
         }else if (newItemType == "") {
-            HUD.flash(.labeledError(title: "Error", subtitle: "Type can't be empty"), delay: 1.5)
+            HUD.flash(.labeledError(title: "Error", subtitle: "Type can't be empty"), delay: 1)
         }
         else {
             itemViewModel.addItem(newItemName, newItemType, newItemPrice, newItemDate)
@@ -103,15 +103,10 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func addDoneButton() {
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.blue                                                //keyboard toolbar function
+        let toolBar = UIToolbar()                           //create a toolbar
         toolBar.sizeToFit()
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(doneAction))
-        toolBar.setItems([flexibleSpace, doneButton], animated: true)
-        toolBar.isUserInteractionEnabled = true
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneAction))
+        toolBar.setItems([doneButton], animated: true)
         expenseTypePickerField?.inputAccessoryView = toolBar
         itemPrice?.inputAccessoryView = toolBar                                         //set which textfield require a toolbox
         itemNote?.inputAccessoryView = toolBar
