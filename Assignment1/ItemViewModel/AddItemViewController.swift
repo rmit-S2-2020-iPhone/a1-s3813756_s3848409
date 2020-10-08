@@ -120,9 +120,7 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     //close picker view
     @objc func doneAction() {
-        expenseTypePickerField.resignFirstResponder()
-        itemPrice.resignFirstResponder()                                                //will resign after user click done
-        itemNote.resignFirstResponder()
+        self.view.endEditing(true)
     }
 
 }

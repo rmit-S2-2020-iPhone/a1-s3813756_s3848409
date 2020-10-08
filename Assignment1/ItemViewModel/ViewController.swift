@@ -100,8 +100,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:customHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! customHomeTableCell
         let tableItem = itemViewModel.sortedItem[indexPath.row]
-        let itemDate = tableItem.date as! Date
-        cell.itemDate.text = utility.dateFormatter(itemDate: itemDate)
+        let itemDate = tableItem.date
+        cell.itemDate.text = utility.dateFormatter(itemDate: itemDate!)
         cell.itemName.text = tableItem.name
         cell.itemPrice.text = "- $" + String(tableItem.price)
         if tableItem.type == "Foods" {

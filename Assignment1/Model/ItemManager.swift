@@ -98,6 +98,12 @@ class ItemManager{
         loadItems()
     }
     
+    func updateItem(_ item:Item, _ newName:String, _ newPrice:Double, _ newType:String, _ newDate:Date) {
+        
+        
+        
+    }
+    
     func todayExp() -> String {
         loadItems()
         var totalAmount:String = ""

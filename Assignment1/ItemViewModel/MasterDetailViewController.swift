@@ -8,11 +8,16 @@
 
 import UIKit
 
-class MasterDetailViewController: UIViewController {
+class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var editItem:Item?
     var utility = Utility()
+    private var itemViewModel = ItemViewModel()
     
+    private let datePicker = UIDatePicker()
+    private let itemTypePicker = UIPickerView()
+    private let expenseType = ["Foods","Shopping","Services","Others"]
+    private var pickedType:String?
     @IBOutlet weak var itemDetailImage: UIImageView!
     @IBOutlet weak var itemDetailPrice: UITextField!
     @IBOutlet weak var itemDetailName: UITextField!
@@ -24,8 +29,12 @@ class MasterDetailViewController: UIViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        createDatePicker()
         getItemDetail()
+        
+        itemDetailType?.inputView = itemTypePicker       //initialise expense type picker field
+        itemTypePicker.delegate = self                           //set source for expense type picker
+        itemTypePicker.dataSource = self
     }
     
     
@@ -41,18 +50,57 @@ class MasterDetailViewController: UIViewController {
                 itemDetailImage?.image = UIImage(named:ItemCategory.others.rawValue)
             }
         }
-        itemDetailPrice?.text = "- $" + String(editItem!.price)
+        itemDetailPrice?.text = "$" + String(editItem!.price)
         itemDetailName?.text = editItem?.name
         itemDetailDate?.text = utility.dateFormatter(itemDate:editItem!.date!)
         itemDetailType?.text = editItem?.type
     }
     
+    func createDatePicker() {
+        itemDetailDate.inputView = datePicker               //assign datepicker to our textfield
+        let toolbar = UIToolbar()                           //create a toolbar
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(doneClicked))
+        toolbar.setItems([doneButton], animated: true)      //add a done button on this toolbar
+        itemDetailDate.inputAccessoryView = toolbar
+        itemDetailType.inputAccessoryView = toolbar
+    }
+    
+    @objc func doneClicked() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        let itemDate = datePicker.date 
+        itemDetailDate.text = utility.dateFormatter(itemDate: itemDate)
+        self.view.endEditing(true)
+    }
+    
+    //picker view function
+    func numberOfComponents(in itemTypePicker: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ itemTypePicker: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return expenseType.count
+    }
+    
+    func pickerView(_ itemTypePicker: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return expenseType[row]
+    }
+    
+    func pickerView(_ itemTypePicker: UIPickerView, didSelectRow row: Int, inComponent  component: Int) {
+        itemDetailType.text = expenseType[row]
+        pickedType = String(expenseType[row])
+    }
+    
     func updateItemDetail() {
-        let newDetailName = itemDetailName?.text
-        let newDetailPrice = itemDetailPrice?.text
-        let newDetailDate = itemDetailDate?.text
-        let newDetailType = itemDetailDate?.text
+        let newName = itemDetailName!.text
+        let newPrice = itemDetailPrice!.text!.toDouble()!
+        let newType = itemDetailType!.text
+        let newDate = itemDetailDate!.text as! Date
         
+        
+        itemViewModel.updateItem(editItem!, newName!, newPrice, newType!, newDate)
     }
 
 }

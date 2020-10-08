@@ -30,6 +30,11 @@ struct ItemViewModel {
         itemManager.deleteItem(item)
     }
     
+    mutating func updateItem (_ item:Item, _ newName:String, _ newPrice:Double, _ newType:String, _ newDate:Date) {
+        let (updateItem, name, price, type, date) = (item, newName, newPrice, newType, newDate)
+        itemManager.updateItem(updateItem, name, price, type, date)
+    }
+    
     mutating func todayExp() -> String {
         let todayExp = itemManager.todayExp()
         return todayExp
