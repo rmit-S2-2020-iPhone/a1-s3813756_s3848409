@@ -127,10 +127,10 @@ class ItemManager{
                     total += totalItem[i].price
                 }
             }
-            totalAmount = "- $" + (NSString(format: "%.2f", total as CVarArg) as String)
+            totalAmount = "- " + (NSString(format: "$%.02f", total as CVarArg) as String)
         }
         else {
-            totalAmount = "No Expense Yet"                                                //exception if no data found
+            totalAmount = "- $0.00"                                                //exception if no data found
         }
         return totalAmount
     }
