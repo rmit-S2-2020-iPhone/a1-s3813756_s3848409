@@ -1,2 +1,4 @@
 ${PODS_ROOT}/Target Support Files/Pods-Assignment1/Pods-Assignment1-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ALCameraViewController/ALCameraViewController.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
+${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework
