@@ -54,10 +54,8 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     }
     
     func setProfileLayout() {
-        userImage?.layer.borderWidth = 2
-        userImage?.backgroundColor = UIColor.white
+        userImage?.backgroundColor = UIColor.clear
         userImage?.layer.masksToBounds = false                                      //set user image layout
-        userImage?.layer.borderColor = UIColor.black.cgColor
         userImage?.layer.cornerRadius = (userImage?.frame.height)!/2
         userImage?.clipsToBounds = true
         
