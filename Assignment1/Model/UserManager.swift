@@ -98,8 +98,6 @@ class UserManager {
             for i in 0 ..< totalItem.count {
                 if monthRange.contains(totalItem[i].date!){                                            //find the sum of this month expense if database exist
                     monthExpense += totalItem[i].price
-                }else {
-                    monthExpense = 0.00
                 }
             }
         }else {
