@@ -870,6 +870,7 @@
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxE-yJ-qAH">
                                         <rect key="frame" x="0.0" y="72" width="160" height="24"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="monthlyBudget"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1151,7 +1152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvy-8P-HZH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1004.4642857142857" y="1133.3333333333335"/>
+            <point key="canvasLocation" x="1004" y="1133.497536945813"/>
         </scene>
         <!--Statistics-->
         <scene sceneID="WzF-bo-has">
