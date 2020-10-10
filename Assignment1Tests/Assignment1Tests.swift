@@ -46,7 +46,7 @@ class Assignment1Tests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         object = appDelegate?.persistentContainer.viewContext
-        ivm.addItem("Domino", "Foods", 30, Date())
+        ivm.addItem("KFC", "Foods", 30, Date())
         itemRequest.sortDescriptors = [sortDescriptor]
         do {
             try items = object.fetch(itemRequest)
@@ -62,7 +62,7 @@ class Assignment1Tests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         object = appDelegate?.persistentContainer.viewContext
-        ivm.addItem("Domino", "Foods", 30, Date())
+        ivm.addItem("KFC", "Foods", 30, Date())
         itemRequest.sortDescriptors = [sortDescriptor]
         do {
             try items = object.fetch(itemRequest)
@@ -76,7 +76,7 @@ class Assignment1Tests: XCTestCase {
     
     func testItemInputCorrectly(){
         object = appDelegate?.persistentContainer.viewContext
-        ivm.addItem("Domino", "Foods", 30, Date())
+        ivm.addItem("KFC", "Foods", 30, Date())
         itemRequest.sortDescriptors = [sortDescriptor]
         do {
             try items = object.fetch(itemRequest)
@@ -84,11 +84,11 @@ class Assignment1Tests: XCTestCase {
             XCTAssertNotNil(items)
             
             for i in 0 ..< sumItem.count {
-                if sumItem[i].name == "Domino"{
+                if sumItem[i].name == "KFC"{
                     //                  Below statement was made to make sure the test will fail
                     //                  So we can make sure the next one is designed to pass
                     //                  XCTAssertTrue(sumItem[i].name!.isEmpty)
-                    XCTAssertEqual(sumItem[i].name, "Domino")
+                    XCTAssertEqual(sumItem[i].name, "KFC")
                 } else {
                     print("Reload")
                 }
@@ -101,16 +101,16 @@ class Assignment1Tests: XCTestCase {
     
     func testDeleteItem() {
         object = appDelegate?.persistentContainer.viewContext
-        ivm.addItem("Domino", "Foods", 30, Date())
+        ivm.addItem("KFC", "Foods", 30, Date())
         itemRequest.sortDescriptors = [sortDescriptor]
         do {
             try items = object.fetch(itemRequest)
             sumItem = items
             XCTAssertNotNil(items)
             for i in 0 ..< sumItem.count {
-                if sumItem[i].name == "Domino"{
+                if sumItem[i].name == "KFC"{
                     ivm.deleteItems(sumItem[i])
-                    XCTAssertNotEqual(sumItem[i].name, "Domino")
+                    XCTAssertNotEqual(sumItem[i].name, "KFC")
                 } else {
                     print("Reload")
                 }
