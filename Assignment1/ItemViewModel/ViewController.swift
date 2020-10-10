@@ -64,13 +64,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         todayExp()
         
-        Currency.rateExchange(){(results:[Currency]) in
+        
+        Weather.forecast(withLocation: "37.8267,-122.4233"){(results:[Weather]) in
             for result in results{
-                print("\(result)\n\n")
+                print("\(result.summary)\n\(result.icon)\n\(result.temperature)")
+                
             }
-            
         }
-        print("TESTING PRINT")
+        
+        Product.rest_request()
+ 
+        
     }
 
     
@@ -149,5 +153,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             destination.editItem = editItem
         }
     }
+    
     
 }

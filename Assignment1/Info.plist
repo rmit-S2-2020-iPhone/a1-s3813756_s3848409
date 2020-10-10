@@ -51,7 +51,7 @@
         <false/>
         <key>NSExceptionDomains</key>
         <dict>
-            <key>data.fixer.io</key>
+            <key>darksky.net</key>
             <dict>
                 <key>NSIncludesSubdomains</key>
                 <true/>
