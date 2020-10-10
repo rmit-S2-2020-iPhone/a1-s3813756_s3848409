@@ -3981,7 +3981,7 @@
         <scene sceneID="jIY-28-ngL">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s7r-uX-IQq" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="About" selectedImage="info" id="Yyf-ql-OT4"/>
+                    <tabBarItem key="tabBarItem" title="About" image="info" selectedImage="info" id="Yyf-ql-OT4"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="gau-j6-mnt">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
