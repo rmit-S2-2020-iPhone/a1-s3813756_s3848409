@@ -15,7 +15,7 @@ import Foundation
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate{
 
     //home scene
-    var selectedType:String = ""
+    private var selectedType:String = ""
     private var itemViewModel = ItemViewModel()
     private var utility = Utility()
     
@@ -98,7 +98,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:customHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! customHomeTableCell
+        let cell:CustomHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! CustomHomeTableCell
         let tableItem = itemViewModel.sortedItem[indexPath.row]
         let itemDate = tableItem.date
         cell.itemDate.text = utility.dateFormatter(itemDate: itemDate!)

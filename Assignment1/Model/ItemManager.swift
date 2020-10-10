@@ -15,20 +15,17 @@ class ItemManager{
     
     var sortedItem:[Item] = []
     var sumItem:[Item] = []
+    
+    static let sharedInstance = ItemManager()
+    private let appDelegate = UIApplication.shared.delegate as? AppDelegate     // Get a reference to your App Delegate
+    private let object:NSManagedObjectContext!                                  // Hold a reference to the managed context
+    
     private (set) var items:[Item] = []{
         willSet{
             print()
         }
     }
-    
-    static let sharedInstance = ItemManager()
-    
-    // Get a reference to your App Delegate
-    var appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
-    // Hold a reference to the managed context
-    var object:NSManagedObjectContext!
-    
+
     private init(){
         object = appDelegate?.persistentContainer.viewContext
         loadItems()

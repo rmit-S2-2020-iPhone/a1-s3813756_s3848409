@@ -12,20 +12,18 @@ import ALCameraViewController
 class ProfileViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate{
     
     private var userViewModel = UserViewModel()
+    private var picker = UIImagePickerController();
+    private var imagePicker = UIImagePickerController()
+    private var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+    private var viewController: UIViewController?                       //declare necessary controller for choosing image process
+    private var pickImageCallback : ((UIImage) -> ())?;
+    
     
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
     @IBAction func editProfile(_ sender: UIButton) {
         editProfile()
     }
-    
-    var picker = UIImagePickerController();
-    var imagePicker = UIImagePickerController()
-    var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-    var viewController: UIViewController?                       //declare necessary controller for choosing image process
-    var pickImageCallback : ((UIImage) -> ())?;
-    
-    
     @IBOutlet var profileSumView: [UIView]!
     @IBOutlet weak var thisMonthExpense: UILabel!
     @IBOutlet weak var monthBudget: UILabel!

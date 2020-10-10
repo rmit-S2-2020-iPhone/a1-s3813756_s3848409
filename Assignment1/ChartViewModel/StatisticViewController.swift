@@ -18,7 +18,7 @@ class StatisticViewController: UIViewController {
     @IBOutlet weak var lastMonthExpenseLabel: UILabel!
     @IBOutlet weak var biggestSpentLabel: UILabel!
     
-    var chartViewModel = ChartViewModel()
+    private var chartViewModel = ChartViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
