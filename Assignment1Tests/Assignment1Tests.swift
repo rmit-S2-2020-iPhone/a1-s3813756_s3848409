@@ -20,12 +20,19 @@ class Assignment1Tests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    func testPerformanceExample() {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
+    }
     
     func unitTest(){
         testItemNotEmpty()
         testItemNotNil()
         testItemInputCorrectly()
         testDeleteItem()
+        testEditItem()
     }
     
     var ivm = ItemViewModel()
@@ -43,8 +50,7 @@ class Assignment1Tests: XCTestCase {
     
     
     func testItemNotEmpty() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Check empty value after add new item
         object = appDelegate?.persistentContainer.viewContext
         ivm.addItem("Domino", "Foods", 30, Date())
         itemRequest.sortDescriptors = [sortDescriptor]
@@ -59,8 +65,7 @@ class Assignment1Tests: XCTestCase {
     }
     
     func testItemNotNil() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // Check for nil incase add items does not work
         object = appDelegate?.persistentContainer.viewContext
         ivm.addItem("Domino", "Foods", 30, Date())
         itemRequest.sortDescriptors = [sortDescriptor]
@@ -85,9 +90,9 @@ class Assignment1Tests: XCTestCase {
             
             for i in 0 ..< sumItem.count {
                 if sumItem[i].name == "Domino"{
-                    //                  Below statement was made to make sure the test will fail
-                    //                  So we can make sure the next one is designed to pass
-                    //                  XCTAssertTrue(sumItem[i].name!.isEmpty)
+                    //  Below statement was made to make sure the test will fail
+                    //  So we can make sure the next one is designed to pass
+                    //  XCTAssertTrue(sumItem[i].name!.isEmpty)
                     XCTAssertEqual(sumItem[i].name, "Domino")
                 } else {
                     print("Reload")
@@ -121,13 +126,23 @@ class Assignment1Tests: XCTestCase {
         }
     }
     
+    func testEditItem(){
+        // We need to check if the item is empty first
+        // if we do not check empty array and it appears to be
+        // this test will fail.
+        if items.isEmpty == true {
+            testItemNotEmpty()
+            testEditItem()
+        } else {
+            for i in 0 ..< items.count{
+            ivm.updateItem(items[i], "Shoes", 15, "Shopping", Date())
     
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+            // Now we can compare the value after updateItem()
+            XCTAssertEqual(items[i].name, "Shoes")
+            XCTAssertEqual(items[i].price, 15)
+            XCTAssertEqual(items[i].type, "Shopping")
+            
+            }
         }
     }
-    
 }
