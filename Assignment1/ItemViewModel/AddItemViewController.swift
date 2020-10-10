@@ -10,14 +10,15 @@ import UIKit
 import PKHUD
 
 class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
-    var pickedType:String?
+    
     private var homeViewController = ViewController()
     private var itemViewModel = ItemViewModel()
+    private var pickedType:String?
+    private let expenseType = ["Foods","Shopping","Services","Others"]
+    private let expenseTypePicker = UIPickerView()
     
-    let expenseType = ["Foods","Shopping","Services","Others"]
     @IBOutlet weak var expenseTypePickerField: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
-    let expenseTypePicker = UIPickerView()
     @IBAction func addFoodToDatabase(_ sender: UIButton) {
         addNewItem()                                                //addnewitem function will be called after user click "add" button
     }
@@ -111,7 +112,6 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         itemPrice?.inputAccessoryView = toolBar                                         //set which textfield require a toolbox
         itemNote?.inputAccessoryView = toolBar
     }
-    
     
     //close picker view
     @objc func doneAction() {
