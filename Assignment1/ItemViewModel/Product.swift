@@ -12,12 +12,14 @@ struct Product {
     let title:String
     let desc: String
     let price:Double
+    let category:String
     
     
     init(_ dictionary: [String: Any]) {
         self.title = dictionary["title"] as? String ?? ""
-        self.desc = dictionary["desc"] as? String ?? ""
+        self.desc = dictionary["description"] as? String ?? ""
         self.price = dictionary["price"] as? Double ?? 0.00
+        self.category = dictionary["category"] as? String ?? ""
     }
     
     static let baseURL = "https://fakestoreapi.com/products"
@@ -37,7 +39,7 @@ struct Product {
                     product.append(Product(dic))
                 }
                 for i in 0 ..< product.count {
-                    print("\(product[i].title)  \n  \(product[i].desc)  \n  \(product[i].price)")
+                    print("Title: \(product[i].title)\nType: \(product[i].category)\nPrice: \(product[i].price)\nDescription: \(product[i].desc)\n")
                 }
             } catch let parsingError{
                 print("Error", parsingError)

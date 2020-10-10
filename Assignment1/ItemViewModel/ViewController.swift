@@ -64,14 +64,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         todayExp()
         
-        
-        Weather.forecast(withLocation: "37.8267,-122.4233"){(results:[Weather]) in
-            for result in results{
-                print("\(result.summary)\n\(result.icon)\n\(result.temperature)")
-                
-            }
-        }
-        
         Product.rest_request()
  
         
