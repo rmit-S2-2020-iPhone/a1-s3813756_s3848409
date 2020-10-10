@@ -159,7 +159,8 @@ class Assignment1UITests: XCTestCase {
     
     func testUIProfile(){
         //UI Testing on Profile Scene
-        let monthlyBudgetInput = "200.00"
+        let random = Double.random(in: 1...1000)
+        let monthlyBudgetInput = String(format: "%.2f", random)
         let app = XCUIApplication()
         app.tabBars.buttons["Profile"].tap()
         app.buttons["pencil"].tap()
