@@ -1,4 +1,4 @@
-# Assigment 1 COSC2472
+# Assigment 2 COSC2472
 a1-s3813756_s3848409 created by GitHub Classroom
 
 ### Team member:
@@ -24,11 +24,13 @@ Expense Tracker is an app build for people who are looking to track their expens
   pod init
   ```
 
-6. Then add ``` pod 'Charts', '~> 3.1.0' ``` the pod file as below
+6. Then add ``` pod 'Charts', '~> 3.1.0' ``` , ``` pod 'PKHUD', '~> 5.0' ``` and ``` pod 'ALCameraViewController' ``` the pod file as below
   
   ```
   target 'MyApp' do
     pod 'Charts','~> 3.1.0'
+    pod 'PKHUD', '~> 5.0' 
+    pod 'ALCameraViewController'
   end
   ```
 7. Install the required Pod for "Pie Chart"
