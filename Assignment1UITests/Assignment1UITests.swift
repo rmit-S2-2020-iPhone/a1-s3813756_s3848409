@@ -89,10 +89,10 @@ class Assignment1UITests: XCTestCase {
         
         
         // Test About page
-        tabBarsQuery.buttons["Settings"].tap()
-        XCTAssertTrue(app.tables.children(matching: .other)["BASIC SETTINGS"].children(matching: .other)["BASIC SETTINGS"].exists)
-        XCTAssertTrue(app.tables.children(matching: .other)["ADVANCED SETTINGS"].children(matching: .other)["ADVANCED SETTINGS"].exists)
-        XCTAssertTrue(app.tables.children(matching: .other)["HELP AND CONTACT"].children(matching: .other)["HELP AND CONTACT"].exists)
+        tabBarsQuery.buttons["About"].tap()
+        XCTAssertTrue(app.tables.cells.staticTexts["Contact Us"].exists)
+        XCTAssertTrue(app.tables.cells.staticTexts["Help"].exists)
+        XCTAssertTrue(app.tables.cells.staticTexts["Developers"].exists)
     }
     
     func testUIDeleteItem(){
@@ -168,7 +168,7 @@ class Assignment1UITests: XCTestCase {
         
         let budgetTextField = app.alerts["Please enter your budget below"]
         // Check if the textfield is exist on the screen
-        XCTAssertTrue(budgetTextField.exists)
+        XCTAssertEqual(app.alerts.element.label, "Please enter your budget below")
         budgetTextField.collectionViews.textFields["Input your budget here..."].typeText(monthlyBudgetInput)
         budgetTextField.buttons["OK"].tap()
         
