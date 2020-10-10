@@ -63,6 +63,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.homeTableView?.delegate = self
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         todayExp()
+        
+        Currency.rateExchange(){(results:[Currency]) in
+            for result in results{
+                print("\(result)\n\n")
+            }
+            
+        }
+        print("TESTING PRINT")
     }
 
     
