@@ -12,9 +12,9 @@ class ChartManager {
     private var itemManager = ItemManager.sharedInstance
     static let sharedInstance = ChartManager()
     
-    var statValue : [Double] = [0.0, 0.0, 0.0, 0.0]
-    var (totalFoods, totalServices, totalShop, totalOthers) = (0.0, 0.0, 0.0, 0.0)
-    var (foodsPerc, servicesPerc, shoppingsPerc, othersPerc) = (0.0, 0.0, 0.0, 0.0)
+    private var statValue : [Double] = [0.0, 0.0, 0.0, 0.0]
+    private var (totalFoods, totalServices, totalShop, totalOthers) = (0.0, 0.0, 0.0, 0.0)
+    private var (foodsPerc, servicesPerc, shoppingsPerc, othersPerc) = (0.0, 0.0, 0.0, 0.0)
     
     func getChartData() -> (Array<Double>, Array<String>) {
         itemManager.loadItems()

@@ -15,8 +15,8 @@ class UserManager {
     static let sharedInstance = UserManager()
     var sumUser:[User] = []
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let object:NSManagedObjectContext!
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let object:NSManagedObjectContext!
     
     
     private (set) var user:[User] = []{
