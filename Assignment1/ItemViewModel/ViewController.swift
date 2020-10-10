@@ -123,13 +123,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //delete function for table
     func tableView(_ homeTableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            let deleteItem = itemViewModel.sortedItem[indexPath.row]
-            itemViewModel.deleteItems(deleteItem)
-            itemViewModel.sortedItem.remove(at: indexPath.row)
-            self.homeTableView?.deleteRows(at: [indexPath], with: .fade)
-            itemViewModel.sortItems(selectedType)                                                                                  //reload data
-            self.popUpAlert(withTitle: "Item Deleted", message: "Item successfully deleted!")                //successful delete pop up message
-            todayExp()
+            let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+                let deleteItem = self.itemViewModel.sortedItem[indexPath.row]
+                self.itemViewModel.deleteItems(deleteItem)
+                self.itemViewModel.sortedItem.remove(at: indexPath.row)
+                self.homeTableView?.deleteRows(at: [indexPath], with: .fade)
+                self.itemViewModel.sortItems(self.selectedType)
+                self.todayExp()
+            }))
+            self.present(alert, animated: true)
         }
     }
 

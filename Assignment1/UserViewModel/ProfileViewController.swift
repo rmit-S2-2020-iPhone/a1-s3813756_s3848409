@@ -192,8 +192,13 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     
     
     func deleteCurrentImage() {
-        userViewModel.deleteCurrentImage()
-        profileSum()
+        let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+            self.userViewModel.deleteCurrentImage()
+            self.profileSum()
+        }))
+        self.present(alert, animated: true)
     }
 
 }
