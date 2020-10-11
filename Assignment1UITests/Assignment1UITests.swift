@@ -101,8 +101,8 @@ class Assignment1UITests: XCTestCase {
             let beforeDelete = app.tables.cells.count
             app.tables.cells.staticTexts["Domino"].swipeLeft()
             app.tables.buttons["Delete"].tap()
-            app.alerts["Item Deleted"].buttons["OK"].tap()
-            
+            app.alerts["Are you sure you want to delete?"].buttons["Delete"].tap()
+
             // In testUIAddItems() we alr checked for added data existence
             // so in here we just need to check the data in not here anymore
             XCTAssertFalse(app.tables.cells.staticTexts["Domino"].exists)
