@@ -2447,9 +2447,6 @@
             </objects>
             <point key="canvasLocation" x="-1986" y="1272"/>
         </scene>
-        <!--Add-->
-        <scene sceneID="KzE-4J-s0c">
-            <objects>
         <!--About-->
         <scene sceneID="0OX-nI-U6o">
             <objects>
@@ -4018,8 +4015,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="Ll1-uC-evt">
                         <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="0.28383749720000001" green="0.84798204899999996" blue="0.99541407820000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.28383749720000001" green="0.84798204899999996" blue="0.99541407820000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.51429712770000002" green="0.85278600449999997" blue="0.97648984189999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -4110,8 +4106,8 @@
         <image name="location" width="512" height="512"/>
         <image name="mail" width="512" height="512"/>
         <image name="pencil" width="25.333333969116211" height="25.333333969116211"/>
-        <image name="shopping" width="96" height="96"/>
         <image name="rmit" width="1024" height="576"/>
+        <image name="shopping" width="96" height="96"/>
         <image name="showcase-icon" width="1024" height="1024"/>
         <image name="stat" width="25.333333969116211" height="25.333333969116211"/>
         <image name="user" width="25.333333969116211" height="25.333333969116211"/>

@@ -14,7 +14,7 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
     private var productViewModel = APIViewModel()
     private var homeViewController = ViewController()
     @IBOutlet weak var tableView: UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         productViewModel.rest_request()
@@ -47,7 +47,7 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         let price = cell.viewWithTag(1002) as! UILabel
         let type = cell.viewWithTag(1001) as! UILabel
         let product = productViewModel.products
-
+        
         for i in 0 ... indexPath.row {
             title.text = product[i].title
             price.text = "$ " + product[i].price.description

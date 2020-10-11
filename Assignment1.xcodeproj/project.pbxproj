@@ -151,6 +151,8 @@
 		D01EF7972529EAAA00AF5E4E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D0EE03362532C59E002A613A /* ProductAPI.swift */,
+				A59BDB2F2531AF4E0093FE6D /* Product.swift */,
 				D01EF79C2529EB9700AF5E4E /* ChartManager.swift */,
 				D01EF7A22529EC7800AF5E4E /* ItemManager.swift */,
 				D01EF7982529EB8200AF5E4E /* ItemCategory.swift */,
@@ -184,6 +186,7 @@
 		D077A8C324D417B200583F40 /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
+				D0EE033A2532E009002A613A /* ProductAPIViewModel */,
 				D085519A24ECB21200F08CBD /* UserViewModel */,
 				D099B6C3252D8BEB0029C235 /* ChartViewModel */,
 				D099B6C2252D8BB60029C235 /* ItemViewModel */,
@@ -242,10 +245,6 @@
 				D077A8C624D417B200583F40 /* ViewController.swift */,
 				D09D3E13252BEF9200D384D1 /* ItemViewModel.swift */,
 				D061CDCC252DE69700C2E98D /* MasterDetailViewController.swift */,
-				A59BDB2F2531AF4E0093FE6D /* Product.swift */,
-				A59BDB312531D9890093FE6D /* ProductViewController.swift */,
-				D0EE03362532C59E002A613A /* ProductAPI.swift */,
-				D0EE03382532CDB1002A613A /* APIViewModel.swift */,
 			);
 			path = ItemViewModel;
 			sourceTree = "<group>";
@@ -265,6 +264,15 @@
 				D0ED2CD524FD058600EF599E /* Utility.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D0EE033A2532E009002A613A /* ProductAPIViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A59BDB312531D9890093FE6D /* ProductViewController.swift */,
+				D0EE03382532CDB1002A613A /* APIViewModel.swift */,
+			);
+			path = ProductAPIViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
