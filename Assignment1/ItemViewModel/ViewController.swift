@@ -63,6 +63,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.homeTableView?.delegate = self
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         todayExp()
+        
+
+        
     }
 
     
@@ -145,5 +148,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             destination.editItem = editItem
         }
     }
+    
     
 }

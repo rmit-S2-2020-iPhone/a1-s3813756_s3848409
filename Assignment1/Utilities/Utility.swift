@@ -43,6 +43,14 @@ extension String {
     func toDouble() -> Double? {
         return NumberFormatter().number(from: self)?.doubleValue
     }
+    
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).uppercased() + self.lowercased().dropFirst()
+    }
+    
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
+    }
 }
 
 
