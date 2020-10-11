@@ -33,6 +33,7 @@ class Assignment1Tests: XCTestCase {
         testItemInputCorrectly()
         testDeleteItem()
         testEditItem()
+
     }
     
     var ivm = ItemViewModel()
@@ -67,7 +68,6 @@ class Assignment1Tests: XCTestCase {
             print("Could not load data")
         }
         
-        
     }
     
     func testItemNotNil() {
@@ -77,8 +77,13 @@ class Assignment1Tests: XCTestCase {
             testItemNotEmpty()
             testItemNotNil()
         } else {
+            // this test check for nil
             XCTAssertNotNil(items)
+            
+            // then we can remove object
+            removeObjectAfterTest()
         }
+        
         
         
     }
@@ -100,6 +105,8 @@ class Assignment1Tests: XCTestCase {
                     print("Reload")
                 }
             }
+            // After testing, we need to remove the object
+            removeObjectAfterTest()
         }
     }
     
@@ -138,6 +145,32 @@ class Assignment1Tests: XCTestCase {
                 XCTAssertEqual(items[i].price, 15)
                 XCTAssertEqual(items[i].type, "Shopping")
                 
+            }
+            
+            // Then we need to remove object from core data
+            for i in 0 ..< items.count {
+                if items[i].name == "Shoes"{
+                    ivm.deleteItems(items[i])
+                } else {
+                    print("Reload")
+                }
+            }
+        }
+    }
+    
+    func removeObjectAfterTest(){
+        for i in 0 ..< sumItem.count {
+            if sumItem[i].name == "KFC"{
+                ivm.deleteItems(sumItem[i])
+            } else {
+                print("Reload")
+            }
+        }
+        for i in 0 ..< items.count {
+            if items[i].name == "KFC"{
+                ivm.deleteItems(items[i])
+            } else {
+                print("Reload")
             }
         }
     }
