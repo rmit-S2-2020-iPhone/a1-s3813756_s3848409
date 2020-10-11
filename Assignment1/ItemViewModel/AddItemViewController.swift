@@ -69,39 +69,40 @@ class AddItemViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             let dotCount = dotCheck?.filter({ $0 == "." }).count
             if ( dotCount! > 1) {
                 HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
+            }else {
+                let newItemName:String = itemNote.text ?? ""
+                let newItemPrice = (dotCheck! as NSString).doubleValue                   //declare new item component to set new value in
+                let newItemDate = itemDate.date
+                var newItemType:String = ""
+                
+                if (pickedType == "Foods") {
+                    newItemType = "Foods"
+                }else if (pickedType == "Shopping") {
+                    newItemType = "Shopping"
+                }else if (pickedType == "Services") {               //if condition for expense type picker
+                    newItemType = "Services"
+                }else if (pickedType == "Others"){
+                    newItemType = "Others"
+                }
+                
+                if (newItemName.trim() == "" ||  newItemName.trim() == "."){
+                    HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1)
+                }else if (newItemPrice <= 0) {                                                  //check for exception if user input incorrect value in textfield
+                    HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1)
+                }else if (newItemType == "") {
+                    HUD.flash(.labeledError(title: "Error", subtitle: "Type can't be empty"), delay: 1)
+                }
+                else {
+                    itemViewModel.addItem(newItemName, newItemType, newItemPrice, newItemDate)
+                    itemViewModel.loadItems()                                                   //else add the new item to database and sort all data again
+                    self.homeViewController.homeTableView?.reloadData()
+                    HUD.flash(.success, delay: 0.5)
+                    itemPrice.text = ""
+                    itemNote.text = ""
+                    itemDate.date = Date()
+                }
             }
             
-            let newItemName:String = itemNote.text ?? ""
-            let newItemPrice = (dotCheck! as NSString).doubleValue                   //declare new item component to set new value in
-            let newItemDate = itemDate.date
-            var newItemType:String = ""
-            
-            if (pickedType == "Foods") {
-                newItemType = "Foods"
-            }else if (pickedType == "Shopping") {
-                newItemType = "Shopping"
-            }else if (pickedType == "Services") {               //if condition for expense type picker
-                newItemType = "Services"
-            }else if (pickedType == "Others"){
-                newItemType = "Others"
-            }
-            
-            if (newItemName.trim() == "" ||  newItemName.trim() == "."){
-                HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1)
-            }else if (newItemPrice <= 0) {                                                  //check for exception if user input incorrect value in textfield
-                HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1)
-            }else if (newItemType == "") {
-                HUD.flash(.labeledError(title: "Error", subtitle: "Type can't be empty"), delay: 1)
-            }
-            else {
-                itemViewModel.addItem(newItemName, newItemType, newItemPrice, newItemDate)
-                itemViewModel.loadItems()                                                   //else add the new item to database and sort all data again
-                self.homeViewController.homeTableView?.reloadData()
-                HUD.flash(.success, delay: 0.5)
-                itemPrice.text = ""
-                itemNote.text = ""
-                itemDate.date = Date()
-            }
         }else {
             HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
         }
