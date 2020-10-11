@@ -105,23 +105,28 @@ class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     func updateItemDetail() {
         let dotCheck:String? = itemDetailPrice?.text
-        let dotCount = dotCheck?.filter({ $0 == "." }).count
-        if ( dotCount! > 1) {
-            HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
-        }else if (itemDetailPrice.text == nil || itemDetailPrice.text == "" || itemDetailPrice.text == ".") {
-            HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1)
-        }else if (itemDetailName.text == nil || itemDetailName.text?.trim() == "" || itemDetailName.text == ".") {
-            HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1)
-        }else {
-            let newName = itemDetailName.text!
-            let newPrice = dotCheck!.toDouble()!
-            let newType = itemDetailType.text!
-            let newDate = datePicker.date
-            
-            itemViewModel.updateItem(editItem!, newName, newPrice, newType, newDate)
-            HUD.flash(.success)
-            self.navigationController?.popToRootViewController(animated: true)
+        if (dotCheck?.containsOnlyDoubles(string: dotCheck!))! {
+            let dotCount = dotCheck?.filter({ $0 == "." }).count
+            if ( dotCount! > 1) {
+                HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
+            }else if (itemDetailPrice.text == nil || itemDetailPrice.text == "" || itemDetailPrice.text == ".") {
+                HUD.flash(.labeledError(title: "Error", subtitle: "Price can't be empty"), delay: 1)
+            }else if (itemDetailName.text == nil || itemDetailName.text?.trim() == "" || itemDetailName.text == ".") {
+                HUD.flash(.labeledError(title: "Error", subtitle: "Note can't be empty"), delay: 1)
+            }else {
+                let newName = itemDetailName.text!
+                let newPrice = dotCheck!.toDouble()!
+                let newType = itemDetailType.text!
+                let newDate = datePicker.date
+                itemViewModel.updateItem(editItem!, newName, newPrice, newType, newDate)
+                HUD.flash(.success)
+                self.navigationController?.popToRootViewController(animated: true)
+            }
         }
+        else {
+            HUD.flash(.labeledError(title: "Error", subtitle: "Price is invalid"), delay: 1)
+        }
+        
     }
 
 }

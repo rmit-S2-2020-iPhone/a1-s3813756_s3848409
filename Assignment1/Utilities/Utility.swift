@@ -51,6 +51,10 @@ extension String {
     mutating func capitalizeFirstLetter() {
         self = self.capitalizingFirstLetter()
     }
+    
+    func containsOnlyDoubles(string: String) -> Bool {
+        return string.rangeOfCharacter(from: CharacterSet.letters) == nil
+    }
 }
 
 
