@@ -12,7 +12,7 @@ import PKHUD
 class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var editItem:Item?
-    var utility = Utility()
+    private var utility = Utility()
     private var itemViewModel = ItemViewModel()
     private let datePicker = UIDatePicker()
     private let itemTypePicker = UIPickerView()
@@ -80,9 +80,6 @@ class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     @objc func doneClicked() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
         let itemDate = datePicker.date 
         itemDetailDate.text = utility.dateFormatter(itemDate: itemDate)
         self.view.endEditing(true)
@@ -122,6 +119,7 @@ class MasterDetailViewController: UIViewController, UIPickerViewDelegate, UIPick
             let newDate = datePicker.date
             
             itemViewModel.updateItem(editItem!, newName, newPrice, newType, newDate)
+            HUD.flash(.success)
             self.navigationController?.popToRootViewController(animated: true)
         }
     }

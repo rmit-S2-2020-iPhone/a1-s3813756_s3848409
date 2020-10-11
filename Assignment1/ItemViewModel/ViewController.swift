@@ -15,7 +15,7 @@ import Foundation
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate{
 
     //home scene
-    var selectedType:String = ""
+    private var selectedType:String = ""
     private var itemViewModel = ItemViewModel()
     private var utility = Utility()
     
@@ -101,7 +101,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ homeTableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:customHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! customHomeTableCell
+        let cell:CustomHomeTableCell = self.homeTableView.dequeueReusableCell(withIdentifier: "cell") as! CustomHomeTableCell
         let tableItem = itemViewModel.sortedItem[indexPath.row]
         let itemDate = tableItem.date
         cell.itemDate.text = utility.dateFormatter(itemDate: itemDate!)
@@ -126,13 +126,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //delete function for table
     func tableView(_ homeTableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            let deleteItem = itemViewModel.sortedItem[indexPath.row]
-            itemViewModel.deleteItems(deleteItem)
-            itemViewModel.sortedItem.remove(at: indexPath.row)
-            self.homeTableView?.deleteRows(at: [indexPath], with: .fade)
-            itemViewModel.sortItems(selectedType)                                                                                  //reload data
-            self.popUpAlert(withTitle: "Item Deleted", message: "Item successfully deleted!")                //successful delete pop up message
-            todayExp()
+            let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+                let deleteItem = self.itemViewModel.sortedItem[indexPath.row]
+                self.itemViewModel.deleteItems(deleteItem)
+                self.itemViewModel.sortedItem.remove(at: indexPath.row)
+                self.homeTableView?.deleteRows(at: [indexPath], with: .fade)
+                self.itemViewModel.sortItems(self.selectedType)
+                self.todayExp()
+            }))
+            self.present(alert, animated: true)
         }
     }
 

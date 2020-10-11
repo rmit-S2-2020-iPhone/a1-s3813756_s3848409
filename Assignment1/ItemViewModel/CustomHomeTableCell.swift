@@ -7,10 +7,12 @@
 //  Copyright © 2020 RMIT-iOS-s3848409-s3813756. All rights reserved.
 //
 import UIKit
-class customHomeTableCell: UITableViewCell {
+class CustomHomeTableCell: UITableViewCell {
+    
     @IBOutlet weak var itemName: UILabel!
     @IBOutlet weak var itemDate: UILabel!
     @IBOutlet weak var itemPrice: UILabel!
     @IBOutlet weak var itemImage: UIImageView!
+    
     
 }

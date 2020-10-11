@@ -12,20 +12,18 @@ import ALCameraViewController
 class ProfileViewController: UIViewController , UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate{
     
     private var userViewModel = UserViewModel()
+    private var picker = UIImagePickerController();
+    private var imagePicker = UIImagePickerController()
+    private var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+    private var viewController: UIViewController?                       //declare necessary controller for choosing image process
+    private var pickImageCallback : ((UIImage) -> ())?;
+    
     
     @IBOutlet weak var userImage: UIImageView?
     @IBOutlet weak var userName: UILabel?
     @IBAction func editProfile(_ sender: UIButton) {
         editProfile()
     }
-    
-    var picker = UIImagePickerController();
-    var imagePicker = UIImagePickerController()
-    var alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
-    var viewController: UIViewController?                       //declare necessary controller for choosing image process
-    var pickImageCallback : ((UIImage) -> ())?;
-    
-    
     @IBOutlet var profileSumView: [UIView]!
     @IBOutlet weak var thisMonthExpense: UILabel!
     @IBOutlet weak var monthBudget: UILabel!
@@ -194,8 +192,13 @@ class ProfileViewController: UIViewController , UINavigationControllerDelegate, 
     
     
     func deleteCurrentImage() {
-        userViewModel.deleteCurrentImage()
-        profileSum()
+        let alert = UIAlertController(title: "Are you sure you want to delete?", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { action in
+            self.userViewModel.deleteCurrentImage()
+            self.profileSum()
+        }))
+        self.present(alert, animated: true)
     }
 
 }

@@ -20,12 +20,19 @@ class Assignment1Tests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
+    func testPerformanceExample() {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
+    }
     
     func unitTest(){
         testItemNotEmpty()
         testItemNotNil()
         testItemInputCorrectly()
         testDeleteItem()
+        testEditItem()
     }
     
     var ivm = ItemViewModel()
@@ -43,13 +50,18 @@ class Assignment1Tests: XCTestCase {
     
     
     func testItemNotEmpty() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        // First we check the array is empty
+        XCTAssertTrue(items.isEmpty)
+        
+        // Then we add items to array
         object = appDelegate?.persistentContainer.viewContext
         ivm.addItem("KFC", "Foods", 30, Date())
         itemRequest.sortDescriptors = [sortDescriptor]
         do {
             try items = object.fetch(itemRequest)
+            
+            // Now we need to check if it is not empty anymore
+            // after using addItem()
             XCTAssertFalse(items.isEmpty)
         }catch {
             print("Could not load data")
@@ -59,54 +71,45 @@ class Assignment1Tests: XCTestCase {
     }
     
     func testItemNotNil() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        object = appDelegate?.persistentContainer.viewContext
-        ivm.addItem("KFC", "Foods", 30, Date())
-        itemRequest.sortDescriptors = [sortDescriptor]
-        do {
-            try items = object.fetch(itemRequest)
+        // Check for nil incase add items does not work
+        // and return a nil value
+        if items.isEmpty == true {
+            testItemNotEmpty()
+            testItemNotNil()
+        } else {
             XCTAssertNotNil(items)
-            
-        }catch {
-            print("Could not load data")
         }
+        
         
     }
     
     func testItemInputCorrectly(){
-        object = appDelegate?.persistentContainer.viewContext
-        ivm.addItem("KFC", "Foods", 30, Date())
-        itemRequest.sortDescriptors = [sortDescriptor]
-        do {
-            try items = object.fetch(itemRequest)
+        if items.isEmpty == true {
+            testItemNotEmpty()
+            testItemInputCorrectly()
+        } else {
             sumItem = items
-            XCTAssertNotNil(items)
-            
+            XCTAssertNotNil(sumItem)
             for i in 0 ..< sumItem.count {
                 if sumItem[i].name == "KFC"{
-                    //                  Below statement was made to make sure the test will fail
-                    //                  So we can make sure the next one is designed to pass
-                    //                  XCTAssertTrue(sumItem[i].name!.isEmpty)
+                    //  Below statement was made to make sure the test will fail
+                    //  So we can make sure the next one is designed to pass
+                    //  XCTAssertTrue(sumItem[i].name!.isEmpty)
                     XCTAssertEqual(sumItem[i].name, "KFC")
                 } else {
                     print("Reload")
                 }
             }
-            
-        }catch {
-            print("Could not load data")
         }
     }
     
     func testDeleteItem() {
-        object = appDelegate?.persistentContainer.viewContext
-        ivm.addItem("KFC", "Foods", 30, Date())
-        itemRequest.sortDescriptors = [sortDescriptor]
-        do {
-            try items = object.fetch(itemRequest)
+        if items.isEmpty == true {
+            testItemNotEmpty()
+            testDeleteItem()
+        } else {
             sumItem = items
-            XCTAssertNotNil(items)
+            XCTAssertNotNil(sumItem)
             for i in 0 ..< sumItem.count {
                 if sumItem[i].name == "KFC"{
                     ivm.deleteItems(sumItem[i])
@@ -116,18 +119,26 @@ class Assignment1Tests: XCTestCase {
                 }
             }
             
-        }catch {
-            print("Could not load data")
         }
     }
     
-    
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testEditItem(){
+        // We need to check if the item is empty first
+        // if we do not check empty array and it appears to be
+        // this test will fail.
+        if items.isEmpty == true {
+            testItemNotEmpty()
+            testEditItem()
+        } else {
+            for i in 0 ..< items.count{
+                ivm.updateItem(items[i], "Shoes", 15, "Shopping", Date())
+                
+                // Now we can compare the value after updateItem()
+                XCTAssertEqual(items[i].name, "Shoes")
+                XCTAssertEqual(items[i].price, 15)
+                XCTAssertEqual(items[i].type, "Shopping")
+                
+            }
         }
     }
-    
 }
