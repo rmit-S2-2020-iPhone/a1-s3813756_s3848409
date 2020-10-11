@@ -11,8 +11,11 @@ import UIKit
 class ProductViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
      @IBOutlet weak var tableView: UITableView!
 
+
     
     var products = [Product]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -34,10 +37,21 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         let price = cell.viewWithTag(1002) as! UILabel
         let type = cell.viewWithTag(1001) as! UILabel
         
+        
+        
         for i in 0 ... indexPath.row {
             title.text = products[i].title
             price.text = "$ " + products[i].price.description
             type.text = products[i].category
+            
+  
+            if let imageUrl = URL(string: products[i].image){
+                if let data = try? Data(contentsOf: imageUrl){
+                    cell.imageView?.image = UIImage(data: data)
+
+                }
+            }
+        
         }
  
    
