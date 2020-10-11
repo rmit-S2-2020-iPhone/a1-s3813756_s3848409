@@ -64,8 +64,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         todayExp()
         
-        Product.rest_request()
- 
+
         
     }
 

@@ -22,31 +22,9 @@ struct Product {
         self.category = dictionary["category"] as? String ?? ""
     }
     
-    static let baseURL = "https://fakestoreapi.com/products"
     
-    static func rest_request(){
-        guard let url = URL(string: baseURL) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-        guard let dataResponse = data,
-                error == nil else {
-                    print(error?.localizedDescription ?? "Response Error")
-                    return }
-            do {
-                let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: [])
-                guard let jsonArray = jsonResponse as? [[String:Any]] else { return }
-                var product = [Product]()
-                for dic in jsonArray{
-                    product.append(Product(dic))
-                }
-                for i in 0 ..< product.count {
-                    print("Title: \(product[i].title)\nType: \(product[i].category)\nPrice: \(product[i].price)\nDescription: \(product[i].desc)\n")
-                }
-            } catch let parsingError{
-                print("Error", parsingError)
-            }
-            
-        }
-        task.resume()
-    }
+    
+
+    
     
 }
