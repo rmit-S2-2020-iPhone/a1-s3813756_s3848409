@@ -7,12 +7,20 @@
 //
 
 import UIKit
+import PKHUD
 
 class ProductViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-     @IBOutlet weak var tableView: UITableView!
-
+    
+    private var itemViewModel = ItemViewModel()
+    private var homeViewController = ViewController()
+    private var utility = Utility()
     
     var products = [Product]()
+    
+    @IBOutlet weak var tableView: UITableView!
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
@@ -43,6 +51,14 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
    
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        for i in 0 ... indexPath.row {
+            itemViewModel.addItem(products[i].title, "Shopping", products[i].price, Date())
+        }
+        self.homeViewController.homeTableView?.reloadData()
+        HUD.flash(.success)
     }
     
 let baseURL = "https://fakestoreapi.com/products"
