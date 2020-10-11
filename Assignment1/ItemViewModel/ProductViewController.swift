@@ -17,7 +17,6 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
         tableView.dataSource = self
         rest_request()
-        
         }
 
     
@@ -30,18 +29,15 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
         let title = cell.viewWithTag(1000) as! UILabel
-        let type = cell.viewWithTag(1001) as! UILabel
         let price = cell.viewWithTag(1002) as! UILabel
-        let desc = cell.viewWithTag(1003) as! UILabel
+        let type = cell.viewWithTag(1001) as! UILabel
         
-        for i in 0 ..< indexPath.row {
-            title.text = "Title: " + products[i].title
-            price.text = "Price: " + products[i].price.description
-            type.text = "Type: " + products[i].category
-            desc.text = "Description" + products[i].desc
+        for i in 0 ... indexPath.row {
+            title.text = products[i].title
+            price.text = "$ " + products[i].price.description
+            type.text = products[i].category
         }
  
    
