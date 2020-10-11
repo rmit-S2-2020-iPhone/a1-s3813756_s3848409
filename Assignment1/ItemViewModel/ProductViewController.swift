@@ -8,32 +8,37 @@
 
 import UIKit
 import PKHUD
+import Foundation
 
-class ProductViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    private var itemViewModel = ItemViewModel()
+class ProductViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Refresh {
+    private var productViewModel = APIViewModel()
     private var homeViewController = ViewController()
-    private var utility = Utility()
-    
-    var products = [Product]()
-    
     @IBOutlet weak var tableView: UITableView!
 
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        rest_request()
-        }
-
+        productViewModel.rest_request()
+        productViewModel.delegate = self
+        self.tableView.dataSource = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        productViewModel.rest_request()
+        self.productViewModel.delegate = self
+        tableView.reloadData()
+    }
+    
+    func updateUI() {
+        tableView.reloadData()
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return productViewModel.products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,69 +46,20 @@ class ProductViewController: UIViewController, UITableViewDataSource, UITableVie
         let title = cell.viewWithTag(1000) as! UILabel
         let price = cell.viewWithTag(1002) as! UILabel
         let type = cell.viewWithTag(1001) as! UILabel
-        
-        
-        
+        let product = productViewModel.products
+
         for i in 0 ... indexPath.row {
-            title.text = products[i].title
-            price.text = "$ " + products[i].price.description
-            type.text = products[i].category
-            
-  
-            if let imageUrl = URL(string: products[i].image){
-                if let data = try? Data(contentsOf: imageUrl){
-                    cell.imageView?.image = UIImage(data: data)
-
-                }
-            }
-        
+            title.text = product[i].title
+            price.text = "$ " + product[i].price.description
+            type.text = product[i].category
         }
- 
-   
-
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for i in 0 ... indexPath.row {
-            itemViewModel.addItem(products[i].title, "Shopping", products[i].price, Date())
-        }
+        let tableItem = productViewModel.products[indexPath.row]
+        productViewModel.addItem(tableItem.title, "Shopping", tableItem.price, Date())
         self.homeViewController.homeTableView?.reloadData()
         HUD.flash(.success)
     }
-    
-let baseURL = "https://fakestoreapi.com/products"
-
-    
-func rest_request(){
-        guard let url = URL(string: baseURL) else { return }
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            guard let dataResponse = data,
-                error == nil else {
-                    print(error?.localizedDescription ?? "Response Error")
-                    return }
-            do {
-                let jsonResponse = try JSONSerialization.jsonObject(with: dataResponse, options: [])
-                guard let jsonArray = jsonResponse as? [[String:Any]] else { return }
-                
-                for dic in jsonArray{
-                    self.products.append(Product(dic))
-                }
-                DispatchQueue.main.async{
-                    self.tableView.reloadData()
-                }
-            
-            
-            } catch let parsingError{
-                print("Error", parsingError)
-            }
-            
-        }
-        task.resume()
-    }
-    
-
-
 }
-
-
